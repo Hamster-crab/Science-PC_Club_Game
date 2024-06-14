@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Title_shin_Start
+public class Title_Start
 {
     
 }
