@@ -197,7 +197,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      MicrosoftTeams-image (4)_0: -8613542209720145535
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
