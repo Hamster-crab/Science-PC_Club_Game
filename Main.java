@@ -2,23 +2,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.imageio.ImageIO;
+import javax.imageio.ImageIO;
 
 public class Main {
-    public class ImageDisplayExample extends JFrame {
-        private Image img;
-
-        public ImageDisplayExample() {
-            try {
-                img = ImageIO.read(new File("Sato's/title/TitleSato.jpg"))
-            }   catch (IOException e)   {
-                e.printStackTrace();
-            }
-            setLayout(new FlowLayout());
-            setSize(256, 144);
-            set
-        }
-    }
     public static void main(String[] args) {
         JFrame frame = new JFrame("愛を知らせに来た佐藤");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
