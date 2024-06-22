@@ -6,6 +6,17 @@ import java.awt.event.ActionListener;
 
 public class Main {
     public static void main(String[] args) {
+
+        java.awt.GraphicsEnvironment env = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
+        // 変数desktopBoundsにデスクトップ領域を表すRectangleが代入される
+        java.awt.Rectangle desktopBounds = env.getMaximumWindowBounds();
+        System.out.println (desktopBounds);
+
+        int desktopX = desktopBounds.x;
+        int desktopY = desktopBounds.y;
+        int desktopWIDTH = desktopBounds.width;
+        int desktopHEIGTH = desktopBounds.height;
+
         JFrame frame = new JFrame("愛を知らせに来た佐藤");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
@@ -34,7 +45,19 @@ public class Main {
         button3.setBounds(193, 340, 400, 50);
         panel.add(button3);
 
-        // せっていボタンのアクションリスナーを設定
+        //すたーとボタンが押されたとき
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 新しいウィンドウを作成
+                JFrame settingsFrame = new JFrame(); // タイトルは後で決める（ワールドの名前にするから）
+                settingsFrame.setSize(1150, 680);
+                settingsFrame.setLocationRelativeTo(frame);
+                settingsFrame.setVisible(true);
+            }
+        });
+
+        // せっていボタンが押されたとき
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,7 +69,7 @@ public class Main {
             }
         });
 
-        // おわりボタンのアクションリスナーを設定
+        // おわりボタンが押されたとき
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
