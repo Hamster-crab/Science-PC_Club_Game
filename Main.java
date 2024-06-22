@@ -1,5 +1,8 @@
 import javax.swing.*;
+import javax.swing.JFrame;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,6 +33,31 @@ public class Main {
         JButton button3 = new JButton("おわり");
         button3.setBounds(193, 340, 400, 50);
         panel.add(button3);
+
+        // せっていボタンのアクションリスナーを設定
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // 新しいウィンドウを作成
+                JFrame settingsFrame = new JFrame("せってい");
+                settingsFrame.setSize(400, 300);
+                settingsFrame.setLocationRelativeTo(frame);
+                settingsFrame.setVisible(true);
+            }
+        });
+
+        // おわりボタンのアクションリスナーを設定
+        button3.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Component c = (Component)e.getSource();
+
+                Window w = SwingUtilities.getWindowAncestor(c);
+
+                w.dispose();
+            }
+        });
+
 
         frame.add(panel);
         frame.setVisible(true);
