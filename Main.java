@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.util.Arrays;
 
 
@@ -52,10 +53,43 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 新しいウィンドウを作成
-                JFrame settingsFrame = new JFrame(); // タイトルは後で決める（ワールドの名前にするから）
+                JFrame settingsFrame = new JFrame("イキスギワールド"); // タイトルは後で決める（ワールドの名前にするから）
                 settingsFrame.setSize(1150, 680);
                 settingsFrame.setLocationRelativeTo(frame);
                 settingsFrame.setVisible(true);
+
+                // 各佐藤選択ボタン
+                JButton PartnerSato = new JButton("ガンギマリ佐藤");
+                JButton PartnerSatoTWO = new JButton("上から見る佐藤");
+                JButton PartnerSatoTHREE = new JButton("親指を建てる佐藤");
+
+                // 佐藤画像
+                class GameWindow extends JFrame{
+
+                    public GameWindow(String title, int width, int height) {
+                        super(title);
+                        setDefaultCloseOperation(EXIT_ON_CLOSE);
+                        setSize(width,height);
+                        setLocationRelativeTo(null);
+                        setResizable(false);
+                    }
+                }
+                class DrawCanvas extends JPanel{
+                    Image img = Toolkit.getDefaultToolkit().getImage("Sato/partner-sato/ガンギマリ佐藤.png");
+                    public void paintComponent(Graphics g) {
+                        super.paintComponent(g);
+                        //画像の表示
+                        g.drawImage(img, 0, 0, this);
+                    }
+                }
+
+                JPanel p = new JPanel();
+                p.add(PartnerSato);
+                p.add(PartnerSatoTWO);
+                p.add(PartnerSatoTHREE);
+
+                Container contentPane = settingsFrame.getContentPane();
+                contentPane.add(p, BorderLayout.CENTER);
             }
         });
 
