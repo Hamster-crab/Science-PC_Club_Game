@@ -3,6 +3,7 @@ import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 
 public class Main {
@@ -58,17 +59,45 @@ public class Main {
             }
         });
 
-        // せっていボタンが押されたとき
+
+        // Settings button is pressed
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // 新しいウィンドウを作成
-                JFrame settingsFrame = new JFrame("せってい");
-                settingsFrame.setSize(400, 300);
+                // Create a new window
+                JFrame settingsFrame = new JFrame("せってい"); // Changed window title to "Settings"
+                settingsFrame.setSize(280, 70);
                 settingsFrame.setLocationRelativeTo(frame);
                 settingsFrame.setVisible(true);
+
+                // Create a button for language switching
+                JButton languageButton = new JButton("日本語");
+                languageButton.setBounds(50, 50, 280, 70);
+                settingsFrame.add(languageButton);
+
+                // Action listener for the language button
+                languageButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String currentLabel = languageButton.getText();
+                        if (currentLabel.equals("日本語")) {
+                            languageButton.setText("English");
+                            label1.setText("Sato who came to let us know of his love"); // Change label text
+                            button1.setText("Start"); // Change button label
+                            button2.setText("Settings"); // Change button label
+                            button3.setText("End"); // Change button label
+                        } else {
+                            languageButton.setText("日本語");
+                            label1.setText("愛を知らせに来た佐藤"); // Restore original label text
+                            button1.setText("すたーと"); // Restore original button label
+                            button2.setText("せってい"); // Restore original button label
+                            button3.setText("おわり"); // Restore original button label
+                        }
+                    }
+                });
             }
         });
+
 
         // おわりボタンが押されたとき
         button3.addActionListener(new ActionListener() {
