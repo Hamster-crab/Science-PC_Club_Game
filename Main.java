@@ -75,7 +75,7 @@ public class Main {
                     }
                 }
                 class DrawCanvas extends JPanel{
-                    Image img = Toolkit.getDefaultToolkit().getImage("Sato/partner-sato/ガンギマリ佐藤.png");
+                    final Image img = Toolkit.getDefaultToolkit().getImage("Sato/partner-sato/ガンギマリ佐藤.png");
                     public void paintComponent(Graphics g) {
                         super.paintComponent(g);
                         //画像の表示
