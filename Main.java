@@ -50,17 +50,17 @@ public class Main {
         // ボタンの設定
         JButton button1 = new JButton("すたーと");
         button1.setBounds(193, 130, 400, 50);
-        button1.setFont(new Font("Serif", Font.BOLD, 24)); // フォントを小さく設定
+        button1.setFont(new Font("Serif", Font.BOLD, 19)); // フォントを小さく設定
         panel.add(button1);
 
         JButton button2 = new JButton("せってい");
         button2.setBounds(193, 230, 400, 50);
-        button2.setFont(new Font("Serif", Font.BOLD, 24)); // フォントを小さく設定
+        button2.setFont(new Font("Serif", Font.BOLD, 19)); // フォントを小さく設定
         panel.add(button2);
 
         JButton button3 = new JButton("おわり");
         button3.setBounds(193, 340, 400, 50);
-        button3.setFont(new Font("Serif", Font.BOLD, 24)); // フォントを小さく設定
+        button3.setFont(new Font("Serif", Font.BOLD, 19)); // フォントを小さく設定
         panel.add(button3);
 
         // 「すたーと」ボタンが押されたときのアクションリスナー
