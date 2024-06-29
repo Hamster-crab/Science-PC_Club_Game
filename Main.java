@@ -10,23 +10,21 @@ import java.util.Arrays;
 public class Main {
     public static void main(String[] args) {
 
-        java.awt.GraphicsEnvironment env = java.awt.GraphicsEnvironment.getLocalGraphicsEnvironment();
-        // 変数desktopBoundsにデスクトップ領域を表すRectangleが代入される
-        java.awt.Rectangle desktopBounds = env.getMaximumWindowBounds();
-        System.out.println (desktopBounds);
-
-        int desktopX = desktopBounds.x;
-        int desktopY = desktopBounds.y;
-        int desktopWIDTH = desktopBounds.width;
-        int desktopHEIGTH = desktopBounds.height;
+        // GraphicsEnvironmentからデスクトップ領域を取得
+        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle desktopBounds = env.getMaximumWindowBounds();
 
         JFrame frame = new JFrame("愛を知らせに来た佐藤");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
         frame.setLocationRelativeTo(null);
 
-        JPanel panel = new JPanel();
-        panel.setLayout(null);
+        // 背景画像のパス
+        String backgroundImage = "./Sato/Title/TitleSato.png";
+
+        // 背景画像を描画するパネルを作成
+        ImagePanel panel = new ImagePanel(backgroundImage);
+        panel.setLayout(null); // レイアウトマネージャーをnullに設定する
 
         // テキストを表示するラベルの作成
         JLabel label1 = new JLabel("愛を知らせに来た佐藤");
@@ -48,12 +46,12 @@ public class Main {
         button3.setBounds(193, 340, 400, 50);
         panel.add(button3);
 
-        //すたーとボタンが押されたとき
+        // すたーとボタンが押されたときの処理
         button1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 新しいウィンドウを作成
-                JFrame settingsFrame = new JFrame("イキスギワールド"); // タイトルは後で決める（ワールドの名前にするから）
+                JFrame settingsFrame = new JFrame("イキスギワールド");
                 settingsFrame.setSize(1150, 680);
                 settingsFrame.setLocationRelativeTo(frame);
                 settingsFrame.setVisible(true);
@@ -62,26 +60,6 @@ public class Main {
                 JButton PartnerSato = new JButton("ガンギマリ佐藤");
                 JButton PartnerSatoTWO = new JButton("上から見る佐藤");
                 JButton PartnerSatoTHREE = new JButton("親指を建てる佐藤");
-
-                // 佐藤画像
-                class GameWindow extends JFrame{
-
-                    public GameWindow(String title, int width, int height) {
-                        super(title);
-                        setDefaultCloseOperation(EXIT_ON_CLOSE);
-                        setSize(width,height);
-                        setLocationRelativeTo(null);
-                        setResizable(false);
-                    }
-                }
-                class DrawCanvas extends JPanel{
-                    final Image img = Toolkit.getDefaultToolkit().getImage("Sato/partner-sato/ガンギマリ佐藤.png");
-                    public void paintComponent(Graphics g) {
-                        super.paintComponent(g);
-                        //画像の表示
-                        g.drawImage(img, 0, 0, this);
-                    }
-                }
 
                 JPanel p = new JPanel();
                 p.add(PartnerSato);
@@ -93,62 +71,55 @@ public class Main {
             }
         });
 
-
-        // Settings button is pressed
+        // せっていボタンが押されたときの処理
         button2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Create a new window
-                JFrame settingsFrame = new JFrame("せってい"); // Changed window title to "Settings"
+                // 設定ウィンドウを作成
+                JFrame settingsFrame = new JFrame("せってい");
                 settingsFrame.setSize(280, 70);
                 settingsFrame.setLocationRelativeTo(frame);
                 settingsFrame.setVisible(true);
 
-                // Create a button for language switching
+                // 言語切り替えボタン
                 JButton languageButton = new JButton("日本語");
                 languageButton.setBounds(50, 50, 280, 70);
                 settingsFrame.add(languageButton);
 
-                // Action listener for the language button
+                // 言語切り替えボタンのアクションリスナー
                 languageButton.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String currentLabel = languageButton.getText();
                         if (currentLabel.equals("日本語")) {
                             languageButton.setText("English");
-                            label1.setText("Sato who came to let us know of his love"); // Change label text
-                            button1.setText("Start"); // Change button label
-                            button2.setText("Settings"); // Change button label
-                            button3.setText("End"); // Change button label
+                            label1.setText("Sato who came to let us know of his love");
+                            button1.setText("Start");
+                            button2.setText("Settings");
+                            button3.setText("End");
                         } else {
                             languageButton.setText("日本語");
-                            label1.setText("愛を知らせに来た佐藤"); // Restore original label text
-                            button1.setText("すたーと"); // Restore original button label
-                            button2.setText("せってい"); // Restore original button label
-                            button3.setText("おわり"); // Restore original button label
+                            label1.setText("愛を知らせに来た佐藤");
+                            button1.setText("すたーと");
+                            button2.setText("せってい");
+                            button3.setText("おわり");
                         }
                     }
                 });
             }
         });
 
-
-        // おわりボタンが押されたとき
+        // おわりボタンが押されたときの処理
         button3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Component c = (Component)e.getSource();
-
                 Window w = SwingUtilities.getWindowAncestor(c);
-
                 w.dispose();
             }
         });
-
 
         frame.add(panel);
         frame.setVisible(true);
     }
 }
-
-//なんでもないです
