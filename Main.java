@@ -77,7 +77,7 @@ public class Main {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // 新しいウィンドウの作成
-                JFrame settingsFrame = new JFrame("イキスギワールド");
+                JFrame settingsFrame = new JFrame("佐藤の選択");
                 settingsFrame.setSize(1150, 680);
                 settingsFrame.setLocationRelativeTo(frame);
 
