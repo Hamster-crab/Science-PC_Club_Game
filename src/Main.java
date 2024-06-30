@@ -13,7 +13,7 @@ public class Main {
         System.out.println(desktopBounds);
 
         // メインウィンドウの設定
-        JFrame frame = new JFrame("愛を知らせに来た佐藤 ver 0.114514");
+        JFrame frame = new JFrame("愛を知らせに来た佐藤 alpha ver 0.114514");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
         frame.setLocationRelativeTo(null);
