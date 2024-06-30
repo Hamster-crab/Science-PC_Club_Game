@@ -38,7 +38,7 @@ public class Main {
         }
 
         // カスタムJPanelをメインパネルとして使用
-        BackgroundPanel panel = new BackgroundPanel("./Sato/Title/TitleSato.png");
+        BackgroundPanel panel = new BackgroundPanel("resources/Sato/Title/TitleSato.png");
         panel.setLayout(new GridBagLayout());
 
         // GridBagConstraintsの設定
@@ -132,21 +132,21 @@ public class Main {
                 partnerSato.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        canvas.setImage("./Sato/Partner-Sato/GanGimariSato.jpg");
+                        canvas.setImage("resources/Sato/Partner-Sato/GanGimariSato.jpg");
                     }
                 });
 
                 partnerSatoTwo.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        canvas.setImage("./Sato/Partner-Sato/SatoSeenFromAbove.jpg");
+                        canvas.setImage("resources/Sato/Partner-Sato/SatoSeenFromAbove.jpg");
                     }
                 });
 
                 partnerSatoThree.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        canvas.setImage("./Sato/Partner-Sato/ThumbsUpSato.jpg");
+                        canvas.setImage("resources/Sato/Partner-Sato/ThumbsUpSato.jpg");
                     }
                 });
 
