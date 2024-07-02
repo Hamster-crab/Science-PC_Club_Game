@@ -61,7 +61,7 @@ public class Main {
         }
 
         // カスタムJPanelをメインパネルとして使用
-        BackgroundPanel panel = new BackgroundPanel("resources/Sato/Title/TitleSato.png");
+        BackgroundPanel panel = new BackgroundPanel("resources/Sato/Title/TitleSato.ico");
         panel.setLayout(new GridBagLayout());
 
         // GridBagConstraintsの設定
