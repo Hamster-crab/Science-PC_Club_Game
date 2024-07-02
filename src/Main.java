@@ -11,6 +11,16 @@ public class Main {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle desktopBounds = env.getMaximumWindowBounds();
         System.out.println(desktopBounds);
+        System.out.println(".　　　　　　▃▆█▇▄▖");
+        System.out.println("　　　　　▟◤▖　　　◥█▎");
+        System.out.println("　　　◢◤　　▐　　　　▐▉");
+        System.out.println("　▗◤　　　▂　▗▖　　▕█▎");
+        System.out.println("　◤　▗▅▖◥▄　▀◣　　█▊");
+        System.out.println("▐　▕▎◥▖◣◤　　　　◢██");
+        System.out.println("█◣　◥▅█▀　　　　▐██◤");
+        System.out.println("▐█▙▂　　　　　　◢██◤");
+        System.out.println("　◥██◣　　　　◢▄◤");
+        System.out.println("　　　▀██▅▇▀");
 
         // メインウィンドウの設定
         JFrame frame = new JFrame("愛を知らせに来た佐藤 alpha ver 0.114514");
