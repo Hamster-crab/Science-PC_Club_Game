@@ -11,19 +11,8 @@ public class Main {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle desktopBounds = env.getMaximumWindowBounds();
         System.out.println(desktopBounds);
-
-        // 田所2
-        System.out.println(".　　　　　　▃▆█▇▄▖");
-        System.out.println("　　　　　▟◤▖　　　◥█▎");
-        System.out.println("　　　◢◤　　▐　　　　▐▉");
-        System.out.println("　▗◤　　　▂　▗▖　　▕█▎");
-        System.out.println("　◤　▗▅▖◥▄　▀◣　　█▊");
-        System.out.println("▐　▕▎◥▖◣◤　　　　◢██");
-        System.out.println("█◣　◥▅█▀　　　　▐██◤");
-        System.out.println("▐█▙▂　　　　　　◢██◤");
-        System.out.println("　◥██◣　　　　◢▄◤");
-        System.out.println("　　　▀██▅▇▀");
-        //田所2
+        
+        //田所
         System.out.println("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻");
         System.out.println("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻");
         System.out.println("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻");
