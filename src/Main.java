@@ -11,6 +11,8 @@ public class Main {
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle desktopBounds = env.getMaximumWindowBounds();
         System.out.println(desktopBounds);
+
+        // 田所2
         System.out.println(".　　　　　　▃▆█▇▄▖");
         System.out.println("　　　　　▟◤▖　　　◥█▎");
         System.out.println("　　　◢◤　　▐　　　　▐▉");
@@ -21,6 +23,17 @@ public class Main {
         System.out.println("▐█▙▂　　　　　　◢██◤");
         System.out.println("　◥██◣　　　　◢▄◤");
         System.out.println("　　　▀██▅▇▀");
+        //田所2
+        System.out.println("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻");
+        System.out.println("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻");
+        System.out.println("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻");
+        System.out.println("⬜⬜🏾🏽🏽🏽🏽🏻🏻🏻");
+        System.out.println("⬜⬜🏾🏼🏽🏽🏼🏻🏻🏻");
+        System.out.println("⬜⬜⬜🏾🏼🏼🏼🏻🏻🏻");
+        System.out.println("⬜⬜⬜🏽🏾🏾🏻🏻🏻🏻");
+        System.out.println("⬜⬜⬜🏼🏼🏽🏻🏻🏻🏻");
+        System.out.println("⬜🏿🏿🏿🏿🏼🏿🏿🏻🏻");
+        System.out.println("🏿🏿🏿🏿🏿🏿🏿🏿🏿🏿");
 
         // メインウィンドウの設定
         JFrame frame = new JFrame("愛を知らせに来た佐藤 alpha ver 0.114514");
