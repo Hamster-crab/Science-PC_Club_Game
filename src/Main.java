@@ -6,13 +6,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Main {
+    // 佐藤の画像のフォルダーパスを保持する変数
+    private static String PartnSato = "";
+
     public static void main(String[] args) {
         // デスクトップ領域の取得
         GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
         Rectangle desktopBounds = env.getMaximumWindowBounds();
         System.out.println(desktopBounds);
-        
-        //田所
+
+        // 田所
         System.out.println("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻");
         System.out.println("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻");
         System.out.println("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻");
@@ -144,21 +147,33 @@ public class Main {
                 partnerSato.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        canvas.setImage("resources/Sato/Partner-Sato/GanGimariSato.jpg");
+                        PartnSato = "resources/Sato/Partner-Sato/GanGimariSato.jpg";
+                        canvas.setImage(PartnSato);
                     }
                 });
 
                 partnerSatoTwo.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        canvas.setImage("resources/Sato/Partner-Sato/SatoSeenFromAbove.jpg");
+                        PartnSato = "resources/Sato/Partner-Sato/SatoSeenFromAbove.jpg";
+                        canvas.setImage(PartnSato);
                     }
                 });
 
                 partnerSatoThree.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        canvas.setImage("resources/Sato/Partner-Sato/ThumbsUpSato.jpg");
+                        PartnSato = "resources/Sato/Partner-Sato/ThumbsUpSato.jpg";
+                        canvas.setImage(PartnSato);
+                    }
+                });
+
+                // 決定ボタンのアクションリスナーを設定
+                decideButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // 選択された佐藤の画像のフォルダーパスを出力
+                        System.out.println("Selected Sato Image Path: " + PartnSato);
                     }
                 });
 
