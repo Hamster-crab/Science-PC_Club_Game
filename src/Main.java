@@ -8,6 +8,8 @@ import java.awt.event.ActionListener;
 public class Main {
     // 佐藤の画像のフォルダーパスを保持する変数
     private static String PartnSato = "";
+    // プレイヤーの名前を保持する変数
+    private static String PlayerName = "";
 
     public static void main(String[] args) {
         // デスクトップ領域の取得
@@ -114,23 +116,29 @@ public class Main {
 
                 // 画像描画用のカスタムJPanelクラス
                 class DrawCanvas extends JPanel {
-                    private Image img;
+                    private ImageIcon imgIcon;
 
                     public void setImage(String fileName) {
-                        img = Toolkit.getDefaultToolkit().getImage(fileName);
+                        java.net.URL imgURL = getClass().getClassLoader().getResource(fileName);
+                        if (imgURL != null) {
+                            imgIcon = new ImageIcon(imgURL);
+                        } else {
+                            System.out.println("Error loading image: " + fileName);
+                            imgIcon = null;
+                        }
                         repaint();
                     }
 
                     @Override
                     protected void paintComponent(Graphics g) {
                         super.paintComponent(g);
-                        if (img != null) {
+                        if (imgIcon != null) {
                             // 画像を半分のサイズで描画
-                            int width = img.getWidth(this) / 2;
-                            int height = img.getHeight(this) / 2;
+                            int width = imgIcon.getIconWidth() / 2;
+                            int height = imgIcon.getIconHeight() / 2;
                             int x = (getWidth() - width) / 2;
                             int y = (getHeight() - height) / 2;
-                            g.drawImage(img, x, y, width, height, this);
+                            imgIcon.paintIcon(this, g, x, y);
                         }
                     }
                 }
@@ -174,6 +182,44 @@ public class Main {
                     public void actionPerformed(ActionEvent e) {
                         // 選択された佐藤の画像のフォルダーパスを出力
                         System.out.println("Selected Sato Image Path: " + PartnSato);
+
+                        // 新しいウィンドウを作成
+                        JFrame nameFrame = new JFrame("名前入力");
+                        nameFrame.setSize(400, 200);
+                        nameFrame.setLocationRelativeTo(settingsFrame);
+
+                        // 名前入力パネルの設定
+                        JPanel namePanel = new JPanel();
+                        namePanel.setLayout(new BorderLayout());
+
+                        // ラベルの設定
+                        JLabel nameLabel = new JLabel("あなたの名前(英語で)");
+                        nameLabel.setFont(new Font("Serif", Font.BOLD, 24));
+                        nameLabel.setHorizontalAlignment(SwingConstants.CENTER);
+                        namePanel.add(nameLabel, BorderLayout.NORTH);
+
+                        // テキストボックスの設定
+                        JTextField nameTextField = new JTextField();
+                        nameTextField.setFont(new Font("Serif", Font.PLAIN, 24));
+                        namePanel.add(nameTextField, BorderLayout.CENTER);
+
+                        // 選択ボタンの設定
+                        JButton selectButton = new JButton("選択");
+                        selectButton.setFont(new Font("Serif", Font.BOLD, 19));
+                        namePanel.add(selectButton, BorderLayout.SOUTH);
+
+                        nameFrame.add(namePanel);
+                        nameFrame.setVisible(true);
+
+                        // 選択ボタンのアクションリスナーを設定
+                        selectButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                PlayerName = nameTextField.getText();
+                                System.out.println("Player Name: " + PlayerName);
+                                nameFrame.dispose();
+                            }
+                        });
                     }
                 });
 
