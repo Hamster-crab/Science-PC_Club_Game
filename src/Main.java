@@ -207,23 +207,21 @@ public class Main {
                     gbc.anchor = GridBagConstraints.EAST;
                     genderPanel.add(maleButton, gbc);
 
-                    femaleButton.addActionListener(e3 -> {
-                        gender = "女";
+                    ActionListener genderSelectionListener = e3 -> {
+                        gender = ((JButton) e3.getSource()).getText();
                         System.out.println("Gender: " + gender);
                         genderFrame.dispose();
-                    });
 
-                    hamsterButton.addActionListener(e3 -> {
-                        gender = "ハムスター";
-                        System.out.println("Gender: " + gender);
-                        genderFrame.dispose();
-                    });
+                        JFrame gameStartFrame = new JFrame("ゲームスタート");
+                        gameStartFrame.setSize(1100, 650);  // Increase the window size
+                        gameStartFrame.setLocationRelativeTo(frame);
 
-                    maleButton.addActionListener(e3 -> {
-                        gender = "男";
-                        System.out.println("Gender: " + gender);
-                        genderFrame.dispose();
-                    });
+                        gameStartFrame.setVisible(true);
+                    };
+
+                    femaleButton.addActionListener(genderSelectionListener);
+                    hamsterButton.addActionListener(genderSelectionListener);
+                    maleButton.addActionListener(genderSelectionListener);
 
                     genderFrame.add(genderPanel);
                     genderFrame.setVisible(true);
