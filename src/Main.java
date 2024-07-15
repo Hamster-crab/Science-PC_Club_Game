@@ -11,22 +11,10 @@ public class Main {
     private static String gender = "";
 
     public static void main(String[] args) {
-        GraphicsEnvironment env = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        Rectangle desktopBounds = env.getMaximumWindowBounds();
-        System.out.println(desktopBounds);
+        SwingUtilities.invokeLater(() -> createAndShowGUI());
+    }
 
-        System.out.println("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻");
-        System.out.println("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻");
-        System.out.println("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻");
-        System.out.println("⬜⬜🏿🏽🏽🏽🏽🏻🏻🏻");
-        System.out.println("⬜⬜🏿🏽🏽🏽🏽🏻🏻🏻");
-        System.out.println("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻");
-        System.out.println("⬜⬜⬜🏾🏼🏼🏼🏻🏻🏻");
-        System.out.println("⬜⬜⬜🏽🏾🏾🏻🏻🏻🏻");
-        System.out.println("⬜⬜⬜🏼🏼🏽🏻🏻🏻🏻");
-        System.out.println("⬜🏿🏿🏿🏿🏼🏿🏿🏻🏻");
-        System.out.println("🏿🏿🏿🏿🏿🏿🏿🏿🏿🏿");
-
+    private static void createAndShowGUI() {
         JFrame frame = new JFrame("愛を知らせに来た佐藤 alpha ver 0.114514");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800, 500);
