@@ -9,6 +9,14 @@ object Main {
     private var PartnSato = ""
     private var PlayerName = ""
     private var gender = ""
+    private var Image_Nomal_House = "resources/Textures/NomalHouse.png"
+    private var Image_Tree =""
+    private var Image_Normal_Tree = "resources/Textures/NomalTree.png"
+    private var Image_Water_Empty = "resources/Textures/Water-Empty.png"
+    private var Image_Water_Half = "resources/Textures/Water-Half.png"
+    private var Image_Water_Full = "resources/Textures/Water-Full.png"
+    private var Image_ICCard = "resources/Textures/ICCard.png"
+    private var Image_Coin = "resources/Textures/Coin.png"
 
     @JvmStatic
     fun main(args: Array<String>) {
