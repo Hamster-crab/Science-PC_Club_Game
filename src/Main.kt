@@ -6,17 +6,17 @@ import java.awt.event.ActionListener
 import javax.swing.*
 
 object Main {
-    private var PartnSato = ""
-    private var PlayerName = ""
+    private var partnSato = ""
+    private var playerName = ""
     private var gender = ""
-    private var Image_Nomal_House = "resources/Textures/NomalHouse.png"
-    private var Image_Tree =""
-    private var Image_Normal_Tree = "resources/Textures/NomalTree.png"
-    private var Image_Water_Empty = "resources/Textures/Water-Empty.png"
-    private var Image_Water_Half = "resources/Textures/Water-Half.png"
-    private var Image_Water_Full = "resources/Textures/Water-Full.png"
-    private var Image_ICCard = "resources/Textures/ICCard.png"
-    private var Image_Coin = "resources/Textures/Coin.png"
+    private const val imageNormalHouse = "resources/Textures/NomalHouse.png"
+    private var imageTree = ""
+    private const val imageNormalTree = "resources/Textures/NomalTree.png"
+    private const val imageWaterEmpty = "resources/Textures/Water-Empty.png"
+    private const val imageWaterHalf = "resources/Textures/Water-Half.png"
+    private const val imageWaterFull = "resources/Textures/Water-Full.png"
+    private const val imageICCard = "resources/Textures/ICCard.png"
+    private const val imageCoin = "resources/Textures/Coin.png"
 
     @JvmStatic
     fun main(args: Array<String>) {
@@ -64,19 +64,19 @@ object Main {
 
         button1.addActionListener(StartButtonListener(frame))
         button2.addActionListener(SettingsButtonListener(frame, label1, button1, button2, button3))
-        button3.addActionListener { e: ActionEvent? -> System.exit(0) }
+        button3.addActionListener { System.exit(0) }
 
         frame.add(panel)
         frame.isVisible = true
     }
 
     internal class BackgroundPanel(fileName: String?) : JPanel() {
-        private val backgroundImage: Image? = Toolkit.getDefaultToolkit().createImage(fileName)
+        private val backgroundImage: Image? = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource(fileName))
 
         override fun paintComponent(g: Graphics) {
             super.paintComponent(g)
-            if (backgroundImage != null) {
-                g.drawImage(backgroundImage, 0, 0, width, height, this)
+            backgroundImage?.let {
+                g.drawImage(it, 0, 0, width, height, this)
             }
         }
     }
@@ -107,23 +107,23 @@ object Main {
             decideButton.font = Font("Serif", Font.BOLD, 19)
             settingsFrame.contentPane.add(decideButton, BorderLayout.SOUTH)
 
-            partnerSato.addActionListener { e1: ActionEvent? ->
-                PartnSato = "resources/Sato/Partner-Sato/GanGimariSato.jpg"
-                canvas.setImage(PartnSato)
+            partnerSato.addActionListener {
+                partnSato = "resources/Sato/Partner-Sato/GanGimariSato.jpg"
+                canvas.setImage(partnSato)
             }
 
-            partnerSatoTwo.addActionListener { e1: ActionEvent? ->
-                PartnSato = "resources/Sato/Partner-Sato/SatoSeenFromAbove.jpg"
-                canvas.setImage(PartnSato)
+            partnerSatoTwo.addActionListener {
+                partnSato = "resources/Sato/Partner-Sato/SatoSeenFromAbove.jpg"
+                canvas.setImage(partnSato)
             }
 
-            partnerSatoThree.addActionListener { e1: ActionEvent? ->
-                PartnSato = "resources/Sato/Partner-Sato/ThumbsUpSato.jpg"
-                canvas.setImage(PartnSato)
+            partnerSatoThree.addActionListener {
+                partnSato = "resources/Sato/Partner-Sato/ThumbsUpSato.jpg"
+                canvas.setImage(partnSato)
             }
 
-            decideButton.addActionListener { e1: ActionEvent? ->
-                println("Selected Sato Image Path: " + PartnSato)
+            decideButton.addActionListener {
+                println("Selected Sato Image Path: $partnSato")
                 settingsFrame.dispose()
 
                 val nameFrame = JFrame("名前入力")
@@ -148,9 +148,9 @@ object Main {
 
                 nameFrame.add(namePanel)
                 nameFrame.isVisible = true
-                selectButton.addActionListener { e2: ActionEvent? ->
-                    PlayerName = nameTextField.text
-                    println("Player Name: " + PlayerName)
+                selectButton.addActionListener {
+                    playerName = nameTextField.text
+                    println("Player Name: $playerName")
                     nameFrame.dispose()
 
                     val genderFrame = JFrame("性別を選択")
@@ -193,7 +193,7 @@ object Main {
 
                     val genderSelectionListener = ActionListener { e3: ActionEvent ->
                         gender = (e3.source as JButton).text
-                        println("Gender: " + gender)
+                        println("Gender: $gender")
                         genderFrame.dispose()
 
                         val gameStartFrame = JFrame("ゲームスタート")
@@ -231,12 +231,12 @@ object Main {
 
         override fun paintComponent(g: Graphics) {
             super.paintComponent(g)
-            if (imgIcon != null) {
-                val width = imgIcon!!.iconWidth / 2
-                val height = imgIcon!!.iconHeight / 2
-                val x = (getWidth() - width) / 2
-                val y = (getHeight() - height) / 2
-                imgIcon!!.paintIcon(this, g, x, y)
+            imgIcon?.let {
+                val width = it.iconWidth / 2
+                val height = it.iconHeight / 2
+                val x = (width - width) / 2
+                val y = (height - height) / 2
+                it.paintIcon(this, g, x, y)
             }
         }
     }
@@ -275,7 +275,7 @@ object Main {
             settingsFrame.add(settingsPanel)
             settingsFrame.isVisible = true
 
-            japaneseButton.addActionListener { e1: ActionEvent? ->
+            japaneseButton.addActionListener {
                 label1.text = "愛を知らせに来た佐藤"
                 button1.text = "すたーと"
                 button2.text = "せってい"
@@ -283,7 +283,7 @@ object Main {
                 settingsFrame.dispose()
             }
 
-            englishButton.addActionListener { e1: ActionEvent? ->
+            englishButton.addActionListener {
                 label1.text = "Sato has come to tell you about love"
                 button1.text = "Start"
                 button2.text = "Settings"
