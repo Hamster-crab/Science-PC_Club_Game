@@ -29,7 +29,7 @@ object Main {
         frame.setSize(800, 500)
         frame.setLocationRelativeTo(null)
 
-        val panel = BackgroundPanel("resources/Sato/Title/TitleSato.ico")
+        val panel = BackgroundPanel("resources/Satos/Title/TitleSato.ico")
         panel.layout = GridBagLayout()
 
         val gbc = GridBagConstraints()
@@ -108,17 +108,17 @@ object Main {
             settingsFrame.contentPane.add(decideButton, BorderLayout.SOUTH)
 
             partnerSato.addActionListener {
-                partnSato = "resources/Sato/Partner-Sato/GanGimariSato.jpg"
+                partnSato = "resources/Satos/Partner-Sato/GanGimariSato.jpg"
                 canvas.setImage(partnSato)
             }
 
             partnerSatoTwo.addActionListener {
-                partnSato = "resources/Sato/Partner-Sato/SatoSeenFromAbove.jpg"
+                partnSato = "resources/Satos/Partner-Sato/SatoSeenFromAbove.jpg"
                 canvas.setImage(partnSato)
             }
 
             partnerSatoThree.addActionListener {
-                partnSato = "resources/Sato/Partner-Sato/ThumbsUpSato.jpg"
+                partnSato = "resources/Satos/Partner-Sato/ThumbsUpSato.jpg"
                 canvas.setImage(partnSato)
             }
 
