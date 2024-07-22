@@ -6,6 +6,7 @@ import java.awt.event.ActionListener
 import javax.swing.*
 
 object Main {
+    // ImageID
     private var partnSato = ""
     private var playerName = ""
     private var gender = ""
@@ -40,31 +41,31 @@ object Main {
         gbc.gridheight = 1
         gbc.anchor = GridBagConstraints.CENTER
 
-        val label1 = JLabel("愛を知らせに来た佐藤")
-        label1.font = Font("Serif", Font.BOLD, 60)
-        label1.foreground = Color.PINK
-        label1.horizontalAlignment = SwingConstants.CENTER
+        val Title = JLabel("愛を知らせに来た佐藤")
+        Title.font = Font("Serif", Font.BOLD, 60)
+        Titile.foreground = Color.PINK
+        Title.horizontalAlignment = SwingConstants.CENTER
         gbc.gridy = 0
         panel.add(label1, gbc)
 
-        val button1 = JButton("すたーと")
-        button1.font = Font("Serif", Font.BOLD, 19)
+        val Start = JButton("すたーと")
+        Start.font = Font("Serif", Font.BOLD, 19)
         gbc.gridy = 1
         panel.add(button1, gbc)
 
-        val button2 = JButton("せってい")
-        button2.font = Font("Serif", Font.BOLD, 19)
+        val Setting = JButton("せってい")
+        Setting.font = Font("Serif", Font.BOLD, 19)
         gbc.gridy = 2
         panel.add(button2, gbc)
 
-        val button3 = JButton("おわり")
-        button3.font = Font("Serif", Font.BOLD, 19)
+        val EnD = JButton("おわり")
+        EnD.font = Font("Serif", Font.BOLD, 19)
         gbc.gridy = 3
         panel.add(button3, gbc)
 
-        button1.addActionListener(StartButtonListener(frame))
-        button2.addActionListener(SettingsButtonListener(frame, label1, button1, button2, button3))
-        button3.addActionListener { System.exit(0) }
+        Start.addActionListener(StartButtonListener(frame))
+        Setting.addActionListener(SettingsButtonListener(frame, label1, button1, button2, button3))
+        EnD.addActionListener { System.exit(0) }
 
         frame.add(panel)
         frame.isVisible = true
@@ -83,7 +84,8 @@ object Main {
 
     internal class StartButtonListener(private val frame: JFrame) : ActionListener {
         override fun actionPerformed(e: ActionEvent) {
-            val settingsFrame = JFrame("佐藤の選択")
+            val SatoSelect = "佐藤の選択"
+            val settingsFrame = JFrame(SatoSelect)
             settingsFrame.setSize(1150, 680)
             settingsFrame.setLocationRelativeTo(frame)
 
@@ -102,8 +104,8 @@ object Main {
 
             val canvas = DrawCanvas()
             settingsFrame.contentPane.add(canvas, BorderLayout.CENTER)
-
-            val decideButton = JButton("決定")
+            val Decision = "決定"
+            val decideButton = JButton(Decision)
             decideButton.font = Font("Serif", Font.BOLD, 19)
             settingsFrame.contentPane.add(decideButton, BorderLayout.SOUTH)
 
@@ -126,6 +128,7 @@ object Main {
                 println("Selected Sato Image Path: $partnSato")
                 settingsFrame.dispose()
 
+                val EnterYourName = "名前入力"
                 val nameFrame = JFrame("名前入力")
                 nameFrame.setSize(400, 200)
                 nameFrame.setLocationRelativeTo(frame)
@@ -243,10 +246,10 @@ object Main {
 
     internal class SettingsButtonListener(
         private val frame: JFrame,
-        private val label1: JLabel,
-        private val button1: JButton,
-        private val button2: JButton,
-        private val button3: JButton
+        private val Title: JLabel,
+        private val Start: JButton,
+        private val Setting: JButton,
+        private val EnD: JButton
     ) : ActionListener {
         override fun actionPerformed(e: ActionEvent) {
             val settingsFrame = JFrame("設定")
@@ -276,19 +279,35 @@ object Main {
             settingsFrame.isVisible = true
 
             japaneseButton.addActionListener {
-                label1.text = "愛を知らせに来た佐藤"
-                button1.text = "すたーと"
-                button2.text = "せってい"
-                button3.text = "おわり"
+                Title.text = "愛を知らせに来た佐藤"
+                Start.text = "すたーと"
+                Setting.text = "せってい"
+                EnD.text = "おわり"
+                SatoSelect.text = "佐藤の選択"
+                EnterYourName.text = "名前入力"
+                femaleButton.text ="女"
+                hamsterButton.text = "ハムスター"
+                maleButton.text = "男"
+                gameStartFrame.text = "ゲームスタート"
+                settingsFrame.text = "設定"
                 settingsFrame.dispose()
+
             }
 
             englishButton.addActionListener {
-                label1.text = "Sato has come to tell you about love"
-                button1.text = "Start"
-                button2.text = "Settings"
-                button3.text = "Quit"
+                Title.text = "Sato has come to tell you about love"
+                Start.text = "Start"
+                Setting.text = "Settings"
+                EnD.text = "Quit"
+                SatoSelect.text = "Sato's Choice"
+                EnterYourName.text = "Enter Your Name"
+                femaleButton.text ="Female"
+                hamsterButton.text = "Hamster"
+                maleButton.text = "Man"
+                gameStartFrame.text = "Game Start"
+                settingsFrame.text = "Settings"
                 settingsFrame.dispose()
+
             }
         }
     }
