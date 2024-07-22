@@ -25,7 +25,7 @@ object Main {
     }
 
     private fun createAndShowGUI() {
-        val frame = JFrame("愛を知らせに来た佐藤 alpha ver 0.114514")
+        val frame = JFrame("愛を知らせに来た佐藤 alpha ver 0.11451481019194545")
         frame.defaultCloseOperation = JFrame.EXIT_ON_CLOSE
         frame.setSize(800, 500)
         frame.setLocationRelativeTo(null)
