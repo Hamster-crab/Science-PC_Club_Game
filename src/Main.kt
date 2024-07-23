@@ -6,6 +6,17 @@ import java.awt.event.ActionListener
 import javax.swing.*
 
 object Main {
+    println ("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻")
+    println ("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻")
+    println ("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻")
+    println ("⬜⬜🏾🏽🏽🏽🏽🏻🏻🏻")
+    println ("⬜⬜🏾🏼🏽🏽🏼🏻🏻🏻")
+    println ("⬜⬜⬜🏾🏼🏼🏼🏻🏻🏻")
+    println ("⬜⬜⬜🏽🏾🏾🏻🏻🏻🏻")
+    println ("⬜⬜⬜🏼🏼🏽🏻🏻🏻🏻
+    println ("⬜🏿🏿🏿🏿🏼🏿🏿🏻🏻")
+    println (" 🏿🏿🏿🏿🏿🏿🏿🏿🏿🏿")
+    
     // ImageID
     private var partnSato = ""
     private var playerName = ""
