@@ -1,6 +1,0 @@
-# いらん
-/src/*.class
-
-# いる
-!/src/*.java
-!/resources
