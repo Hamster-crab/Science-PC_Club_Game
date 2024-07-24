@@ -35,9 +35,9 @@ object Main {
     private const val imageICCard = "resources/Textures/ICCard.png"
     private const val imageCoin = "resources/Textures/Coin.png"
     private const val blockDirt = "resources/Textures/block_Dirt.jpg"
-    private const val blockgrassone = "resources/Textures/maptile_grasslandsone.jpg"
-    private const val blockgrasstwo = "resources/Textures/maptile_grasslandstwo.jpg"
-    private const val playerHeart = "resources/Textures/chocolate_heart_red.jpg"
+    private const val blockgrassone = "resources/Textures/maptile_grasslands_one.jpg"
+    private const val blockgrasstwo = "resources/Textures/maptile_grasslands_two.jpg"
+    private const val playerHeart = "resources/Textures/player_heart.jpg"
     private const val buffalo = "resources/Textures/buffalo.jpg"
     private const val beef = "resources/Textures/Beef.jpg"
     
