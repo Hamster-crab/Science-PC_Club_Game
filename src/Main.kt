@@ -21,6 +21,20 @@ object Main {
     private var partnSato = ""
     private var playerName = ""
     private var gender = ""
+    private var getSatoOne = ""
+    private var getSatoTwo = ""
+    private var getSatoThree = ""
+
+    //Satos
+    private val broccoli = "resources/Satos/Bosses/broccoli.jpg"
+    private val Explosiveturbo_T = "resources/Satos/Bosses/Explosiveturbo_T.jpg"
+    private val FuckYou_Senpai_BB = "resources/Satos/Bosses/FuckYou_Senpai_BB.jpg"
+    private val Ikegami_Senpai_BB = "resources/Satos/Bosses/Ikegami_Senpai_BB.png"
+    private val Kiwi_Senpai = "resources/Satos/Bosses/Kiwi_Senpai(notBB).png"
+    private val MiddleFingerMessengerAppears = "resources/Satos/Bosses/MiddleFingerMessengerAppearsMiddleFingerMessengerAppears.jpg"
+    private val WeirdGuyWhoSendsWhiteLiquidFlying = "resources/Satos/Bosses/WeirdGuyWhoSendsWhiteLiquidFlying.jpg"
+
+    // Textures
     private const val imageNormalHouse = "resources/Textures/NomalHouse.png"
     private var imageTree = ""
     private const val imageNormalTree = "resources/Textures/NomalTree.png"
