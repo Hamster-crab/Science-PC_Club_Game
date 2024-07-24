@@ -5,18 +5,23 @@ import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
 import javax.swing.*
 
+
+
+private fun yjs() {
+    println("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻")
+    println("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻")
+    println("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻")
+    println("⬜⬜🏾🏽🏽🏽🏽🏻🏻🏻")
+    println("⬜⬜🏾🏼🏽🏽🏼🏻🏻🏻")
+    println("⬜⬜⬜🏾🏼🏼🏼🏻🏻🏻")
+    println("⬜⬜⬜🏽🏾🏾🏻🏻🏻🏻")
+    println("⬜⬜⬜🏼🏼🏽🏻🏻🏻🏻")
+    println("⬜🏿🏿🏿🏿🏼🏿🏿🏻🏻")
+    println(" 🏿🏿🏿🏿🏿🏿🏿🏿🏿🏿")
+}
+
 object Main {
-    println ("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻")
-    println ("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻")
-    println ("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻")
-    println ("⬜⬜🏾🏽🏽🏽🏽🏻🏻🏻")
-    println ("⬜⬜🏾🏼🏽🏽🏼🏻🏻🏻")
-    println ("⬜⬜⬜🏾🏼🏼🏼🏻🏻🏻")
-    println ("⬜⬜⬜🏽🏾🏾🏻🏻🏻🏻")
-    println ("⬜⬜⬜🏼🏼🏽🏻🏻🏻🏻
-    println ("⬜🏿🏿🏿🏿🏼🏿🏿🏻🏻")
-    println (" 🏿🏿🏿🏿🏿🏿🏿🏿🏿🏿")
-    
+    yjs()
     // ImageID
     private var partnSato = ""
     private var playerName = ""
@@ -29,7 +34,7 @@ object Main {
     private const val imageWaterFull = "resources/Textures/Water-Full.png"
     private const val imageICCard = "resources/Textures/ICCard.png"
     private const val imageCoin = "resources/Textures/Coin.png"
-    private const val block_Dirt.jpg = "resources/Textures/block_Dirt.jpg"
+    private const val blockDirt = "resources/Textures/block_Dirt.jpg"
 
     private var language = "JP"
 
