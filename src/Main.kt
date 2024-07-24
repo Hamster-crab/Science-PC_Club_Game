@@ -21,14 +21,15 @@ object Main {
     private var partnSato = ""
     private var playerName = ""
     private var gender = ""
-    private const val imageNormalHouse = "resources/Textures/NomalHouse.png"
     private var imageTree = ""
+    private const val imageNormalHouse = "resources/Textures/NomalHouse.png"
     private const val imageNormalTree = "resources/Textures/NomalTree.png"
     private const val imageWaterEmpty = "resources/Textures/Water-Empty.png"
     private const val imageWaterHalf = "resources/Textures/Water-Half.png"
     private const val imageWaterFull = "resources/Textures/Water-Full.png"
     private const val imageICCard = "resources/Textures/ICCard.png"
     private const val imageCoin = "resources/Textures/Coin.png"
+    private const val block_Dirt.jpg = "resources/Textures/block_Dirt.jpg"
 
     private var language = "JP"
 
