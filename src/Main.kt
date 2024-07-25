@@ -34,6 +34,19 @@ object Main {
     private const val imageICCard = "resources/Textures/ICCard.png"
     private const val imageCoin = "resources/Textures/Coin.png"
     private const val blockDirt = "resources/Textures/block_Dirt.jpg"
+    private const val blockgrassone = "resources/Textures/maptile_grasslands_one.jpg"
+    private const val blockgrasstwo = "resources/Textures/maptile_grasslands_two.jpg"
+    private const val playerHeart = "resources/Textures/player_heart.jpg"
+    private const val buffalo = "resources/Textures/buffalo.jpg"
+    private const val beef = "resources/Textures/Beef.jpg"
+    private const val boiledEgg = "resources/Textures/boiled_egg.jpg"
+    private const val BossesT = "resources/Textures/Explosiveturbo_T.jpg"
+    private const val MiddleFinger = "resources/Textures/FuckYou_Senpai_BB.jpg"
+    private const val BossesS = "resources/Textures/Ikegai_senpai_BB.jpg"
+    private const val FuckYouSenpai = "resources/Textures/Kiwi_Senpai(notBB).jpg"
+    private const val BossesK = "resources/Textures/MiddleFingerMessengerAppears.jpg"
+    private const val PlayerArm = "resources/Textures/player_arm_bot.png"
+    
 
     private var language = "JP"
 
