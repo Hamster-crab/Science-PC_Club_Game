@@ -45,6 +45,7 @@ object Main {
     private const val BossesS = "resources/Textures/Ikegai_senpai_BB.jpg"
     private const val FuckYouSenpai = "resources/Textures/Kiwi_Senpai(notBB).jpg"
     private const val BossesK = "resources/Textures/MiddleFingerMessengerAppears.jpg"
+    private const val PlayerArm = "resources/Textures/player_arm_bot.png"
     
 
     private var language = "JP"
