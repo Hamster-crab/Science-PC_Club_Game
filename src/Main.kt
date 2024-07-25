@@ -21,7 +21,6 @@ private fun yjs() {
 }
 
 object Main {
-    yjs()
     // ImageID
     private var partnSato = ""
     private var playerName = ""
