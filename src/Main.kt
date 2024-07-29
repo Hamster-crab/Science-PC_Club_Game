@@ -37,7 +37,7 @@ object Main {
     private const val blockgrassone = "resources/Textures/maptile_grasslands_one.jpg"
     private const val blockgrasstwo = "resources/Textures/maptile_grasslands_two.jpg"
     private const val playerHeart = "resources/Textures/player_heart.jpg"
-    private const val buffalo = "resources/Textures/buffalo.jpg"
+    private const val cow = "resources/Textures/CowLanguage.jpg"
     private const val beef = "resources/Textures/Beef.jpg"
     private const val boiledEgg = "resources/Textures/boiled_egg.jpg"
     private const val BossesT = "resources/Textures/Explosiveturbo_T.jpg"
