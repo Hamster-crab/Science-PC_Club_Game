@@ -230,6 +230,9 @@ object Main {
                     gbc.anchor = GridBagConstraints.EAST
                     genderPanel.add(maleButton, gbc)
 
+                    val gamePanel = BackgroundPanel("resources/Textures/OverWorld/maptile_glassland_one.png")
+                    gamePanel.layout = GridLayout()
+
                     val genderSelectionListener = ActionListener { e3: ActionEvent ->
                         gender = (e3.source as JButton).text
                         println("Gender: $gender")
