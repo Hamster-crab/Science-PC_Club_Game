@@ -19,7 +19,7 @@ object Main {
     private const val imageWaterFull = "resources/Textures/Water-Full.png"
     private const val imageICCard = "resources/Textures/ICCard.png"
     private const val imageCoin = "resources/Textures/Coin.png"
-    private const val blockDirt = "resources/Textures/block_Dirt.jpg"
+    // private const val blockDirt = "resources/Textures/block_Dirt.jpg"
     private const val blockgrassone = "resources/Textures/maptile_grasslands_one.jpg"
     private const val blockgrasstwo = "resources/Textures/maptile_grasslands_two.jpg"
     private const val playerHeart = "resources/Textures/player_heart.jpg"
@@ -370,40 +370,95 @@ object Main {
         return if (language == "JP") textsJP[key] ?: key else textsEN[key] ?: key
     }
 
+// 
     internal class GamePanel : JPanel(), KeyListener {
         private var x = 0
         private var y = 0
         private var img: Image? = null
         private var backgroundImage: Image? = null
-
+        private var backgroundX = 0
+        private var backgroundY = 0
+        private val scrollSpeed = 10 // スクロールの速度
+    
+        // キーの状態を追跡するマップ
+        private val keyMap = mutableMapOf(
+            KeyEvent.VK_W to false,
+            KeyEvent.VK_A to false,
+            KeyEvent.VK_S to false,
+            KeyEvent.VK_D to false
+        )
+    
         init {
             img = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/Beef.png"))
             backgroundImage = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
-            x = width / 2
-            y = height / 2
             isFocusable = true
             addKeyListener(this)
+    
+            // 初期位置を画面の中心に設定
+            SwingUtilities.invokeLater {
+                x = (width - (img?.getWidth(this) ?: 0)) / 2
+                y = (height - (img?.getHeight(this) ?: 0)) / 2
+            }
         }
-
+    
         override fun paintComponent(g: Graphics) {
             super.paintComponent(g)
-            g.drawImage(backgroundImage, 0, 0, width, height, this)
-            g.drawImage(img, x, y, this)
-        }
-
-        override fun keyTyped(e: KeyEvent) {}
-
-        override fun keyPressed(e: KeyEvent) {
-            when (e.keyCode) {
-                KeyEvent.VK_W -> y -= 10
-                KeyEvent.VK_A -> x -= 10
-                KeyEvent.VK_S -> y += 10
-                KeyEvent.VK_D -> x += 10
+    
+            // 背景を描画する
+            if (backgroundImage != null) {
+                g.drawImage(backgroundImage, backgroundX, backgroundY, width, height, this)
             }
+    
+            // プレイヤーを描画する
+            if (img != null) {
+                g.drawImage(img, x, y, this)
+            }
+        }
+    
+        private fun movePlayer() {
+            var dx = 0
+            var dy = 0
+    
+            if (keyMap[KeyEvent.VK_W] == true) dy -= scrollSpeed
+            if (keyMap[KeyEvent.VK_A] == true) dx -= scrollSpeed
+            if (keyMap[KeyEvent.VK_S] == true) dy += scrollSpeed
+            if (keyMap[KeyEvent.VK_D] == true) dx += scrollSpeed
+    
+            x += dx
+            y += dy
+    
+            // 背景のスクロール
+            if (x < 0) {
+                backgroundX = (backgroundX + scrollSpeed).coerceAtMost(0)
+                x = 0
+            } else if (x > width - (img?.getWidth(this) ?: 0)) {
+                backgroundX = (backgroundX - scrollSpeed).coerceAtLeast(-(backgroundImage?.getWidth(this) ?: 0 - width))
+                x = width - (img?.getWidth(this) ?: 0)
+            }
+    
+            if (y < 0) {
+                backgroundY = (backgroundY + scrollSpeed).coerceAtMost(0)
+                y = 0
+            } else if (y > height - (img?.getHeight(this) ?: 0)) {
+                backgroundY = (backgroundY - scrollSpeed).coerceAtLeast(-(backgroundImage?.getHeight(this) ?: 0 - height))
+                y = height - (img?.getHeight(this) ?: 0)
+            }
+    
             repaint()
         }
-
-        override fun keyReleased(e: KeyEvent) {}
+    
+        override fun keyTyped(e: KeyEvent) {}
+    
+        override fun keyPressed(e: KeyEvent) {
+            keyMap[e.keyCode] = true
+            movePlayer()
+        }
+    
+        override fun keyReleased(e: KeyEvent) {
+            keyMap[e.keyCode] = false
+        }
     }
+
+// 
 
 }
