@@ -3,25 +3,11 @@ package src
 import java.awt.*
 import java.awt.event.ActionEvent
 import java.awt.event.ActionListener
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
 import javax.swing.*
 
-
-
-private fun yjs() {
-    println("⬜⬜⬜🏿🏿🏿🏻🏻🏻🏻")
-    println("⬜⬜🏿🏿🏾🏾🏿🏻🏻🏻")
-    println("⬜⬜🏿🏼🏽🏽🏼🏻🏻🏻")
-    println("⬜⬜🏾🏽🏽🏽🏽🏻🏻🏻")
-    println("⬜⬜🏾🏼🏽🏽🏼🏻🏻🏻")
-    println("⬜⬜⬜🏾🏼🏼🏼🏻🏻🏻")
-    println("⬜⬜⬜🏽🏾🏾🏻🏻🏻🏻")
-    println("⬜⬜⬜🏼🏼🏽🏻🏻🏻🏻")
-    println("⬜🏿🏿🏿🏿🏼🏿🏿🏻🏻")
-    println(" 🏿🏿🏿🏿🏿🏿🏿🏿🏿🏿")
-}
-
 object Main {
-    // ImageID
     private var partnSato = ""
     private var playerName = ""
     private var gender = ""
@@ -48,7 +34,6 @@ object Main {
     private const val PlayerArm = "resources/Textures/player_arm_bot.png"
 
     private const val BackGroundImageOverWorld = ""
-
 
     private var language = "JP"
 
@@ -230,9 +215,6 @@ object Main {
                     gbc.anchor = GridBagConstraints.EAST
                     genderPanel.add(maleButton, gbc)
 
-                    val gamePanel = BackgroundPanel("resources/Textures/OverWorld/maptile_glassland_one.png")
-                    gamePanel.layout = GridLayout()
-
                     val genderSelectionListener = ActionListener { e3: ActionEvent ->
                         gender = (e3.source as JButton).text
                         println("Gender: $gender")
@@ -241,6 +223,8 @@ object Main {
                         val gameStartFrame = JFrame(getText("gameStart"))
                         gameStartFrame.setSize(1100, 650) // Increase the window size
                         gameStartFrame.setLocationRelativeTo(frame)
+                        val gamePanel = GamePanel()
+                        gameStartFrame.add(gamePanel)
                         gameStartFrame.isVisible = true
                     }
 
@@ -385,4 +369,41 @@ object Main {
 
         return if (language == "JP") textsJP[key] ?: key else textsEN[key] ?: key
     }
+
+    internal class GamePanel : JPanel(), KeyListener {
+        private var x = 0
+        private var y = 0
+        private var img: Image? = null
+        private var backgroundImage: Image? = null
+
+        init {
+            img = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/Beef.png"))
+            backgroundImage = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
+            x = width / 2
+            y = height / 2
+            isFocusable = true
+            addKeyListener(this)
+        }
+
+        override fun paintComponent(g: Graphics) {
+            super.paintComponent(g)
+            g.drawImage(backgroundImage, 0, 0, width, height, this)
+            g.drawImage(img, x, y, this)
+        }
+
+        override fun keyTyped(e: KeyEvent) {}
+
+        override fun keyPressed(e: KeyEvent) {
+            when (e.keyCode) {
+                KeyEvent.VK_W -> y -= 10
+                KeyEvent.VK_A -> x -= 10
+                KeyEvent.VK_S -> y += 10
+                KeyEvent.VK_D -> x += 10
+            }
+            repaint()
+        }
+
+        override fun keyReleased(e: KeyEvent) {}
+    }
+
 }
