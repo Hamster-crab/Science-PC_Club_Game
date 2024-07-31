@@ -12,28 +12,6 @@ object Main {
     private var playerName = ""
     private var gender = ""
     private var imageTree = ""
-    private const val imageNormalHouse = "resources/Textures/NomalHouse.png"
-    private const val imageNormalTree = "resources/Textures/NomalTree.png"
-    private const val imageWaterEmpty = "resources/Textures/Water-Empty.png"
-    private const val imageWaterHalf = "resources/Textures/Water-Half.png"
-    private const val imageWaterFull = "resources/Textures/Water-Full.png"
-    private const val imageICCard = "resources/Textures/ICCard.png"
-    private const val imageCoin = "resources/Textures/Coin.png"
-    // private const val blockDirt = "resources/Textures/block_Dirt.jpg"
-    private const val blockgrassone = "resources/Textures/maptile_grasslands_one.jpg"
-    private const val blockgrasstwo = "resources/Textures/maptile_grasslands_two.jpg"
-    private const val playerHeart = "resources/Textures/player_heart.jpg"
-    private const val cow = "resources/Textures/CowLanguage.jpg"
-    private const val beef = "resources/Textures/Beef.jpg"
-    private const val boiledEgg = "resources/Textures/boiled_egg.jpg"
-    private const val BossesT = "resources/Textures/Explosiveturbo_T.jpg"
-    private const val MiddleFinger = "resources/Textures/FuckYou_Senpai_BB.jpg"
-    private const val BossesS = "resources/Textures/Ikegai_senpai_BB.jpg"
-    private const val FuckYouSenpai = "resources/Textures/Kiwi_Senpai(notBB).jpg"
-    private const val BossesK = "resources/Textures/MiddleFingerMessengerAppears.jpg"
-    private const val PlayerArm = "resources/Textures/player_arm_bot.png"
-
-    private const val BackGroundImageOverWorld = ""
 
     private var language = "JP"
 
@@ -374,76 +352,54 @@ object Main {
     internal class GamePanel : JPanel(), KeyListener {
         private var playerX = 0
         private var playerY = 0
-        private var img: Image? = null
+        private var playerImage: Image? = null
         private val backgroundMap = mutableMapOf<Pair<Int, Int>, Image>()
     
         private var viewX = 0
         private var viewY = 0
     
         private val scrollSpeed = 10
-    
-        // 押されているキーのセット
-        private val keysPressed = mutableSetOf<Int>()
+        private val dashMultiplier = 30 // ダッシュの速度倍率
+        private val slowMultiplier = 1.0 / 10 // シフトキーでの遅くする倍率
+        private val pressedKeys = mutableSetOf<Int>()
     
         init {
-            img = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/Beef.png"))
+            playerImage = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/Beef.png"))
             val initialBackground = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
             backgroundMap[0 to 0] = initialBackground
     
             isFocusable = true
             addKeyListener(this)
     
-            // 初期位置を画面の中心に設定
             SwingUtilities.invokeLater {
-                playerX = (width - (img?.getWidth(this) ?: 0)) / 2
-                playerY = (height - (img?.getHeight(this) ?: 0)) / 2
+                playerX = (width - (playerImage?.getWidth(this) ?: 0)) / 2
+                playerY = (height - (playerImage?.getHeight(this) ?: 0)) / 2
             }
         }
     
         override fun paintComponent(g: Graphics) {
             super.paintComponent(g)
     
-            // 白い背景を描画する
-            g.color = Color.WHITE
-            g.fillRect(0, 0, width, height)
-    
             // 背景を描画する
-            val tileWidth = width
-            val tileHeight = height
+            val columns = (width / width) + 2
+            val rows = (height / height) + 2
+            val startCol = (viewX / width) - 1
+            val startRow = (viewY / height) - 1
     
-            // 描画範囲のタイルの起点を計算する
-            val startX = (viewX / tileWidth) * tileWidth
-            val startY = (viewY / tileHeight) * tileHeight
-    
-            // 描画範囲をカバーするタイルの計算
-            val endX = startX + width
-            val endY = startY + height
-    
-            var currentX = startX
-            while (currentX < endX) {
-                var currentY = startY
-                while (currentY < endY) {
-                    val tileX = currentX / tileWidth
-                    val tileY = currentY / tileHeight
-    
-                    // 背景タイルが読み込まれていない場合は追加
-                    if (backgroundMap[tileX to tileY] == null) {
-                        val newBackground = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
-                        backgroundMap[tileX to tileY] = newBackground
+            for (col in startCol..(startCol + columns)) {
+                for (row in startRow..(startRow + rows)) {
+                    val image = backgroundMap.getOrPut(col to row) {
+                        Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
                     }
-    
-                    // 背景タイルを描画
-                    val image = backgroundMap[tileX to tileY]
-                    g.drawImage(image, currentX - viewX, currentY - viewY, tileWidth, tileHeight, this)
-    
-                    currentY += tileHeight
+                    g.drawImage(image, col * width - viewX, row * height - viewY, width, height, this)
                 }
-                currentX += tileWidth
             }
     
-            // プレイヤーを描画する
-            img?.let {
-                g.drawImage(it, playerX, playerY, this)
+            // プレイヤーを描画する（サイズを小さく）
+            playerImage?.let {
+                val playerWidth = it.getWidth(this) / 2
+                val playerHeight = it.getHeight(this) / 2
+                g.drawImage(it, playerX, playerY, playerWidth, playerHeight, this)
             }
         }
     
@@ -468,39 +424,40 @@ object Main {
                 playerY = height / 2 + scrollSpeed
             }
     
-            // 新しい背景の生成
-            val gridX = viewX / width
-            val gridY = viewY / height
-    
-            if (backgroundMap[gridX to gridY] == null) {
-                val newBackground = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
-                backgroundMap[gridX to gridY] = newBackground
-            }
-    
             repaint()
         }
     
         override fun keyTyped(e: KeyEvent) {}
     
         override fun keyPressed(e: KeyEvent) {
-            keysPressed.add(e.keyCode)
+            pressedKeys.add(e.keyCode)
             updatePlayerMovement()
         }
     
         override fun keyReleased(e: KeyEvent) {
-            keysPressed.remove(e.keyCode)
+            pressedKeys.remove(e.keyCode)
             updatePlayerMovement()
         }
     
         private fun updatePlayerMovement() {
-            var dx = 0
-            var dy = 0
+            val isCtrlPressed = KeyEvent.VK_CONTROL in pressedKeys
+            val isShiftPressed = KeyEvent.VK_SHIFT in pressedKeys
+            val currentScrollSpeed = when {
+                isCtrlPressed -> (scrollSpeed * dashMultiplier).toInt() // ダッシュ
+                isShiftPressed -> (scrollSpeed * slowMultiplier).toInt() // 遅くする
+                else -> scrollSpeed // 通常速度
+            }
     
-            if (KeyEvent.VK_W in keysPressed) dy -= scrollSpeed
-            if (KeyEvent.VK_S in keysPressed) dy += scrollSpeed
-            if (KeyEvent.VK_A in keysPressed) dx -= scrollSpeed
-            if (KeyEvent.VK_D in keysPressed) dx += scrollSpeed
-    
+            val dx = when {
+                KeyEvent.VK_A in pressedKeys -> -currentScrollSpeed
+                KeyEvent.VK_D in pressedKeys -> currentScrollSpeed
+                else -> 0
+            }
+            val dy = when {
+                KeyEvent.VK_W in pressedKeys -> -currentScrollSpeed
+                KeyEvent.VK_S in pressedKeys -> currentScrollSpeed
+                else -> 0
+            }
             movePlayer(dx, dy)
         }
     }
