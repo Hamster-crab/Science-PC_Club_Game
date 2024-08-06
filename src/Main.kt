@@ -26,7 +26,7 @@ object Main {
         frame.setSize(800, 500)
         frame.setLocationRelativeTo(null)
 
-        val panel = BackgroundPanel("resources/Satos/Title/TitleSato.ico")
+        val panel = BackgroundPanel("resources/Textures/Beef.png")
         panel.layout = GridBagLayout()
 
         val gbc = GridBagConstraints()
@@ -147,6 +147,10 @@ object Main {
                 val selectButton = JButton(getText("select"))
                 selectButton.font = Font("Serif", Font.BOLD, 19)
                 namePanel.add(selectButton, BorderLayout.SOUTH)
+
+                if (playerName.isEmpty()) {
+                    playerName = "Koji Tadokoro"
+                }
 
                 nameFrame.add(namePanel)
                 nameFrame.isVisible = true
@@ -364,7 +368,7 @@ object Main {
         private val pressedKeys = mutableSetOf<Int>()
     
         init {
-            playerImage = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/Beef.png"))
+            playerImage = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/player_arm_dot.png"))
             val initialBackground = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
             backgroundMap[0 to 0] = initialBackground
     
