@@ -352,97 +352,113 @@ object Main {
         return if (language == "JP") textsJP[key] ?: key else textsEN[key] ?: key
     }
 
-// 
+//
     internal class GamePanel : JPanel(), KeyListener {
         private var playerX = 0
         private var playerY = 0
         private var playerImage: Image? = null
         private val backgroundMap = mutableMapOf<Pair<Int, Int>, Image>()
-    
+
         private var viewX = 0
         private var viewY = 0
-    
+
+        private var chestX = 0
+        private var chestY = 0
+        private var chestImage: Image? = null
+
         private val scrollSpeed = 10
         private val dashMultiplier = 30 // ダッシュの速度倍率
         private val slowMultiplier = 1.0 / 10 // シフトキーでの遅くする倍率
         private val pressedKeys = mutableSetOf<Int>()
-    
+
         init {
             playerImage = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/player_arm_dot.png"))
+            chestImage = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/chest.jpg"))
             val initialBackground = Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
             backgroundMap[0 to 0] = initialBackground
-    
+
             isFocusable = true
             addKeyListener(this)
-    
+
             SwingUtilities.invokeLater {
                 playerX = (width - (playerImage?.getWidth(this) ?: 0)) / 2
                 playerY = (height - (playerImage?.getHeight(this) ?: 0)) / 2
+
+                // チェストの位置をプレイヤーの斜め上に設定
+                chestX = playerX - 50
+                chestY = playerY - 50
             }
         }
-    
-        override fun paintComponent(g: Graphics) {
-            super.paintComponent(g)
-    
-            // 背景を描画する
-            val columns = (width / width) + 2
-            val rows = (height / height) + 2
-            val startCol = (viewX / width) - 1
-            val startRow = (viewY / height) - 1
-    
-            for (col in startCol..(startCol + columns)) {
-                for (row in startRow..(startRow + rows)) {
-                    val image = backgroundMap.getOrPut(col to row) {
-                        Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
-                    }
-                    g.drawImage(image, col * width - viewX, row * height - viewY, width, height, this)
+
+    override fun paintComponent(g: Graphics) {
+        super.paintComponent(g)
+
+        // 背景を描画する
+        val columns = (width / width) + 2
+        val rows = (height / height) + 2
+        val startCol = (viewX / width) - 1
+        val startRow = (viewY / height) - 1
+
+        for (col in startCol..(startCol + columns)) {
+            for (row in startRow..(startRow + rows)) {
+                val image = backgroundMap.getOrPut(col to row) {
+                    Toolkit.getDefaultToolkit().getImage(javaClass.classLoader.getResource("resources/Textures/OverWorld/maptile_grasslands_one.png"))
                 }
-            }
-    
-            // プレイヤーを描画する（サイズを小さく）
-            playerImage?.let {
-                val playerWidth = it.getWidth(this) / 2
-                val playerHeight = it.getHeight(this) / 2
-                g.drawImage(it, playerX, playerY, playerWidth, playerHeight, this)
+                g.drawImage(image, col * width - viewX, row * height - viewY, width, height, this)
             }
         }
-    
-        private fun movePlayer(dx: Int, dy: Int) {
-            playerX += dx
-            playerY += dy
-    
-            // プレイヤーの位置を画面中心に固定
-            if (playerX < width / 2 - scrollSpeed) {
-                viewX -= scrollSpeed
-                playerX = width / 2 - scrollSpeed
-            } else if (playerX > width / 2 + scrollSpeed) {
-                viewX += scrollSpeed
-                playerX = width / 2 + scrollSpeed
-            }
-    
-            if (playerY < height / 2 - scrollSpeed) {
-                viewY -= scrollSpeed
-                playerY = height / 2 - scrollSpeed
-            } else if (playerY > height / 2 + scrollSpeed) {
-                viewY += scrollSpeed
-                playerY = height / 2 + scrollSpeed
-            }
-    
-            repaint()
+
+        // チェストを描画する
+        chestImage?.let {
+            val chestWidth = it.getWidth(this) / 2
+            val chestHeight = it.getHeight(this) / 2
+            g.drawImage(it, chestX, chestY, chestWidth, chestHeight, this)
         }
-    
-        override fun keyTyped(e: KeyEvent) {}
-    
-        override fun keyPressed(e: KeyEvent) {
-            pressedKeys.add(e.keyCode)
-            updatePlayerMovement()
+
+        // プレイヤーを描画する（サイズを小さく）
+        playerImage?.let {
+            val playerWidth = it.getWidth(this) / 2
+            val playerHeight = it.getHeight(this) / 2
+            g.drawImage(it, playerX, playerY, playerWidth, playerHeight, this)
         }
-    
-        override fun keyReleased(e: KeyEvent) {
+    }
+
+    private fun movePlayer(dx: Int, dy: Int) {
+        playerX += dx
+        playerY += dy
+
+        // プレイヤーの位置を画面中心に固定
+        if (playerX < width / 2 - scrollSpeed) {
+            viewX -= scrollSpeed
+            playerX = width / 2 - scrollSpeed
+        } else if (playerX > width / 2 + scrollSpeed) {
+            viewX += scrollSpeed
+            playerX = width / 2 + scrollSpeed
+        }
+
+        if (playerY < height / 2 - scrollSpeed) {
+            viewY -= scrollSpeed
+            playerY = height / 2 - scrollSpeed
+        } else if (playerY > height / 2 + scrollSpeed) {
+            viewY += scrollSpeed
+            playerY = height / 2 + scrollSpeed
+        }
+
+        repaint()
+    }
+
+    override fun keyTyped(e: KeyEvent) {}
+
+    override fun keyPressed(e: KeyEvent) {
+        pressedKeys.add(e.keyCode)
+        updatePlayerMovement()
+    }
+
+    override fun keyReleased(e: KeyEvent) {
             pressedKeys.remove(e.keyCode)
             updatePlayerMovement()
         }
-    
+
         private fun updatePlayerMovement() {
             val isCtrlPressed = KeyEvent.VK_CONTROL in pressedKeys
             val isShiftPressed = KeyEvent.VK_SHIFT in pressedKeys
@@ -451,7 +467,7 @@ object Main {
                 isShiftPressed -> (scrollSpeed * slowMultiplier).toInt() // 遅くする
                 else -> scrollSpeed // 通常速度
             }
-    
+
             val dx = when {
                 KeyEvent.VK_A in pressedKeys -> -currentScrollSpeed
                 KeyEvent.VK_D in pressedKeys -> currentScrollSpeed
@@ -465,6 +481,7 @@ object Main {
             movePlayer(dx, dy)
         }
     }
-// 
+
+//
 
 }
