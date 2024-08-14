@@ -1,4 +1,0 @@
-Manifest-Version: 1.0
-Created-By: 21.0.3 (Ubuntu)
-Main-Class: src.main
-

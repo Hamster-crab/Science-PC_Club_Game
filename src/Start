@@ -1,0 +1,20 @@
+Linux
+{
+-lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+
+g++ main.cpp -o main -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+}
+
+Windows
+{
+-lraylib -lopengl32 -lgdi32 -lwinmm
+
+g++ src/main.cpp -o main -lraylib -lopengl32 -lgdi32 -lwinmm
+}
+
+Mac
+{
+-lraylib -framework OpenGL -framework Cocoa -framework IOKit
+
+g++ src/main.cpp -o main -lraylib -framework OpenGL -framework Cocoa -framework IOKit
+}

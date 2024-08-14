@@ -1,0 +1,4 @@
+/home/kitano-hideaki/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/kitano-hideaki/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/kitano-hideaki/CLionProjects/Science-PC_Club_Game -B /home/kitano-hideaki/CLionProjects/Science-PC_Club_Game/cmake-build-debug
+-- Configuring done (0.0s)
+-- Generating done (0.0s)
+-- Build files have been written to: /home/kitano-hideaki/CLionProjects/Science-PC_Club_Game/cmake-build-debug
