@@ -1,7 +1,4 @@
 #include "raylib.h"
-#include "../include/player.h"
-
-using namespace Player;
 
 int main(void)
 {
@@ -23,7 +20,6 @@ int main(void)
         // 画像を描画（画面全体に表示するため、画像のサイズをウィンドウサイズに合わせる）
         DrawTexture(background, 0, 0, WHITE);
 
-        DrawTexture(Player::player, 0, 0, WHITE);
 
         // 描画の終了
         EndDrawing();
