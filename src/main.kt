@@ -7,7 +7,7 @@ import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
 import javax.swing.*
 
-object Main {
+object main {
     private var partnSato = ""
     private var playerName = ""
     private var gender = ""
