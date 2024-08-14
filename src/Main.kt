@@ -381,12 +381,8 @@ object Main {
             addKeyListener(this)
 
             SwingUtilities.invokeLater {
-                playerX = (width - (playerImage?.getWidth(this) ?: 0)) / 2
-                playerY = (height - (playerImage?.getHeight(this) ?: 0)) / 2
-
-                // チェストの位置をプレイヤーの斜め上に設定
-                chestX = playerX - 50
-                chestY = playerY - 50
+                chestX = -50
+                chestY = -50
             }
         }
 
@@ -407,6 +403,12 @@ object Main {
                 g.drawImage(image, col * width - viewX, row * height - viewY, width, height, this)
             }
         }
+
+//        for (col in startCol..(startCol + columns)) {
+//            for (row in startRow..(startRow + rows)) {
+//                var image = background.getOrPut(col to row)
+//            }
+//        }
 
         // チェストを描画する
         chestImage?.let {
