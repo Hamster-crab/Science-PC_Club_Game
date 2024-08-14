@@ -3,10 +3,10 @@
 int main(void)
 {
     // ウィンドウの初期化
-    InitWindow(900, 600, "Sato who came to let us know of his love");
+    InitWindow(800, 600, "raylib - Background Image Example");
 
     // 背景画像のロード
-    Texture background = LoadTexture("resources/Satos/Title/TitleSato.jpg");  // 背景画像のパス
+    Texture2D background = LoadTexture("resources/Textures/OverWorld/maptile_grasslands_one.png");  // 背景画像のパス
 
     // メインループ
     while (!WindowShouldClose())
