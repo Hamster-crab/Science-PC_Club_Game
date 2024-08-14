@@ -1,4 +1,7 @@
 #include "raylib.h"
+#include "../include/player.h"
+
+using namespace player;
 
 int main(void)
 {
