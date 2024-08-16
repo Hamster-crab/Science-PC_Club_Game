@@ -495,7 +495,7 @@ add_executable(Science_PC_Club_Game
         resources/Satos/Physical-strength_recovery_item/JPHamburgSteak.jpg
         resources/Satos/Physical-strength_recovery_item/Onion.jpg
         resources/Satos/Physical-strength_recovery_item/Yaju.md
-        resources/Satos/Title/TitleSato.jpg
+        resources/Title/TitleSato.jpg
         resources/Satos/佐藤先輩より.md
         resources/Textures/OverWorld/maptile_grasslands_one.png
         resources/Textures/Beef.png
