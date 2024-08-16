@@ -25,7 +25,6 @@ int main()
         // テキストのレンダリング（フォントサイズを調整）
         DrawText("Sato who came to let us know of his love", 33, 69, 40, PINK);  // fontSize を 30 に設定
 
-
         // 描画の終了
         EndDrawing();
     }
