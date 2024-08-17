@@ -145,6 +145,26 @@ int main()
         ClearBackground(RAYWHITE);
         DrawRectangleRec(settingsButton, settingsButtonColor);
         DrawText("Settings", settingsButton.x + 20, settingsButton.y + 10, 23, BLACK);
+        if (settingsButtonPressed)
+        {
+
+            // Create a new window
+            InitWindow(screenWidth, screenHeight, "Settings");
+
+
+
+            // Draw something in the new window
+            while (!WindowShouldClose())
+            {
+                BeginDrawing();
+                ClearBackground(LIGHTGRAY);
+
+                EndDrawing();
+            }
+
+            // Close the new window
+            CloseWindow();
+        }
 
         // endButtonDraw
         BeginDrawing();
