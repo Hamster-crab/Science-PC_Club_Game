@@ -147,18 +147,16 @@ int main()
         DrawText("Settings", settingsButton.x + 20, settingsButton.y + 10, 23, BLACK);
         if (settingsButtonPressed)
         {
+            UnloadTexture(background);
 
             // Create a new window
             InitWindow(screenWidth, screenHeight, "Settings");
-
-
 
             // Draw something in the new window
             while (!WindowShouldClose())
             {
                 BeginDrawing();
                 ClearBackground(LIGHTGRAY);
-
                 EndDrawing();
             }
 
