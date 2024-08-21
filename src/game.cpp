@@ -15,12 +15,21 @@ int main(void)
     // 背景画像のロード
     Texture2D background = LoadTexture("resources/Textures/OverWorld/maptile_grasslands_one.png");  // 背景画像のパス
 
-    Texture2D playerTexture = LoadTexture("resources/Textures/Beef.png");  // プレイヤー画像のパス
+    Image playerTextureTexture = LoadImage("resources/Textures/Beef.png");
+
+    int playerWidth = 45;
+    int playerHeight = 30;
+    // 画像サイズを変更
+    ImageResize(&playerTextureTexture, playerWidth, playerHeight);
+
+    // テクスチャに変換
+    Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
 
     Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
 
     // 画像サイズを変更
     ImageResize(&playerHeartsImageImage, 30, 30);
+
 
     // テクスチャに変換
     Texture2D playerHeartsImage = LoadTextureFromImage(playerHeartsImageImage);
@@ -54,6 +63,7 @@ int main(void)
 
         if (IsKeyDown(KEY_ESCAPE)) break;
 
+        playerWidth = playerWidth - 200;
         // カメラのターゲットをプレイヤーの位置に設定
         camera.target = playerPosition;
 
