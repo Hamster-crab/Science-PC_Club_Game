@@ -512,7 +512,7 @@ add_executable(Science_PC_Club_Game
         resources/Textures/NomalTree.jpg
         resources/Textures/player_arm.jpg
         resources/Textures/player_arm_dot.png
-        resources/Textures/player_heart.png
+        resources/Textures/playerHeart.png
         resources/Textures/Water-Empty.jpg
         resources/Textures/Water-Full.jpg
         resources/Textures/Water-Half.jpg
