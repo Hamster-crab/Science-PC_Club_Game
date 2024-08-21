@@ -1,0 +1,13 @@
+/home/kitano-hideaki/.local/share/JetBrains/Toolbox/apps/clion/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/home/kitano-hideaki/.local/share/JetBrains/Toolbox/apps/clion/bin/ninja/linux/x64/ninja -G Ninja -S /home/kitano-hideaki/CLionProjects/Science-PC_Club_Game -B /home/kitano-hideaki/CLionProjects/Science-PC_Club_Game/cmake-build-debug
+-- Configuring done (0.0s)
+CMake Error at CMakeLists.txt:15 (add_executable):
+  Cannot find source file:
+
+    resources/Title/TitleSato.jpg
+
+
+CMake Error at CMakeLists.txt:15 (add_executable):
+  No SOURCES given to target: Science_PC_Club_Game
+
+
+CMake Generate step failed.  Build files cannot be regenerated correctly.
