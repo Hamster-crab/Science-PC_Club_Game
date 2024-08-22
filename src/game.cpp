@@ -109,16 +109,16 @@ int main(void)
         int playerHeartsPositionXEight = playerPosition.x - 202;
         int playerHeartsPositionXNine = playerPosition.x - 168;
         int playerHeartsPositionXTen = playerPosition.x - 134;
-//        int playerHeartsPositionXEleven = playerPosition.x - 100;
-//        int playerHeartsPositionXTwelve = playerPosition.x - 66;
-//        int playerHeartsPositionXThirteen = playerPosition.x - 32;
-//        int playerHeartsPositionXFourteen = playerPosition.x + 2;
-//        int playerHeartsPositionXFifteen = playerPosition.x + 36;
-//        int playerHeartsPositionXSixteen = playerPosition.x + 70;
-//        int playerHeartsPositionXSeventeen = playerPosition.x + 104;
-//        int playerHeartsPositionXEighteen = playerPosition.x + 138;
-//        int playerHeartsPositionXNineteen = playerPosition.x + 172;
-//        int playerHeartsPositionXTwenty = playerPosition.x + 206;
+        int playerHeartsPositionXEleven = playerPosition.x - 100;
+        int playerHeartsPositionXTwelve = playerPosition.x - 66;
+        int playerHeartsPositionXThirteen = playerPosition.x - 32;
+        int playerHeartsPositionXFourteen = playerPosition.x + 2;
+        int playerHeartsPositionXFifteen = playerPosition.x + 36;
+        int playerHeartsPositionXSixteen = playerPosition.x + 70;
+        int playerHeartsPositionXSeventeen = playerPosition.x + 104;
+        int playerHeartsPositionXEighteen = playerPosition.x + 138;
+        int playerHeartsPositionXNineteen = playerPosition.x + 172;
+        int playerHeartsPositionXTwenty = playerPosition.x + 206;
         int playerHeartsPositionY = playerPosition.y + 250;
 
         // ハート
@@ -132,6 +132,16 @@ int main(void)
         DrawTexture(playerHeartsImage, playerHeartsPositionXEight, playerHeartsPositionY, WHITE);
         DrawTexture(playerHeartsImage, playerHeartsPositionXNine, playerHeartsPositionY, WHITE);
         DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXEleven, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXTwelve, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXThirteen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXFourteen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXFifteen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXSixteen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXSeventeen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXEighteen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXNineteen, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXTwenty, playerHeartsPositionY, WHITE);
 
         // カメラの描画終了
         EndMode2D();
