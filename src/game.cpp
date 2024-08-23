@@ -26,13 +26,21 @@ int main(void)
     Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
 
     Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
+    Image playerFullStomachImageImage = LoadImage("resources/Textures/Beef.png");
+    Image playerWaterFullImageImage = LoadImage("resources/Textures/Water-full.png");
 
     // 画像サイズを変更
     ImageResize(&playerHeartsImageImage, 30, 30);
+    ImageResize(&playerFullStomachImageImage, 30, 30);
+    ImageResize(&playerWaterFullImageImage, 30, 30);
 
 
     // テクスチャに変換
     Texture2D playerHeartsImage = LoadTextureFromImage(playerHeartsImageImage);
+    Texture2D playerFullStomachImage = LoadTextureFromImage(playerFullStomachImageImage);
+    Texture2D playerFullStomachImage = LoadTextureFromImage(playerFullStomachImageImage);
+    Texture2D playerWaterFullImage = LoadTextureFromImage(playerWaterFullImageImage);
+    
 
     // プレイヤーの初期設定
     Vector2 playerPosition = { screenWidth / 2.0f - playerTexture.width / 2.0f, screenHeight / 2.0f - playerTexture.height / 2.0f };
@@ -119,29 +127,58 @@ int main(void)
         int playerHeartsPositionXEighteen = playerPosition.x + 138;
         int playerHeartsPositionXNineteen = playerPosition.x + 172;
         int playerHeartsPositionXTwenty = playerPosition.x + 206;
-        int playerHeartsPositionY = playerPosition.y + 250;
+
+        int playerHeartsPositionYOne = playerPosition.y + 250;
+        int playerHeartsPositionYTwo = playerPosition.y + 150;
+        int playerFullStomachPositionY = playerPosition.y + 450;
 
         // ハート
-        DrawTexture(playerHeartsImage, playerHeartsPositionXOne, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTwo, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXThree, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFour, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFive, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSix,playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSeven, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXEight, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXNine, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXEleven, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTwelve, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXThirteen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFourteen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFifteen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSixteen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSeventeen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXEighteen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXNineteen, playerHeartsPositionY, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTwenty, playerHeartsPositionY, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXOne, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXTwo, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXThree, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXFour, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXFive, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXSix,playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXSeven, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXEight, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXNine, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXOne, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXTwo, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXThree, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXFour, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXFive, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXSix, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXSeven, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXEight, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXNine, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionYTwo, WHITE);
+        
+        // 飯ゲージ
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXOne, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXTwo, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXThree, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXFour, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXFive, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXSix, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXSeven, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXEight, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXNine, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerHeartsPositionXTen, playerFullStomachPositionY, WHITE);
+        
+        // 水ゲージ(満タン)
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXOne, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXTwo, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXThree, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXFour, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXFive, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXSix, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXSeven, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXEight, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXNine, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXTen, playerWaterFullPositionY, WHITE);
+
+        
 
         // カメラの描画終了
         EndMode2D();
