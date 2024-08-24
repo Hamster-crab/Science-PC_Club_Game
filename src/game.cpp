@@ -27,7 +27,7 @@ int main(void)
 
     Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
     Image playerFullStomachImageImage = LoadImage("resources/Textures/Beef.png");
-    Image playerWaterFullImageImage = LoadImage("resources/Textures/Water-Full.png");
+    Image playerWaterFullImageImage = LoadImage("resources/Textures/Water-full.png");
 
     // 画像サイズを変更
     ImageResize(&playerHeartsImageImage, 30, 30);
@@ -132,6 +132,8 @@ int main(void)
 
         int playerHeartsPositionYOne = playerPosition.y + 260;
         int playerHeartsPositionYTwo = playerPosition.y + 210;
+        int playerFullStomachPositionY = playerPosition.y + 260;
+        int playerWaterFullPositionY = playerPosition.y + 480;
 
         // ハート
         DrawTexture(playerHeartsImage, playerHeartsPositionXOne, playerHeartsPositionYOne, WHITE);
@@ -156,28 +158,28 @@ int main(void)
         DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionYTwo, WHITE);
         
         // 飯ゲージ
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXOne, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXTwo, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXThree, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXFour, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXFive, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXSix, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXSeven, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXEight, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXNine, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerFullStomachImage, playerFullStomachPositionXTen, playerHeartsPositionYOne, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXOne, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXTwo, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXThree, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXFour, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXFive, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXSix, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXSeven, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXEight, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXNine, playerFullStomachPositionY, WHITE);
+        DrawTexture(playerFullStomachImage, playerFullStomachPositionXTen, playerFullStomachPositionY, WHITE);
         
         // 水ゲージ(満タン)
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXOne, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXTwo, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXThree, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXFour, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXFive, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXSix, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXSeven, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXEight, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXNine, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerHeartsPositionYTwo, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXOne, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXTwo, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXThree, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXFour, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXFive, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXSix, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXSeven, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXEight, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXNine, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXTen, playerWaterFullPositionY, WHITE);
 
         
 
@@ -197,3 +199,4 @@ int main(void)
 
     return 0;
 }
+// Test
