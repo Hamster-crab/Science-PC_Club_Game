@@ -170,16 +170,16 @@ int main(void)
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXTen, playerFullStomachPositionY, WHITE);
         
         // 水ゲージ(満タン)
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXOne, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXTwo, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXThree, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXFour, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXFive, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXSix, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXSeven, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXEight, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXNine, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerHeartsPositionXTen, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXOne, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXTwo, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXThree, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXFour, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXFive, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXSix, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXSeven, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXEight, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXNine, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerWaterFullPositionY, WHITE);
 
         
 
