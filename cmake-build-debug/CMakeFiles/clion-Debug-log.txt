@@ -3,7 +3,7 @@
 CMake Error at CMakeLists.txt:15 (add_executable):
   Cannot find source file:
 
-    resources/Title/TitleSato.jpg
+    resources/Textures/CowLanguage.png
 
 
 CMake Error at CMakeLists.txt:15 (add_executable):

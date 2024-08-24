@@ -15,10 +15,10 @@ int main(void)
     // 背景画像のロード
     Texture2D background = LoadTexture("resources/Textures/OverWorld/maptile_grasslands_one.png");  // 背景画像のパス
 
-    Image playerTextureTexture = LoadImage("resources/Textures/Beef.png");
+    Image playerTextureTexture = LoadImage("resources/Textures/playerImage.jpg");
 
-    int playerWidth = 45;
-    int playerHeight = 30;
+    int playerWidth = 80;
+    int playerHeight = 60;
     // 画像サイズを変更
     ImageResize(&playerTextureTexture, playerWidth, playerHeight);
 

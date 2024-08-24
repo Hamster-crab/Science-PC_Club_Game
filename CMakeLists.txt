@@ -516,4 +516,5 @@ add_executable(Science_PC_Club_Game
         resources/Textures/Water-Empty.jpg
         resources/Textures/Water-Full.jpg
         resources/Textures/Water-Half.jpg
+        resources/Textures/playerImage.jpg
         src/main.cpp)
