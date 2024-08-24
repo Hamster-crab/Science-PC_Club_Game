@@ -504,7 +504,6 @@ add_executable(Science_PC_Club_Game
         resources/Textures/boiled_egg.png
         resources/Textures/buffalo.png
         resources/Textures/chest.jpg
-        resources/Textures/CowLanguage.png
         resources/Textures/ICCard.jpg
         resources/Textures/Microwave_off.png
         resources/Textures/Microwave_on.png
