@@ -15,10 +15,10 @@ int main(void)
     // 背景画像のロード
     Texture2D background = LoadTexture("resources/Textures/OverWorld/maptile_grasslands_one.png");  // 背景画像のパス
 
-    Image playerTextureTexture = LoadImage("resources/Textures/playerImage.jpg");
+    Image playerTextureTexture = LoadImage("resources/Textures/playerImage.png");
 
-    int playerWidth = 80;
-    int playerHeight = 60;
+    int playerWidth = 150;
+    int playerHeight = 200;
     // 画像サイズを変更
     ImageResize(&playerTextureTexture, playerWidth, playerHeight);
 
@@ -104,7 +104,7 @@ int main(void)
 
 
         // プレイヤーを描画
-        DrawTexture(playerTexture, playerPosition.x, playerPosition.y, WHITE);
+        DrawTexture(playerTexture, playerPosition.x -100, playerPosition.y - 100, WHITE);
 
         int playerHeartsPositionXOne = playerPosition.x - 440;
         int playerHeartsPositionXTwo = playerPosition.x - 406;
