@@ -15,10 +15,10 @@ int main(void)
     // 背景画像のロード
     Texture2D background = LoadTexture("resources/Textures/OverWorld/maptile_grasslands_one.png");  // 背景画像のパス
 
-    Image playerTextureTexture = LoadImage("resources/Textures/playerImage.png");
+    Image playerTextureTexture = LoadImage("resources/Textures/playerImage.jpg");
 
-    int playerWidth = 150;
-    int playerHeight = 200;
+    int playerWidth = 80;
+    int playerHeight = 60;
     // 画像サイズを変更
     ImageResize(&playerTextureTexture, playerWidth, playerHeight);
 
@@ -104,7 +104,7 @@ int main(void)
 
 
         // プレイヤーを描画
-        DrawTexture(playerTexture, playerPosition.x - 50, playerPosition.y - 100, WHITE);
+        DrawTexture(playerTexture, playerPosition.x, playerPosition.y, WHITE);
 
         int playerHeartsPositionXOne = playerPosition.x - 440;
         int playerHeartsPositionXTwo = playerPosition.x - 406;
@@ -170,16 +170,16 @@ int main(void)
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXTen, playerFullStomachPositionY, WHITE);
         
         // 水ゲージ(満タン)
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXOne, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXTwo, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXThree, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXFour, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXFive, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXSix, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXSeven, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXEight, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXNine, playerWaterFullPositionY, WHITE);
-        DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXOne, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXTwo, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXThree, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXFour, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXFive, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXSix, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXSeven, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXEight, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXNine, playerWaterFullPositionY, WHITE);
+        DrawTexture(playerWaterFullImage, playerHeartsPositionXTen, playerWaterFullPositionY, WHITE);
 
         
 
