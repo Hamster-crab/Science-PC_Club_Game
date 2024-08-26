@@ -4,7 +4,8 @@ int main(void)
 {
     int screenWidth = 900;
     int screenHeight = 600;
-    int backgroundX, backgroundY = 0;
+    int backgroundX = backgroundX - 770;
+    int backgroundY = backgroundY - 970;
     int playerSpeed = 8;
     int playerHeartsMax = 20;
     int playerHearts = 20;
@@ -16,26 +17,20 @@ int main(void)
     Texture2D background = LoadTexture("resources/Textures/OverWorld/maptile_grasslands_one.png");  // 背景画像のパス
 
     Image playerTextureTexture = LoadImage("resources/Textures/playerImage.png");
+    Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
+    Image playerFullStomachImageImage = LoadImage("resources/Textures/Beef.png");
+    Image playerWaterFullImageImage = LoadImage("resources/Textures/Water-full.png");
 
     int playerWidth = 150;
     int playerHeight = 200;
     // 画像サイズを変更
     ImageResize(&playerTextureTexture, playerWidth, playerHeight);
-
-    // テクスチャに変換
-    Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
-
-    Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
-    Image playerFullStomachImageImage = LoadImage("resources/Textures/Beef.png");
-    Image playerWaterFullImageImage = LoadImage("resources/Textures/Water-full.png");
-
-    // 画像サイズを変更
     ImageResize(&playerHeartsImageImage, 30, 30);
     ImageResize(&playerFullStomachImageImage, 30, 30);
     ImageResize(&playerWaterFullImageImage, 30, 30);
 
-
     // テクスチャに変換
+    Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
     Texture2D playerHeartsImage = LoadTextureFromImage(playerHeartsImageImage);
     Texture2D playerFullStomachImage = LoadTextureFromImage(playerFullStomachImageImage);
     Texture2D playerWaterFullImage = LoadTextureFromImage(playerWaterFullImageImage);
@@ -85,23 +80,6 @@ int main(void)
 
         // 画像を描画（画面全体に表示するため、画像のサイズをウィンドウサイズに合わせる）
         DrawTexture(background, backgroundX, backgroundY, WHITE);
-
-////        横
-//
-////      左
-//        DrawTexture(background, backgroundX + 500, backgroundY, WHITE);
-//        DrawTexture(background, backgroundX + ( 500 / 2 ), backgroundY, WHITE);
-//
-////      下
-//        DrawTexture(background, backgroundX, backgroundY + ( 500 / 2 ), WHITE);
-//
-////      右
-//        DrawTexture(background, backgroundX - ( 500 * 2 ), backgroundY, WHITE);
-//
-////        上
-//        DrawTexture(background, backgroundX, backgroundY - ( 500 * 2 ), WHITE);
-
-
 
         // プレイヤーを描画
         DrawTexture(playerTexture, playerPosition.x -100, playerPosition.y - 100, WHITE);
