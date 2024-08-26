@@ -39,7 +39,7 @@ int main(void)
     Texture2D playerHeartsImage = LoadTextureFromImage(playerHeartsImageImage);
     Texture2D playerFullStomachImage = LoadTextureFromImage(playerFullStomachImageImage);
     Texture2D playerWaterFullImage = LoadTextureFromImage(playerWaterFullImageImage);
-    
+
 
     // プレイヤーの初期設定
     Vector2 playerPosition = { screenWidth / 2.0f - playerTexture.width / 2.0f, screenHeight / 2.0f - playerTexture.height / 2.0f };
@@ -156,7 +156,7 @@ int main(void)
         DrawTexture(playerHeartsImage, playerHeartsPositionXEight, playerHeartsPositionYTwo, WHITE);
         DrawTexture(playerHeartsImage, playerHeartsPositionXNine, playerHeartsPositionYTwo, WHITE);
         DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionYTwo, WHITE);
-        
+
         // 飯ゲージ
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXOne, playerFullStomachPositionY, WHITE);
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXTwo, playerFullStomachPositionY, WHITE);
@@ -168,7 +168,7 @@ int main(void)
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXEight, playerFullStomachPositionY, WHITE);
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXNine, playerFullStomachPositionY, WHITE);
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXTen, playerFullStomachPositionY, WHITE);
-        
+
         // 水ゲージ(満タン)
         DrawTexture(playerWaterFullImage, playerFullStomachPositionXOne, playerWaterFullPositionY, WHITE);
         DrawTexture(playerWaterFullImage, playerFullStomachPositionXTwo, playerWaterFullPositionY, WHITE);
@@ -181,7 +181,7 @@ int main(void)
         DrawTexture(playerWaterFullImage, playerFullStomachPositionXNine, playerWaterFullPositionY, WHITE);
         DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerWaterFullPositionY, WHITE);
 
-        
+
 
         // カメラの描画終了
         EndMode2D();
