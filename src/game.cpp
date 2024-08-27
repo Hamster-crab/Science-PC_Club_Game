@@ -14,7 +14,7 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
 
     // 背景画像のロード
-    Texture2D background = LoadTexture("resources/Textures/OverWorld/maptile_grasslands_one.png");  // 背景画像のパス
+    Texture2D background = LoadTexture("resources/Textures/maptile_grasslands_one.png");  // 背景画像のパス
 
     Image playerTextureTexture = LoadImage("resources/Textures/playerImage.png");
     Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
@@ -80,10 +80,26 @@ int main(void)
 
         // 画像を描画（画面全体に表示するため、画像のサイズをウィンドウサイズに合わせる）
         DrawTexture(background, backgroundX, backgroundY, WHITE); // 中央
-        DrawTexture(background, backgroundX + 500, backgroundY, WHITE); // 右
-        DrawTexture(background, backgroundX, backgroundY + 500, WHITE); // 下
+//        DrawTexture(background, backgroundX + 500, backgroundY, WHITE); // 右
+//        DrawTexture(background, backgroundX, backgroundY + 500, WHITE); // 下
         DrawTexture(background, backgroundX - 500, backgroundY, WHITE); // 左
-        DrawTexture(background, backgroundX, backgroundY -500, WHITE); // 上
+        DrawTexture(background, backgroundX - 1000, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 1500, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 2000, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 2500, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 3000, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 3500, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 4000, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 4500, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 5000, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 5500, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 6000, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 6500, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 7000, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 7500, backgroundY, WHITE);
+        DrawTexture(background, backgroundX - 8000, backgroundY, WHITE);
+
+//        DrawTexture(background, backgroundX, backgroundY -500, WHITE); // 上
 
         // プレイヤーを描画
         DrawTexture(playerTexture, playerPosition.x -100, playerPosition.y - 100, WHITE);

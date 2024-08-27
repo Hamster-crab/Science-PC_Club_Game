@@ -497,7 +497,7 @@ add_executable(Science_PC_Club_Game
         resources/Satos/Physical-strength_recovery_item/Yaju.md
         resources/Title/TitleSato.jpg
         resources/Satos/佐藤先輩より.md
-        resources/Textures/OverWorld/maptile_grasslands_one.png
+        resources/Textures/maptile_grasslands_one.png
         resources/Textures/Beef.png
         resources/Textures/BitCoin_Senpai.jpg
         resources/Textures/block_Dirt.jpg
