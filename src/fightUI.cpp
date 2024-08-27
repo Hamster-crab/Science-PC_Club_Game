@@ -4,6 +4,8 @@ int main()
 {
     const int screenWidth = 900;
     const int screenHeight = 600;
+    int mpDefault = 1000;
+    int playerMP = 1000;
 
     int playerHeartsMax = 20;
     int playerHeart = 20;
@@ -31,8 +33,9 @@ int main()
         DrawText("Shield", 600, 240, 20, BLACK);
 
         DrawRectangle(555, 425, 335, 120, BLUE);
-        DrawRectangle(600, 435, playerHeart * 5, 20, YELLOW);
-        DrawText("20/20", 720, 435, 20, BLACK);
+        DrawRectangle(600, 435, playerHeart * 3, 20, YELLOW);
+        DrawText("20/20", 670, 435, 20, BLACK);
+        DrawRectangle(750, 435, playerMP / 50, 20, YELLOW);
         DrawText("Attack", 600, 460, 20, BLACK);
         DrawText("MP recovery", 600, 480, 20, BLACK);
         DrawText("Item", 600, 500, 20, BLACK);

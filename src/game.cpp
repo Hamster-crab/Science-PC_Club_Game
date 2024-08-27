@@ -9,6 +9,8 @@ int main(void)
     int playerSpeed = 8;
     int playerHeartsMax = 20;
     int playerHearts = 20;
+    int mpDefault = 1000;
+    int playerMP = 1000;
 
     // ウィンドウの初期化
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
