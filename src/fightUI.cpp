@@ -99,6 +99,13 @@ int main()
 //        DrawText("Item", 600, 500, 20, BLACK);
 //        DrawText("Shouldering another's debt", 600, 520, 20, BLACK);
 
+
+        // 外側の矩形 (枠線)
+        DrawRectangle(300, 200, 250, 250, BLACK);
+
+        // 内側の矩形 (背景色)
+        DrawRectangle(305, 205, 240, 240, DARKPURPLE);  // 枠線の太さは5ピクセル
+
         EndDrawing();
     }
 
