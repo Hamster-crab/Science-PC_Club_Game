@@ -7,8 +7,8 @@ int main(void)
 {
     int screenWidth = 900;
     int screenHeight = 600;
-    int backgroundX = backgroundX + 134490411;
-    int backgroundY = backgroundY - 32830;
+    int backgroundX = 375;
+    int backgroundY = -63;
     int playerSpeed = 8;
     double playerHeartsMax = 40.0;
     double playerHeartsDefault = 20.0;
