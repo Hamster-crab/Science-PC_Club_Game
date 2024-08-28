@@ -18,7 +18,7 @@ int main(void)
     // 背景画像のロード
     Texture2D background = LoadTexture("resources/Textures/maptile_grasslands_one.png");  // 背景画像のパス
 
-    Image playerTextureTexture = LoadImage("resources/Textures/playerImage.png");
+    Image playerTextureTexture = LoadImage("resources/Textures/player/playerImage.png");
     Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
     Image playerFullStomachImageImage = LoadImage("resources/Textures/Beef.png");
     Image playerWaterFullImageImage = LoadImage("resources/Textures/Water-full.png");
