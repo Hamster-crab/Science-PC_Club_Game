@@ -1,16 +1,20 @@
 #include "raylib.h"
+#include <string>
+#include <sstream>
+#include <iostream>
 
 int main(void)
 {
     int screenWidth = 900;
     int screenHeight = 600;
-    int backgroundX = backgroundX - 770;
-    int backgroundY = backgroundY - 970;
+    int backgroundX = backgroundX + 134490411;
+    int backgroundY = backgroundY - 32830;
     int playerSpeed = 8;
-    int playerHeartsMax = 20;
-    int playerHearts = 20;
-    int mpDefault = 1000;
-    int playerMP = 1000;
+    double playerHeartsMax = 40.0;
+    double playerHeartsDefault = 20.0;
+    double playerHearts = 20.0;
+//    double mpDefault = 1000.0;
+//    double playerMP = 1000.0;
 
     // ウィンドウの初期化
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
@@ -27,13 +31,12 @@ int main(void)
     int playerHeight = 200;
     // 画像サイズを変更
     ImageResize(&playerTextureTexture, playerWidth, playerHeight);
-    ImageResize(&playerHeartsImageImage, 30, 30);
+//    ImageResize(&playerHeartsImageImage, 30, 30);
     ImageResize(&playerFullStomachImageImage, 30, 30);
     ImageResize(&playerWaterFullImageImage, 30, 30);
 
     // テクスチャに変換
     Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
-    Texture2D playerHeartsImage = LoadTextureFromImage(playerHeartsImageImage);
     Texture2D playerFullStomachImage = LoadTextureFromImage(playerFullStomachImageImage);
     Texture2D playerWaterFullImage = LoadTextureFromImage(playerWaterFullImageImage);
 
@@ -136,26 +139,29 @@ int main(void)
         int playerWaterFullPositionY = playerPosition.y + 480;
 
         // ハート
-        DrawTexture(playerHeartsImage, playerHeartsPositionXOne, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTwo, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXThree, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFour, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFive, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSix,playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSeven, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXEight, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXNine, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionYOne, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXOne, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTwo, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXThree, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFour, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXFive, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSix, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXSeven, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXEight, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXNine, playerHeartsPositionYTwo, WHITE);
-        DrawTexture(playerHeartsImage, playerHeartsPositionXTen, playerHeartsPositionYTwo, WHITE);
+
+        // 変数を表示するための文字列を生成
+        std::ostringstream playerHeartsOutput;
+        playerHeartsOutput << playerHearts << " / " << playerHeartsDefault;
+        std::string playerHeartsText = playerHeartsOutput.str();
+
+        // playerのxy表示
+        std::ostringstream playerXY;
+        playerXY << "X : " << playerPosition.x << "\n\n" << "Y : " << playerPosition.y;
+        std::string playerXYText = playerXY.str();
+
+        // 初風呂表示
+        std::ostringstream hatuBro;
+        hatuBro << "Block X : " << backgroundX - 500 << "\n\nBlock Y : " << backgroundY;
+        std::string hatuBroText = hatuBro.str();
+
+        DrawText(playerHeartsText.c_str(), playerHeartsPositionXOne, playerHeartsPositionYOne, 20, BLACK);  // 変数の内容を表示
+        DrawText(playerXYText.c_str(), playerHeartsPositionXOne, playerHeartsPositionYOne - 550, 20, BLACK);  // playerのxy表示
+
+        DrawText(hatuBroText.c_str(), playerHeartsPositionXOne, playerHeartsPositionYOne - 400, 20, BLACK);  // 初ブロ
+
+        DrawRectangle(playerHeartsPositionXFour, playerHeartsPositionYOne, playerHeartsDefault * 12, 20, RED);
+        DrawRectangle(playerHeartsPositionXFour, playerHeartsPositionYOne, playerHearts * 12, 20, YELLOW);
 
         // 飯ゲージ
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXOne, playerFullStomachPositionY, WHITE);
