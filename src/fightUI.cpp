@@ -4,9 +4,11 @@ int main()
 {
     const int screenWidth = 900;
     const int screenHeight = 600;
-
     InitWindow(screenWidth, screenHeight, "Raylib [Core] Example - Draw Square");
     SetTargetFPS(60);
+
+    int nextAttack = 0;
+    int nextnextAttack = 1;
 
     int outerFrameX = 300;
     int outerFrameY = 200;
@@ -32,21 +34,19 @@ int main()
     double satoOneHPDefault = 100.0;
     double satoOneMPDefault = 300.0;
     double satoOneMP = 300.0;
-    double satoOneMPMax = 810.0;
+    double satoOneMPMax = 1000.0;
 
     double satoTwoHP = 50.0;
     double satoTwoHPDefault = 50.0;
-    double satoTwoMPDefault = 81019.0;
-    double satoTwoMP = 81019.0;
-    double satoTwoMPMax = 40.0;
+    double satoTwoMPDefault = 10000.0;
+    double satoTwoMP = 10000.0;
+    double satoTwoMPMax = 1000000.0;
 
     double playerHeartsMax = 20.0;
     double playerHeart = 20.0;
     double playerPositionX = 405.0;
     double playerPositionY = 305.0;
-
-//    XMax 305.0
-//    YMax 415.0
+// X 405 Y 305
 
     Image summonSatoOneTextureTexture = LoadImage("resources/Partner-Sato/GanGimariSato.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/Partner-Sato/SatoSeenFromAbove.png");
@@ -72,31 +72,171 @@ int main()
     Rectangle playerRect = { playerPositionX, playerPositionY, 30, 30 }; // ここのコード修正したら殺す
     Rectangle attackRect = { 205, 305, 50, 50 };
 
+    Rectangle attackRectTwo = { 400, 500, 50, 50 };
+
+    Rectangle attackRectThree = { 605, 300, 50, 50 };
+
+    Rectangle attackRectFour = { 400, 70, 50, 50 };
+
     while (!WindowShouldClose())
     {
         double currentTime = GetTime(); // 現在の時刻を取得
+
         // プレイヤーの位置を更新
-        if (IsKeyDown(KEY_D)) playerPositionX += 5;
-        if (IsKeyDown(KEY_A)) playerPositionX -= 5;
-        if (IsKeyDown(KEY_W)) playerPositionY -= 5;
-        if (IsKeyDown(KEY_S)) playerPositionY += 5;
-        if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
-        if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
-        if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
-        if (IsKeyDown(KEY_DOWN)) playerPositionY += 5;
-        if (IsKeyDown(KEY_C))
+        if (nextAttack == 1)
+        {
+            if (IsKeyDown(KEY_S)) playerPositionY += 10;
+            if (IsKeyDown(KEY_DOWN)) playerPositionY += 10;
+            if (IsKeyDown(KEY_W)) playerPositionY -= 5;
+            if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
+        }
+        else {
+            if (IsKeyDown(KEY_W)) playerPositionY -= 5;
+            if (IsKeyDown(KEY_A)) playerPositionX -= 5;
+            if (IsKeyDown(KEY_S)) playerPositionY += 5;
+            if (IsKeyDown(KEY_D)) playerPositionX += 5;
+            if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
+            if (IsKeyDown(KEY_DOWN)) playerPositionY += 5;
+            if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
+            if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
+        }
+
+        if (IsKeyDown(KEY_Y))
+        {
+            if (satoOneMP > 100.0)
+            {
+                if (satoOneHP < satoOneHPDefault)
+                {
+                    satoOneMP -= 20.0;
+                    if (satoOneHPDefault > 1)
+                    {
+                        satoOneHP += 0.05;
+                    }
+
+                }
+            }
+        }
+
+        if (IsKeyDown(KEY_U))
+        {
+            if (satoTwoMP > 20.0)
+            {
+                if (satoTwoHP < satoTwoHPDefault)
+                {
+                    satoTwoMP -= 20.0;
+                    if (satoTwoHPDefault > 1)
+                    {
+                        satoTwoHP += 1.0;
+                    }
+                    else
+                    {}
+                }
+            }
+        }
+
+
+        // プレイヤーが枠の外に出ないように制限
+        if (nextAttack > 0)
+        {}
+        else {
+            if (playerPositionX < outerFrameX) playerPositionX = outerFrameX;
+            if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidthHeight)
+                playerPositionX = outerFrameX + outerFrameWidthHeight - playerRect.width;
+
+            if (playerPositionY < outerFrameY) playerPositionY = outerFrameY;
+            if (playerPositionY + playerRect.height > outerFrameY + outerFrameWidthHeight)
+                playerPositionY = outerFrameY + outerFrameWidthHeight - playerRect.height;
+        }
+
+        // プレイヤーと攻撃の矩形を更新
+        playerRect.x = playerPositionX;
+        playerRect.y = playerPositionY;
+//         2秒経過したかをチェック
+        if (currentTime - startTime >= 1.5)
+        {
+            attackRect.x += 1;
+        }
+        // 4秒経過したかをチェック
+        if (currentTime - startTime >= 1.5)
+        {
+            attackRectTwo.y -= 1;
+        }
+        // 2秒経過したかをチェック
+        if (currentTime - startTime >= 1.5)
+        {
+            attackRectThree.x -= 1;
+        }
+        // 2秒経過したかをチェック
+        if (currentTime - startTime >= 1.5)
+        {
+            attackRectFour.y += 1;
+        }
+
+
+        if(IsKeyDown(KEY_C))
         {
             if (satoOneMP > 0)
             {
                 satoOneMP -= 10;
             }
-            else if (satoTwoMP > 0)
+            else if (satoOneMP == 0)
             {
                 satoTwoMP -= 10;
             }
         }
-        else
-        {
+        else {
+            if (satoOneHP > 0)
+            {
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, attackRect))
+                {
+                    satoOneHP -= 1.0;
+                    if (satoOneHP < 0) satoOneHP = 0;
+                }
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, attackRectTwo))
+                {
+                    satoOneHP -= 1.0;
+                    if (satoOneHP < 0) satoOneHP = 0;
+                }
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, attackRectThree))
+                {
+                    satoOneHP -= 1.0;
+                    if (satoOneHP < 0) satoOneHP = 0;
+                }
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, attackRectFour))
+                {
+                    satoOneHP -= 1.0;
+                    if (satoOneHP < 0) satoOneHP = 0;
+                }
+            }
+            else
+            {
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, attackRect))
+                {
+                    satoTwoHP -= 1.0;
+                    if (satoTwoHP < 0) satoTwoHP = 0;
+                }
+                if (CheckCollisionRecs(playerRect, attackRectTwo))
+                {
+                    satoTwoHP -= 1.0;
+                    if (satoTwoHP < 0) satoTwoHP = 0;
+                }
+                if (CheckCollisionRecs(playerRect, attackRectThree))
+                {
+                    satoTwoHP -= 1.0;
+                    if (satoTwoHP < 0) satoTwoHP = 0;
+                }
+                if (CheckCollisionRecs(playerRect, attackRectFour))
+                {
+                    satoTwoHP -= 1.0;
+                    if (satoTwoHP < 0) satoTwoHP = 0;
+                }
+            }
+
             if (currentTime - startTime >= 0.0000001)
             {
                 double currentTime = GetTime(); // 現在の時刻を取得
@@ -115,35 +255,6 @@ int main()
             }
         }
 
-        // プレイヤーと攻撃の矩形を更新
-        playerRect.x = playerPositionX;
-        playerRect.y = playerPositionY;
-        // 2秒経過したかをチェック
-        if (currentTime - startTime >= 2.0)
-        {
-            attackRect.x += 1;
-        }
-
-
-
-        if (satoOneHP > 0)
-        {
-            // 当たり判定
-            if (CheckCollisionRecs(playerRect, attackRect))
-            {
-                satoOneHP -= 1.0;
-                if (satoOneHP < 0) satoOneHP = 0;
-            }
-        }
-        else
-        {
-            // 当たり判定
-            if (CheckCollisionRecs(playerRect, attackRect))
-            {
-                satoTwoHP -= 1.0;
-                if (satoTwoHP < 0) satoTwoHP = 0;
-            }
-        }
 
         BeginDrawing();
 
@@ -178,8 +289,19 @@ int main()
         DrawRectangle(outerFrameX, outerFrameY, outerFrameWidthHeight, outerFrameWidthHeight, BLACK);
         // 内側の矩形 (背景色)
         DrawRectangle(innerFrameX, innerFrameY, innerFrameWidthHeight, innerFrameWidthHeight, DARKPURPLE);
-        DrawRectangle(playerPositionX, playerPositionY, 30, 30, ORANGE);
         DrawTexture(attackTexture, attackRect.x, attackRect.y, WHITE);
+        DrawTexture(attackTexture, attackRectTwo.x, attackRectTwo.y, WHITE);
+        DrawTexture(attackTexture, attackRectThree.x, attackRectThree.y, WHITE);
+        DrawTexture(attackTexture, attackRectFour.x, attackRectFour.y, WHITE);
+
+        DrawRectangle(playerPositionX, playerPositionY, 18, 18, ORANGE);
+
+//        if (attackRect.x == 600)
+//        {
+//            nextAttack += 1;
+//            playerPositionX = 710;
+//            playerPositionY = 40;
+//        }
 
         EndDrawing();
     }
