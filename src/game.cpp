@@ -18,6 +18,7 @@ int main(void)
 
     // ウィンドウの初期化
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
+    SetTargetFPS(60);
 
     // 背景画像のロード
     Texture2D background = LoadTexture("resources/Textures/maptile_grasslands_one.png");  // 背景画像のパス
@@ -51,8 +52,6 @@ int main(void)
     camera.rotation = 0.0f;
     camera.zoom = 1.0f;
 
-    SetTargetFPS(60);
-
 
     // メインループ
     while (!WindowShouldClose())
@@ -74,8 +73,8 @@ int main(void)
         // カメラのターゲットをプレイヤーの位置に設定
         camera.target = playerPosition;
 
-            // 描画の開始
-            BeginDrawing();
+        // 描画の開始
+        BeginDrawing();
 
         // 背景色の設定（画像が描画される前に）
         ClearBackground(RAYWHITE);
@@ -198,8 +197,6 @@ int main(void)
 
     // 画像のアンロード
     UnloadTexture(background);
-    UnloadTexture(background);
-
     // ウィンドウを閉じる
     CloseWindow();
 
