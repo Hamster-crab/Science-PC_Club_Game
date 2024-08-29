@@ -42,8 +42,9 @@ int main()
     double satoTwoMP = 10000.0;
     double satoTwoMPMax = 1000000.0;
 
-    double playerHeartsMax = 20.0;
-    double playerHeart = 20.0;
+    double playerHPMax = 100.0;
+    double playerHPDefault = 20.0;
+    double playerHP = 20.0;
     double playerPositionX = 405.0;
     double playerPositionY = 305.0;
 // X 405 Y 305
@@ -80,230 +81,423 @@ int main()
 
     while (!WindowShouldClose())
     {
-        double currentTime = GetTime(); // 現在の時刻を取得
-
-        // プレイヤーの位置を更新
-        if (nextAttack == 1)
+        if (satoOneHP == 0 && satoTwoHP == 0)
         {
-            if (IsKeyDown(KEY_S)) playerPositionY += 10;
-            if (IsKeyDown(KEY_DOWN)) playerPositionY += 10;
-            if (IsKeyDown(KEY_W)) playerPositionY -= 5;
-            if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
-        }
-        else {
-            if (IsKeyDown(KEY_W)) playerPositionY -= 5;
-            if (IsKeyDown(KEY_A)) playerPositionX -= 5;
-            if (IsKeyDown(KEY_S)) playerPositionY += 5;
-            if (IsKeyDown(KEY_D)) playerPositionX += 5;
-            if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
-            if (IsKeyDown(KEY_DOWN)) playerPositionY += 5;
-            if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
-            if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
-        }
+            BeginDrawing();
 
-        if (IsKeyDown(KEY_Y))
+            ClearBackground(RAYWHITE);
+
+            DrawText("Game Over", 190, 200, 20, BLACK);
+
+            EndDrawing();
+        }
+        else if (bossHP < 0)
         {
-            if (satoOneMP > 100.0)
+            BeginDrawing();
+
+            ClearBackground(RAYWHITE);
+
+            DrawText("You Win   Fuckyou", 190, 200, 20, BLACK);
+
+            EndDrawing();
+        }
+        else
+        {
+            double currentTime = GetTime(); // 現在の時刻を取得
+
+            // プレイヤーの位置を更新
+            if (nextAttack == 1)
             {
-                if (satoOneHP < satoOneHPDefault)
-                {
-                    satoOneMP -= 20.0;
-                    if (satoOneHPDefault > 1)
-                    {
-                        satoOneHP += 0.05;
-                    }
 
+                int nofight = 0;
+                if (playerPositionY == 40)
+                {
+                    if (nofight == 0)
+                    {
+                        if (IsKeyDown(KEY_S))
+                        {
+                            playerPositionY = 58;
+                            nofight += 1;
+                        }
+                        if (IsKeyDown(KEY_DOWN))
+                        {
+                            playerPositionY = 58;
+                            nofight += 1;
+                        }
+                        else if (IsKeyUp(KEY_S))
+                        {
+                            nofight += 1;
+                        }
+                        else if (IsKeyUp(KEY_DOWN))
+                        {
+                            nofight += 1;
+                        }
+                    }
+                }
+
+                else if (playerPositionY == 58)
+                {
+                    if (nofight == 0)
+                    {
+                        if (IsKeyDown(KEY_W))
+                        {
+                            playerPositionY = 40;
+                            nofight += 1;
+                        }
+                        if (IsKeyDown(KEY_UP))
+                        {
+                            playerPositionY = 40;
+                            nofight += 1;
+                        }
+                        if (IsKeyDown(KEY_S))
+                        {
+                            if (nofight == 0)
+                            {
+                                playerPositionY = 78;
+                                nofight += 1;
+                            }
+                        }
+                        if (IsKeyDown(KEY_DOWN))
+                        {
+                            if (nofight == 0)
+                            {
+                                playerPositionY = 78;
+                                nofight += 1;
+                            }
+                        }
+                    }
+                    else if (IsKeyUp(KEY_S))
+                    {
+                        nofight = 0;
+                    }
+                    else if (IsKeyUp(KEY_DOWN))
+                    {
+                        nofight = 0;
+                    }
+                    else if (IsKeyUp(KEY_W))
+                    {
+                        nofight = 0;
+                    }
+                    else if (IsKeyUp(KEY_UP))
+                    {
+                        nofight = 0;
+                    }
+                }
+                else if (playerPositionY == 78)
+                {
+                    if (nofight == 0)
+                    {
+                        if (IsKeyDown(KEY_W))
+                        {
+                            playerPositionY = 78;
+                            nofight += 1;
+                        }
+                        if (IsKeyDown(KEY_UP))
+                        {
+                            playerPositionY = 78;
+                            nofight += 1;
+                        }
+//                    if (IsKeyDown(KEY_S))
+//                    {
+//                        playerPositionY = 99;
+//                        nofight += 1;
+//                    }
+//                    if (IsKeyDown(KEY_DOWN))
+//                    {
+//                        playerPositionY = 99;
+//                        nofight += 1;
+//                    }
+                    }
+                    else if (IsKeyUp(KEY_S))
+                    {
+                        nofight = 0;
+                    }
+                    else if (IsKeyUp(KEY_DOWN))
+                    {
+                        nofight = 0;
+                    }
+                    else if (IsKeyUp(KEY_W))
+                    {
+                        nofight = 0;
+                    }
+                    else if (IsKeyUp(KEY_UP))
+                    {
+                        nofight = 0;
+                    }
                 }
             }
-        }
+            else {
+                if (IsKeyDown(KEY_W)) playerPositionY -= 5;
+                if (IsKeyDown(KEY_A)) playerPositionX -= 5;
+                if (IsKeyDown(KEY_S)) playerPositionY += 5;
+                if (IsKeyDown(KEY_D)) playerPositionX += 5;
+                if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
+                if (IsKeyDown(KEY_DOWN)) playerPositionY += 5;
+                if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
+                if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
+            }
 
-        if (IsKeyDown(KEY_U))
-        {
-            if (satoTwoMP > 20.0)
+            if (IsKeyDown(KEY_Y))
             {
-                if (satoTwoHP < satoTwoHPDefault)
+                if (satoOneMP > 100.0)
                 {
-                    satoTwoMP -= 20.0;
-                    if (satoTwoHPDefault > 1)
+                    if (satoOneHP < satoOneHPDefault)
                     {
-                        satoTwoHP += 1.0;
+                        satoOneMP -= 20.0;
+                        if (satoOneHPDefault > 1)
+                        {
+                            satoOneHP += 0.05;
+                        }
+
                     }
-                    else
-                    {}
                 }
             }
-        }
+
+            if (IsKeyDown(KEY_U))
+            {
+                if (satoTwoMP > 20.0)
+                {
+                    if (satoTwoHP < satoTwoHPDefault)
+                    {
+                        satoTwoMP -= 20.0;
+                        if (satoTwoHPDefault > 1)
+                        {
+                            satoTwoHP += 1.0;
+                        }
+                        else
+                        {}
+                    }
+                }
+            }
 
 
-        // プレイヤーが枠の外に出ないように制限
-        if (nextAttack > 0)
-        {}
-        else {
-            if (playerPositionX < outerFrameX) playerPositionX = outerFrameX;
-            if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidthHeight)
-                playerPositionX = outerFrameX + outerFrameWidthHeight - playerRect.width;
+            // プレイヤーが枠の外に出ないように制限
+            if (nextAttack > 0)
+            {}
+            else {
+                if (playerPositionX < outerFrameX) playerPositionX = outerFrameX;
+                if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidthHeight)
+                    playerPositionX = outerFrameX + outerFrameWidthHeight - playerRect.width;
 
-            if (playerPositionY < outerFrameY) playerPositionY = outerFrameY;
-            if (playerPositionY + playerRect.height > outerFrameY + outerFrameWidthHeight)
-                playerPositionY = outerFrameY + outerFrameWidthHeight - playerRect.height;
-        }
+                if (playerPositionY < outerFrameY) playerPositionY = outerFrameY;
+                if (playerPositionY + playerRect.height > outerFrameY + outerFrameWidthHeight)
+                    playerPositionY = outerFrameY + outerFrameWidthHeight - playerRect.height;
+            }
 
-        // プレイヤーと攻撃の矩形を更新
-        playerRect.x = playerPositionX;
-        playerRect.y = playerPositionY;
+            // プレイヤーと攻撃の矩形を更新
+            playerRect.x = playerPositionX;
+            playerRect.y = playerPositionY;
 //         2秒経過したかをチェック
-        if (currentTime - startTime >= 1.5)
-        {
-            attackRect.x += 1;
-        }
-        // 4秒経過したかをチェック
-        if (currentTime - startTime >= 1.5)
-        {
-            attackRectTwo.y -= 1;
-        }
-        // 2秒経過したかをチェック
-        if (currentTime - startTime >= 1.5)
-        {
-            attackRectThree.x -= 1;
-        }
-        // 2秒経過したかをチェック
-        if (currentTime - startTime >= 1.5)
-        {
-            attackRectFour.y += 1;
-        }
+            if (currentTime - startTime >= 1.5)
+            {
+                attackRect.x += 1;
+            }
+            // 4秒経過したかをチェック
+            if (currentTime - startTime >= 1.5)
+            {
+                attackRectTwo.y -= 1;
+            }
+            // 2秒経過したかをチェック
+            if (currentTime - startTime >= 1.5)
+            {
+                attackRectThree.x -= 1;
+            }
+            // 2秒経過したかをチェック
+            if (currentTime - startTime >= 1.5)
+            {
+                attackRectFour.y += 1;
+            }
 
 
-        if(IsKeyDown(KEY_C))
-        {
-            if (satoOneMP > 0)
+            if(IsKeyDown(KEY_C))
             {
-                satoOneMP -= 10;
+                if (satoOneMP > 0)
+                {
+                    satoOneMP -= 10;
+                }
+                else if (satoOneMP == 0)
+                {
+                    satoTwoMP -= 10;
+                }
             }
-            else if (satoOneMP == 0)
-            {
-                satoTwoMP -= 10;
+            else {
+                if (satoOneHP > 0)
+                {
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRect))
+                    {
+                        satoOneHP -= 1.0;
+                        if (satoOneHP < 0) satoOneHP = 0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRectTwo))
+                    {
+                        satoOneHP -= 1.0;
+                        if (satoOneHP < 0) satoOneHP = 0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRectThree))
+                    {
+                        satoOneHP -= 1.0;
+                        if (satoOneHP < 0) satoOneHP = 0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRectFour))
+                    {
+                        satoOneHP -= 1.0;
+                        if (satoOneHP < 0) satoOneHP = 0;
+                    }
+                }
+                else
+                {
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRect))
+                    {
+                        satoTwoHP -= 1.0;
+                        if (satoTwoHP < 0) satoTwoHP = 0;
+                    }
+                    if (CheckCollisionRecs(playerRect, attackRectTwo))
+                    {
+                        satoTwoHP -= 1.0;
+                        if (satoTwoHP < 0) satoTwoHP = 0;
+                    }
+                    if (CheckCollisionRecs(playerRect, attackRectThree))
+                    {
+                        satoTwoHP -= 1.0;
+                        if (satoTwoHP < 0) satoTwoHP = 0;
+                    }
+                    if (CheckCollisionRecs(playerRect, attackRectFour))
+                    {
+                        satoTwoHP -= 1.0;
+                        if (satoTwoHP < 0) satoTwoHP = 0;
+                    }
+                }
+
+                if (currentTime - startTime >= 0.0000001)
+                {
+                    double currentTime = GetTime(); // 現在の時刻を取得
+                    if (currentTime - startTime >= 2.0)
+                    {
+                        if (satoOneMP < satoOneMPDefault)
+                        {
+                            satoOneMP += 10;
+                        } else if (satoOneMP == satoOneMPDefault && satoTwoMP == satoTwoMPDefault)
+                        {}
+                        else if (satoTwoMP < satoTwoMPDefault)
+                        {
+                            satoTwoMP += 10;
+                        }
+                    }
+                }
             }
-        }
-        else {
-            if (satoOneHP > 0)
+
+
+            BeginDrawing();
+
+            ClearBackground(RAYWHITE);
+
+            DrawRectangle(690, 7, 200, 110, BLUE);
+            DrawRectangle(700, 10, satoOneHPDefault, 10, RED);
+            DrawRectangle(700, 10, satoOneHP, 10, YELLOW);
+            DrawRectangle(700, 20, satoOneMP / 10.0, 10, DARKPURPLE);
+            if(nextAttack == 1)
             {
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, attackRect))
+                if (IsKeyUp(KEY_Z))
                 {
-                    satoOneHP -= 1.0;
-                    if (satoOneHP < 0) satoOneHP = 0;
+                    DrawText("Attack", 750, 38, 20, BLACK);
+                    DrawText("MP recovery", 750, 58, 20, BLACK);
+                    DrawText("Item", 750, 78, 20, BLACK);
+                    DrawText("Shield", 750, 98, 20, BLACK);
                 }
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, attackRectTwo))
+                else if (IsKeyDown(KEY_Z))
                 {
-                    satoOneHP -= 1.0;
-                    if (satoOneHP < 0) satoOneHP = 0;
-                }
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, attackRectThree))
-                {
-                    satoOneHP -= 1.0;
-                    if (satoOneHP < 0) satoOneHP = 0;
-                }
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, attackRectFour))
-                {
-                    satoOneHP -= 1.0;
-                    if (satoOneHP < 0) satoOneHP = 0;
+                    if (playerPositionY == 40)
+                    {
+                        DrawText("Attack", 750, 38, 20, BLACK);
+                        if (bossMP == 0)
+                        {
+                            bossHP -= 114514.0;
+                        }
+                        else
+                        {
+                            bossHP -= 20.0;
+                            bossMP -= 50.0;
+                        }
+                    }
+                    else if (playerPositionY == 58)
+                    {
+                        if (satoOneMP > 150)
+                        {
+                            if (satoOneHP > 150)
+                            {
+                                satoOneHP += 50;
+                                satoOneMP -= 150;
+                            }
+                            else if (satoOneHP < 150)
+                            {
+                                satoOneHP += 10;
+                                satoOneMP -= 200;
+                            }
+                            else if (satoOneHP == satoOneHPDefault)
+                            {}
+                        }
+                    }
                 }
             }
             else
             {
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, attackRect))
-                {
-                    satoTwoHP -= 1.0;
-                    if (satoTwoHP < 0) satoTwoHP = 0;
-                }
-                if (CheckCollisionRecs(playerRect, attackRectTwo))
-                {
-                    satoTwoHP -= 1.0;
-                    if (satoTwoHP < 0) satoTwoHP = 0;
-                }
-                if (CheckCollisionRecs(playerRect, attackRectThree))
-                {
-                    satoTwoHP -= 1.0;
-                    if (satoTwoHP < 0) satoTwoHP = 0;
-                }
-                if (CheckCollisionRecs(playerRect, attackRectFour))
-                {
-                    satoTwoHP -= 1.0;
-                    if (satoTwoHP < 0) satoTwoHP = 0;
-                }
+                DrawText("Attack", 750, 38, 20, BLACK);
+                DrawText("MP recovery", 750, 58, 20, BLACK);
+                DrawText("Item", 750, 78, 20, BLACK);
+                DrawText("Shield", 750, 98, 20, BLACK);
             }
+            DrawTexture(summonSatoOneTexture, 585, 13, WHITE);
 
-            if (currentTime - startTime >= 0.0000001)
+            DrawRectangle(690, 150, 200, 110, BLUE);
+            DrawRectangle(700, 154, satoTwoHPDefault, 10, RED);
+            DrawRectangle(700, 154, satoTwoHP, 10, YELLOW);
+            DrawRectangle(700, 164, satoTwoMP / 10.0, 10, DARKPURPLE);
+            DrawText("Attack", 750, 180, 20, BLACK);
+            DrawText("MP recovery", 750, 200, 20, BLACK);
+            DrawText("Item", 750, 220, 20, BLACK);
+            DrawText("Shield", 750, 240, 20, BLACK);
+            DrawTexture(summonSatoTwoTexture, 585, 158, WHITE);
+
+            DrawRectangle(690, 300, 200, 110, BLUE);
+//            DrawRectangle(700, 154, playerHPDefault, 10, RED);
+//            DrawRectangle(700, 154, playerHP, 10, YELLOW);
+//            DrawRectangle(700, 164, satoTwoMP / 10.0, 10, DARKPURPLE);
+//            DrawText("Attack", 750, 180, 20, BLACK);
+//            DrawText("MP recovery", 750, 200, 20, BLACK);
+//            DrawText("Item", 750, 220, 20, BLACK);
+//            DrawText("Shield", 750, 240, 20, BLACK);
+
+
+            DrawRectangle(10, 10, 50, 580, BLUE);
+            DrawRectangle(13, 15, 20, bossHP/200, YELLOW);
+            DrawRectangle(35, 15, 20, bossMP/200, DARKPURPLE);
+            DrawTexture(bossTexture, 30, 100, WHITE);
+
+            // 外側の矩形 (枠線)
+            DrawRectangle(outerFrameX, outerFrameY, outerFrameWidthHeight, outerFrameWidthHeight, BLACK);
+            // 内側の矩形 (背景色)
+            DrawRectangle(innerFrameX, innerFrameY, innerFrameWidthHeight, innerFrameWidthHeight, DARKPURPLE);
+            DrawTexture(attackTexture, attackRect.x, attackRect.y, WHITE);
+            DrawTexture(attackTexture, attackRectTwo.x, attackRectTwo.y, WHITE);
+            DrawTexture(attackTexture, attackRectThree.x, attackRectThree.y, WHITE);
+            DrawTexture(attackTexture, attackRectFour.x, attackRectFour.y, WHITE);
+
+            DrawRectangle(playerPositionX, playerPositionY, 18, 18, ORANGE);
+
+            if (attackRect.x == 650)
             {
-                double currentTime = GetTime(); // 現在の時刻を取得
-                if (currentTime - startTime >= 2.0)
-                {
-                    if (satoOneMP < satoOneMPDefault)
-                    {
-                        satoOneMP += 10;
-                    } else if (satoOneMP == satoOneMPDefault && satoTwoMP == satoTwoMPDefault)
-                    {}
-                    else if (satoTwoMP < satoTwoMPDefault)
-                    {
-                        satoTwoMP += 10;
-                    }
-                }
+                nextAttack += 1;
+                playerPositionX = 713;
+                playerPositionY = 58;
             }
+
+            EndDrawing();
         }
-
-
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE);
-
-        DrawRectangle(690, 7, 200, 110, BLUE);
-        DrawRectangle(700, 10, satoOneHPDefault, 10, RED);
-        DrawRectangle(700, 10, satoOneHP, 10, YELLOW);
-        DrawRectangle(700, 20, satoOneMP / 10.0, 10, DARKPURPLE);
-        DrawText("Attack", 750, 38, 20, BLACK);
-        DrawText("MP recovery", 750, 58, 20, BLACK);
-        DrawText("Item", 750, 78, 20, BLACK);
-        DrawText("Shield", 750, 98, 20, BLACK);
-        DrawTexture(summonSatoOneTexture, 585, 13, WHITE);
-
-        DrawRectangle(690, 150, 200, 110, BLUE);
-        DrawRectangle(700, 154, satoTwoHPDefault, 10, RED);
-        DrawRectangle(700, 154, satoTwoHP, 10, YELLOW);
-        DrawRectangle(700, 164, satoTwoMP / 10.0, 10, DARKPURPLE);
-        DrawText("Attack", 750, 180, 20, BLACK);
-        DrawText("MP recovery", 750, 200, 20, BLACK);
-        DrawText("Item", 750, 220, 20, BLACK);
-        DrawText("Shield", 750, 240, 20, BLACK);
-        DrawTexture(summonSatoTwoTexture, 585, 158, WHITE);
-
-        DrawRectangle(10, 10, 50, 580, BLUE);
-        DrawRectangle(13, 15, 20, 570, YELLOW);
-        DrawRectangle(35, 15, 20, 570, DARKPURPLE);
-        DrawTexture(bossTexture, 30, 100, WHITE);
-
-        // 外側の矩形 (枠線)
-        DrawRectangle(outerFrameX, outerFrameY, outerFrameWidthHeight, outerFrameWidthHeight, BLACK);
-        // 内側の矩形 (背景色)
-        DrawRectangle(innerFrameX, innerFrameY, innerFrameWidthHeight, innerFrameWidthHeight, DARKPURPLE);
-        DrawTexture(attackTexture, attackRect.x, attackRect.y, WHITE);
-        DrawTexture(attackTexture, attackRectTwo.x, attackRectTwo.y, WHITE);
-        DrawTexture(attackTexture, attackRectThree.x, attackRectThree.y, WHITE);
-        DrawTexture(attackTexture, attackRectFour.x, attackRectFour.y, WHITE);
-
-        DrawRectangle(playerPositionX, playerPositionY, 18, 18, ORANGE);
-
-//        if (attackRect.x == 600)
-//        {
-//            nextAttack += 1;
-//            playerPositionX = 710;
-//            playerPositionY = 40;
-//        }
-
-        EndDrawing();
     }
 
     CloseWindow(); // Close window and OpenGL context

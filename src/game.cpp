@@ -24,7 +24,6 @@ int main(void)
     Texture2D background = LoadTexture("resources/Textures/maptile_grasslands_one.png");  // 背景画像のパス
 
     Image playerTextureTexture = LoadImage("resources/Textures/player/playerImage.png");
-    Image playerHeartsImageImage = LoadImage("resources/Textures/playerHeart.png");
     Image playerFullStomachImageImage = LoadImage("resources/Textures/Beef.png");
     Image playerWaterFullImageImage = LoadImage("resources/Textures/Water-full.png");
 
@@ -32,7 +31,6 @@ int main(void)
     int playerHeight = 200;
     // 画像サイズを変更
     ImageResize(&playerTextureTexture, playerWidth, playerHeight);
-//    ImageResize(&playerHeartsImageImage, 30, 30);
     ImageResize(&playerFullStomachImageImage, 30, 30);
     ImageResize(&playerWaterFullImageImage, 30, 30);
 
@@ -109,15 +107,7 @@ int main(void)
         DrawTexture(playerTexture, playerPosition.x -100, playerPosition.y - 100, WHITE);
 
         int playerHeartsPositionXOne = playerPosition.x - 440;
-        int playerHeartsPositionXTwo = playerPosition.x - 406;
-        int playerHeartsPositionXThree = playerPosition.x - 372;
         int playerHeartsPositionXFour = playerPosition.x - 338;
-        int playerHeartsPositionXFive = playerPosition.x - 304;
-        int playerHeartsPositionXSix = playerPosition.x - 270;
-        int playerHeartsPositionXSeven = playerPosition.x - 236;
-        int playerHeartsPositionXEight = playerPosition.x - 202;
-        int playerHeartsPositionXNine = playerPosition.x - 168;
-        int playerHeartsPositionXTen = playerPosition.x - 134;
 
         int playerFullStomachPositionXOne = playerPosition.x + 75;
         int playerFullStomachPositionXTwo = playerPosition.x + 113;
