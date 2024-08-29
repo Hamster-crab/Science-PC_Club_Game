@@ -13,8 +13,9 @@ int main(void)
     double playerHeartsMax = 40.0;
     double playerHeartsDefault = 20.0;
     double playerHearts = 20.0;
-//    double mpDefault = 1000.0;
-//    double playerMP = 1000.0;
+    double playerMP = 200.0;
+    double playerMPDefault = 200.0;
+    double playerMPMax = 1000.0;
 
     // ウィンドウの初期化
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
@@ -54,6 +55,29 @@ int main(void)
     // メインループ
     while (!WindowShouldClose())
     {
+        if (IsKeyDown(KEY_Y))
+        {
+            if (playerMP > 50.0)
+            {
+                if (playerHearts < playerHeartsDefault)
+                {
+                    playerMP -= 50.0;
+                    if (playerHeartsDefault > 1)
+                    {
+                        playerHearts += 0.5;
+                    }
+
+                }
+            }
+        }
+        else if (IsKeyUp(KEY_Y))
+        {
+            if (playerMPDefault > playerMP)
+            {
+                playerMP += 1.0;
+            }
+        }
+
         // プレイヤーの位置を更新
         if (IsKeyDown(KEY_D)) playerPosition.x += playerSpeed;
         if (IsKeyDown(KEY_A)) playerPosition.x -= playerSpeed;
@@ -134,6 +158,11 @@ int main(void)
         playerHeartsOutput << playerHearts << " / " << playerHeartsDefault;
         std::string playerHeartsText = playerHeartsOutput.str();
 
+        // 変数を表示するための文字列を生成
+        std::ostringstream playerMPOutput;
+        playerMPOutput << playerMP << "/" << playerMPDefault;
+        std::string playerMPText = playerMPOutput.str();
+
         // playerのxy表示
         std::ostringstream playerXY;
         playerXY << "X : " << playerPosition.x << "\n\n" << "Y : " << playerPosition.y;
@@ -151,6 +180,10 @@ int main(void)
 
         DrawRectangle(playerHeartsPositionXFour, playerHeartsPositionYOne, playerHeartsDefault * 12, 20, RED);
         DrawRectangle(playerHeartsPositionXFour, playerHeartsPositionYOne, playerHearts * 12, 20, YELLOW);
+
+        DrawText(playerMPText.c_str(), playerHeartsPositionXOne, playerHeartsPositionYOne - 30, 20, BLACK);  // 変数の内容を表示
+        DrawRectangle(playerHeartsPositionXFour, playerHeartsPositionYOne - 30, playerMPDefault / 3, 20, RED);
+        DrawRectangle(playerHeartsPositionXFour, playerHeartsPositionYOne - 30, playerMP / 3, 20, DARKPURPLE);
 
         // 飯ゲージ
         DrawTexture(playerFullStomachImage, playerFullStomachPositionXOne, playerFullStomachPositionY, WHITE);

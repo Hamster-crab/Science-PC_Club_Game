@@ -26,15 +26,16 @@ int main()
     double startTime = GetTime(); // 開始時刻を取得
 
     double bossHPDefault = 114514.0;
+
     double bossHP = 114514.0;
     double bossMPDefault = 114514.0;
     double bossMP = 114514.0;
 
     double satoOneHP = 100.0;
     double satoOneHPDefault = 100.0;
-    double satoOneMPDefault = 300.0;
-    double satoOneMP = 300.0;
-    double satoOneMPMax = 1000.0;
+    double satoOneMPDefault = 1000.0;
+    double satoOneMP = 1000.0;
+    double satoOneMPMax = 10000.0;
 
     double satoTwoHP = 50.0;
     double satoTwoHPDefault = 50.0;
@@ -53,22 +54,30 @@ int main()
     Image summonSatoTwoTextureTexture = LoadImage("resources/Partner-Sato/SatoSeenFromAbove.png");
     Image bossTextureTexture = LoadImage("resources/Bosses/faceOfBroccoli/material/hand.png");
     Image attackTextureTexture = LoadImage("resources/Textures/boiled_egg.png");
+    Image playerTextureTexture = LoadImage("resources/Textures/player/playerImage.png");
+    Image playerTextureGreenTexture = LoadImage("resources/Textures/Beef.png");
 
     ImageResize(&summonSatoOneTextureTexture, 100, 100);
     ImageResize(&summonSatoTwoTextureTexture, 100, 100);
     ImageResize(&bossTextureTexture, 300, 300);
     ImageResize(&attackTextureTexture, 50, 50);
+    ImageResize(&playerTextureTexture, 18, 18);
+    ImageResize(&playerTextureGreenTexture, 18, 18);
 
     Texture2D summonSatoOneTexture = LoadTextureFromImage(summonSatoOneTextureTexture);
     Texture2D summonSatoTwoTexture = LoadTextureFromImage(summonSatoTwoTextureTexture);
     Texture2D bossTexture = LoadTextureFromImage(bossTextureTexture);
     Texture2D attackTexture = LoadTextureFromImage(attackTextureTexture);
+    Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
+    Texture2D playerTextureGreen = LoadTextureFromImage(playerTextureGreenTexture);
 
     // 不要なイメージデータを解放
     UnloadImage(summonSatoOneTextureTexture);
     UnloadImage(summonSatoTwoTextureTexture);
     UnloadImage(bossTextureTexture);
     UnloadImage(attackTextureTexture);
+    UnloadImage(playerTextureTexture);
+    UnloadImage(playerTextureGreenTexture);
 
     Rectangle playerRect = { playerPositionX, playerPositionY, 30, 30 }; // ここのコード修正したら殺す
     Rectangle attackRect = { 205, 305, 50, 50 };
@@ -166,22 +175,6 @@ int main()
                             }
                         }
                     }
-                    else if (IsKeyUp(KEY_S))
-                    {
-                        nofight = 0;
-                    }
-                    else if (IsKeyUp(KEY_DOWN))
-                    {
-                        nofight = 0;
-                    }
-                    else if (IsKeyUp(KEY_W))
-                    {
-                        nofight = 0;
-                    }
-                    else if (IsKeyUp(KEY_UP))
-                    {
-                        nofight = 0;
-                    }
                 }
                 else if (playerPositionY == 78)
                 {
@@ -189,12 +182,12 @@ int main()
                     {
                         if (IsKeyDown(KEY_W))
                         {
-                            playerPositionY = 78;
+                            playerPositionY = 58;
                             nofight += 1;
                         }
                         if (IsKeyDown(KEY_UP))
                         {
-                            playerPositionY = 78;
+                            playerPositionY = 58;
                             nofight += 1;
                         }
 //                    if (IsKeyDown(KEY_S))
@@ -208,14 +201,14 @@ int main()
 //                        nofight += 1;
 //                    }
                     }
-                    else if (IsKeyUp(KEY_S))
-                    {
-                        nofight = 0;
-                    }
-                    else if (IsKeyUp(KEY_DOWN))
-                    {
-                        nofight = 0;
-                    }
+//                    else if (IsKeyUp(KEY_S))
+//                    {
+//                        nofight = 0;
+//                    }
+//                    else if (IsKeyUp(KEY_DOWN))
+//                    {
+//                        nofight = 0;
+//                    }
                     else if (IsKeyUp(KEY_W))
                     {
                         nofight = 0;
@@ -264,8 +257,6 @@ int main()
                         {
                             satoTwoHP += 1.0;
                         }
-                        else
-                        {}
                     }
                 }
             }
@@ -414,15 +405,9 @@ int main()
                     if (playerPositionY == 40)
                     {
                         DrawText("Attack", 750, 38, 20, BLACK);
-                        if (bossMP == 0)
-                        {
-                            bossHP -= 114514.0;
-                        }
-                        else
-                        {
-                            bossHP -= 20.0;
-                            bossMP -= 50.0;
-                        }
+                        bossHP -= 40.0;
+                        bossMP -= 100.0;
+                        nextnextAttack++;
                     }
                     else if (playerPositionY == 58)
                     {
@@ -463,14 +448,14 @@ int main()
             DrawText("Shield", 750, 240, 20, BLACK);
             DrawTexture(summonSatoTwoTexture, 585, 158, WHITE);
 
-            DrawRectangle(690, 300, 200, 110, BLUE);
-//            DrawRectangle(700, 154, playerHPDefault, 10, RED);
-//            DrawRectangle(700, 154, playerHP, 10, YELLOW);
-//            DrawRectangle(700, 164, satoTwoMP / 10.0, 10, DARKPURPLE);
-//            DrawText("Attack", 750, 180, 20, BLACK);
-//            DrawText("MP recovery", 750, 200, 20, BLACK);
-//            DrawText("Item", 750, 220, 20, BLACK);
-//            DrawText("Shield", 750, 240, 20, BLACK);
+            DrawRectangle(690, 400, 200, 110, BLUE);
+            DrawRectangle(700, 404, playerHPDefault, 10, RED);
+            DrawRectangle(700, 404, playerHP, 10, YELLOW);
+            DrawRectangle(700, 414, playerMP / 10.0, 10, DARKPURPLE);
+            DrawText("Attack", 750, 434, 20, BLACK);
+            DrawText("MP recovery", 750, 454, 20, BLACK);
+            DrawText("Item", 750, 472, 20, BLACK);
+            DrawText("Shield", 750, 490, 20, BLACK);
 
 
             DrawRectangle(10, 10, 50, 580, BLUE);
@@ -487,7 +472,14 @@ int main()
             DrawTexture(attackTexture, attackRectThree.x, attackRectThree.y, WHITE);
             DrawTexture(attackTexture, attackRectFour.x, attackRectFour.y, WHITE);
 
-            DrawRectangle(playerPositionX, playerPositionY, 18, 18, ORANGE);
+            if (IsKeyDown(KEY_C))
+            {
+                DrawTexture(playerTextureGreen, playerPositionX, playerPositionY, WHITE);
+            }
+            else if (IsKeyUp(KEY_C))
+            {
+                DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
+            }
 
             if (attackRect.x == 650)
             {
