@@ -493,14 +493,9 @@ int main()
             DrawText("Shield", 750, 240, 20, BLACK);
             DrawTexture(summonSatoTwoTexture, 585, 158, WHITE);
 
-            DrawRectangle(690, 400, 200, 110, BLUE);
-            DrawRectangle(700, 404, playerHPDefault, 10, RED);
-            DrawRectangle(700, 404, playerHP, 10, YELLOW);
-            DrawRectangle(700, 414, playerMP / 10.0, 10, DARKPURPLE);
-            DrawText("Attack", 750, 434, 20, BLACK);
-            DrawText("MP recovery", 750, 454, 20, BLACK);
-            DrawText("Item", 750, 472, 20, BLACK);
-            DrawText("Shield", 750, 490, 20, BLACK);
+            DrawRectangle(180, 540, playerHPDefault * 5, 10, RED);
+            DrawRectangle(180, 540, playerHP * 5, 15, YELLOW);
+            DrawRectangle(180, 554, playerMP / 5.0, 15, DARKPURPLE);
 
 
             DrawRectangle(10, 10, 50, 580, BLUE);
