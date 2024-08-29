@@ -8,7 +8,7 @@ int main()
     SetTargetFPS(60);
 
     int nextAttack = 0;
-    int nextnextAttack = 1;
+    int nextnextAttack = 0;
 
     int outerFrameX = 300;
     int outerFrameY = 200;
@@ -218,7 +218,44 @@ int main()
                         nofight = 0;
                     }
                 }
+                else if (nextnextAttack == 180)
+                {
+                    int nofight = 0;
+                    if (playerPositionY == 40)
+                    {
+                        if (nofight == 0)
+                        {
+                            if (IsKeyDown(KEY_S))
+                            {
+                                playerPositionY = 200;
+                                nofight += 1;
+                            }
+                            if (IsKeyDown(KEY_DOWN))
+                            {
+                                playerPositionY = 200;
+                                nofight += 1;
+                            }
+                            else if (IsKeyUp(KEY_S))
+                            {
+                                nofight += 1;
+                            }
+                            else if (IsKeyUp(KEY_DOWN))
+                            {
+                                nofight += 1;
+                            }
+                        }
+                    }
+                }
+                else if (IsKeyUp(KEY_S))
+                {
+                    nofight = 0;
+                }
+                else if (IsKeyUp(KEY_DOWN))
+                {
+                    nofight = 0;
+                }
             }
+
             else {
                 if (IsKeyDown(KEY_W)) playerPositionY -= 5;
                 if (IsKeyDown(KEY_A)) playerPositionX -= 5;
@@ -407,6 +444,7 @@ int main()
                         DrawText("Attack", 750, 38, 20, BLACK);
                         bossHP -= 40.0;
                         bossMP -= 100.0;
+                        playerPositionY = 180;
                         nextnextAttack++;
                     }
                     else if (playerPositionY == 58)
@@ -426,6 +464,13 @@ int main()
                             else if (satoOneHP == satoOneHPDefault)
                             {}
                         }
+                    }
+                    else if (playerPositionY == 180)
+                    {
+                        bossHP -= 40.0;
+                        bossMP -= 100.0;
+                        playerPositionY = 180;
+                        nextnextAttack++;
                     }
                 }
             }
@@ -485,9 +530,8 @@ int main()
             {
                 nextAttack += 1;
                 playerPositionX = 713;
-                playerPositionY = 58;
+                playerPositionY = 40;
             }
-
             EndDrawing();
         }
     }
