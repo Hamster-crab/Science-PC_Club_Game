@@ -115,145 +115,18 @@ int main()
             double currentTime = GetTime(); // 現在の時刻を取得
 
             // プレイヤーの位置を更新
-            if (nextAttack == 1)
+            if (playerPositionY == 40)
             {
-
-                int nofight = 0;
-                if (playerPositionY == 40)
-                {
-                    if (nofight == 0)
-                    {
-                        if (IsKeyDown(KEY_S))
-                        {
-                            playerPositionY = 58;
-                            nofight += 1;
-                        }
-                        if (IsKeyDown(KEY_DOWN))
-                        {
-                            playerPositionY = 58;
-                            nofight += 1;
-                        }
-                        else if (IsKeyUp(KEY_S))
-                        {
-                            nofight += 1;
-                        }
-                        else if (IsKeyUp(KEY_DOWN))
-                        {
-                            nofight += 1;
-                        }
-                    }
-                }
-
-                else if (playerPositionY == 58)
-                {
-                    if (nofight == 0)
-                    {
-                        if (IsKeyDown(KEY_W))
-                        {
-                            playerPositionY = 40;
-                            nofight += 1;
-                        }
-                        if (IsKeyDown(KEY_UP))
-                        {
-                            playerPositionY = 40;
-                            nofight += 1;
-                        }
-                        if (IsKeyDown(KEY_S))
-                        {
-                            if (nofight == 0)
-                            {
-                                playerPositionY = 78;
-                                nofight += 1;
-                            }
-                        }
-                        if (IsKeyDown(KEY_DOWN))
-                        {
-                            if (nofight == 0)
-                            {
-                                playerPositionY = 78;
-                                nofight += 1;
-                            }
-                        }
-                    }
-                }
-                else if (playerPositionY == 78)
-                {
-                    if (nofight == 0)
-                    {
-                        if (IsKeyDown(KEY_W))
-                        {
-                            playerPositionY = 58;
-                            nofight += 1;
-                        }
-                        if (IsKeyDown(KEY_UP))
-                        {
-                            playerPositionY = 58;
-                            nofight += 1;
-                        }
-//                    if (IsKeyDown(KEY_S))
-//                    {
-//                        playerPositionY = 99;
-//                        nofight += 1;
-//                    }
-//                    if (IsKeyDown(KEY_DOWN))
-//                    {
-//                        playerPositionY = 99;
-//                        nofight += 1;
-//                    }
-                    }
-//                    else if (IsKeyUp(KEY_S))
-//                    {
-//                        nofight = 0;
-//                    }
-//                    else if (IsKeyUp(KEY_DOWN))
-//                    {
-//                        nofight = 0;
-//                    }
-                    else if (IsKeyUp(KEY_W))
-                    {
-                        nofight = 0;
-                    }
-                    else if (IsKeyUp(KEY_UP))
-                    {
-                        nofight = 0;
-                    }
-                }
-                else if (nextnextAttack == 180)
-                {
-                    int nofight = 0;
-                    if (playerPositionY == 40)
-                    {
-                        if (nofight == 0)
-                        {
-                            if (IsKeyDown(KEY_S))
-                            {
-                                playerPositionY = 200;
-                                nofight += 1;
-                            }
-                            if (IsKeyDown(KEY_DOWN))
-                            {
-                                playerPositionY = 200;
-                                nofight += 1;
-                            }
-                            else if (IsKeyUp(KEY_S))
-                            {
-                                nofight += 1;
-                            }
-                            else if (IsKeyUp(KEY_DOWN))
-                            {
-                                nofight += 1;
-                            }
-                        }
-                    }
-                }
-                else if (IsKeyUp(KEY_S))
-                {
-                    nofight = 0;
-                }
-                else if (IsKeyUp(KEY_DOWN))
-                {
-                    nofight = 0;
-                }
+                if (IsKeyDown(KEY_DOWN)) playerPositionY += 0.0000001;
+                if (IsKeyDown(KEY_S))
+                {}
+            }
+            else if (playerPositionY == 98)
+            {
+                if (IsKeyDown(KEY_UP))
+                {}
+                if (IsKeyDown(KEY_W))
+                {}
             }
 
             else {
@@ -301,7 +174,28 @@ int main()
 
             // プレイヤーが枠の外に出ないように制限
             if (nextAttack > 0)
-            {}
+            {
+                if (nextnextAttack == 1)
+                {
+                    if (playerPositionX < 714) playerPositionX = 714;
+                    if (playerPositionX + playerRect.width > 714 + 40)
+                        playerPositionX = 714 + 40 - playerRect.width;
+
+                    if (playerPositionY < 40) playerPositionY = 40;
+                    if (playerPositionY + playerRect.height > 95 + 40)
+                        playerPositionY = 95 + 40 - playerRect.height;
+                }
+                if (nextnextAttack == 2)
+                {
+                    if (playerPositionX < 714) playerPositionX = 714;
+                    if (playerPositionX + playerRect.width > 714 + 40)
+                        playerPositionX = 714 + 40 - playerRect.width;
+
+                    if (playerPositionY < 180) playerPositionY = 180;
+                    if (playerPositionY + playerRect.height > 96 + 180)
+                        playerPositionY = 96 + 180 - playerRect.height;
+                }
+            }
             else {
                 if (playerPositionX < outerFrameX) playerPositionX = outerFrameX;
                 if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidthHeight)
@@ -437,40 +331,74 @@ int main()
                     DrawText("Item", 750, 78, 20, BLACK);
                     DrawText("Shield", 750, 98, 20, BLACK);
                 }
-                else if (IsKeyDown(KEY_Z))
+                if (playerPositionY == 40)
                 {
-                    if (playerPositionY == 40)
+                    if (IsKeyDown(KEY_Z))
                     {
-                        DrawText("Attack", 750, 38, 20, BLACK);
-                        bossHP -= 40.0;
-                        bossMP -= 100.0;
+                        bossHP -= 100.0;
+                        bossMP -= 300.0;
+                        satoOneMP -= 150.0;
                         playerPositionY = 180;
                         nextnextAttack++;
                     }
-                    else if (playerPositionY == 58)
+                    else
+                    {
+                        DrawText("Attack", 750, 38, 20, WHITE);
+                    }
+                }
+                else if (playerPositionY >= 55 && playerPositionY <= 64)
+                {
+                    if (IsKeyDown(KEY_Z))
                     {
                         if (satoOneMP > 150)
                         {
+                            playerPositionY = 180;
                             if (satoOneHP > 150)
                             {
                                 satoOneHP += 50;
                                 satoOneMP -= 150;
+                                nextnextAttack++;
                             }
                             else if (satoOneHP < 150)
                             {
                                 satoOneHP += 10;
                                 satoOneMP -= 200;
+                                nextnextAttack++;
                             }
                             else if (satoOneHP == satoOneHPDefault)
                             {}
                         }
                     }
-                    else if (playerPositionY == 180)
+                    else
                     {
-                        bossHP -= 40.0;
-                        bossMP -= 100.0;
+                        DrawText("MP recovery", 750, 58, 20, WHITE);
+                    }
+                }
+                else if (playerPositionY >= 75 && playerPositionY <= 85)
+                {
+                    if (IsKeyDown(KEY_Z))
+                    {
+                        playerPositionY = 180;
+//                        bossHP -= 40.0;
+//                        bossMP -= 100.0;
+//                        playerPositionY = 180;
+                        nextnextAttack++;
+                    }
+                    else
+                    {
+                        DrawText("Item", 750, 78, 20, WHITE);
+                    }
+                }
+                else if (playerPositionY >= 90 && playerPositionY <= 105)
+                {
+                    if (IsKeyDown(KEY_Z))
+                    {
                         playerPositionY = 180;
                         nextnextAttack++;
+                    }
+                    else
+                    {
+                        DrawText("Shield", 750, 98, 20, WHITE);
                     }
                 }
             }
@@ -487,10 +415,92 @@ int main()
             DrawRectangle(700, 154, satoTwoHPDefault, 10, RED);
             DrawRectangle(700, 154, satoTwoHP, 10, YELLOW);
             DrawRectangle(700, 164, satoTwoMP / 10.0, 10, DARKPURPLE);
-            DrawText("Attack", 750, 180, 20, BLACK);
-            DrawText("MP recovery", 750, 200, 20, BLACK);
-            DrawText("Item", 750, 220, 20, BLACK);
-            DrawText("Shield", 750, 240, 20, BLACK);
+            if (nextnextAttack == 2)
+            {
+                if (IsKeyUp(KEY_Z))
+                {
+                    DrawText("Attack", 750, 180, 20, BLACK);
+                    DrawText("MP recovery", 750, 200, 20, BLACK);
+                    DrawText("Item", 750, 220, 20, BLACK);
+                    DrawText("Shield", 750, 240, 20, BLACK);
+                }
+                if (playerPositionY >= 180 && playerPositionY <= 190)
+                {
+                    if (IsKeyDown(KEY_Z))
+                    {
+                        bossHP -= 50.0;
+                        bossMP -= 250.0;
+                        satoTwoMP -= 10.0;
+//                        playerPositionY = 300;
+                        nextAttack++;
+                    }
+                    else
+                    {
+                        DrawText("Attack", 750, 180, 20, WHITE);
+                    }
+                }
+                else if (playerPositionY >= 195 && playerPositionY <= 209)
+                {
+                    if (IsKeyDown(KEY_Z))
+                    {
+                        if (satoTwoMP > 150)
+                        {
+                            playerPositionY = 180;
+                            if (satoTwoHP > 150)
+                            {
+                                satoTwoHP += 50;
+                                satoTwoMP -= 150;
+                                nextnextAttack++;
+                            }
+                            else if (satoTwoHP < 150)
+                            {
+                                satoTwoHP += 10;
+                                satoTwoMP -= 200;
+                                nextnextAttack++;
+                            }
+                            else if (satoTwoHP == satoTwoHPDefault)
+                            {
+                                satoTwoHP += 100;
+                                satoTwoHP -= 1000;
+                            }
+                        }
+                        nextnextAttack++;
+                    }
+                    else
+                    {
+                        DrawText("MP recovery", 750, 200, 20, WHITE);
+                    }
+                }
+                else if (playerPositionY >= 213 && playerPositionY <= 225)
+                {
+                    if (IsKeyDown(KEY_Z))
+                    {
+                        nextnextAttack++;
+                    }
+                    else
+                    {
+                        DrawText("Item", 750, 220, 20, WHITE);
+                    }
+                }
+                else if (playerPositionY >= 234 && playerPositionY <= 246)
+                {
+                    if (IsKeyDown(KEY_Z))
+                    {
+                        nextnextAttack++;
+                    }
+                    else
+                    {
+                        DrawText("Shield", 750, 240, 20, WHITE);
+                    }
+                }
+            }
+            else
+            {
+                DrawText("Attack", 750, 180, 20, BLACK);
+                DrawText("MP recovery", 750, 200, 20, BLACK);
+                DrawText("Item", 750, 220, 20, BLACK);
+                DrawText("Shield", 750, 240, 20, BLACK);
+            }
             DrawTexture(summonSatoTwoTexture, 585, 158, WHITE);
 
             DrawRectangle(180, 540, playerHPDefault * 5, 10, RED);
@@ -523,7 +533,8 @@ int main()
 
             if (attackRect.x == 650)
             {
-                nextAttack += 1;
+                nextAttack++;
+                nextnextAttack++;
                 playerPositionX = 713;
                 playerPositionY = 40;
             }
