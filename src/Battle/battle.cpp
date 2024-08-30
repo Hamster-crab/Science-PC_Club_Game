@@ -7,6 +7,9 @@ int main()
     InitWindow(screenWidth, screenHeight, "Raylib [Core] Example - Draw Square");
     SetTargetFPS(60);
 
+    // オーディオデバイスを初期化
+    InitAudioDevice();
+
     int nextAttack = 0;
     int nextnextAttack = 0;
 
@@ -49,6 +52,10 @@ int main()
     double playerPositionX = 405.0;
     double playerPositionY = 305.0;
 // X 405 Y 305
+
+    Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
+    // 音楽の再生を開始
+    PlayMusicStream(sampleBGM);
 
     Image summonSatoOneTextureTexture = LoadImage("resources/Partner-Sato/GanGimariSato.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/Partner-Sato/SatoSeenFromAbove.png");
@@ -113,6 +120,9 @@ int main()
         else
         {
             double currentTime = GetTime(); // 現在の時刻を取得
+
+            // 音楽ストリームを更新
+            UpdateMusicStream(sampleBGM);
 
             // プレイヤーの位置を更新
             if (playerPositionY == 40)
@@ -541,6 +551,12 @@ int main()
             EndDrawing();
         }
     }
+
+    // 音楽ストリームをアンロード
+    UnloadMusicStream(sampleBGM);
+
+    // オーディオデバイスを閉じる
+    CloseAudioDevice();
 
     CloseWindow(); // Close window and OpenGL context
 
