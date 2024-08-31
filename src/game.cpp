@@ -22,6 +22,9 @@ int main(void)
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
     SetTargetFPS(60);
 
+    // オーディオデバイスを初期化
+    InitAudioDevice();
+
     // 背景画像のロード
     Image backgroundImage = LoadImage("resources/Nomal-World/GameMap.png");  // 背景画像のパス
     Image playerTextureTexture = LoadImage("resources/Textures/player/playerImage.png");
@@ -48,6 +51,9 @@ int main(void)
     Texture2D playerWaterEmptyImage = LoadTextureFromImage(playerWaterEmptyImageImage);
     Texture2D background = LoadTextureFromImage(backgroundImage);
 
+    Music mainBGM = LoadMusicStream("music/mainBGM.mp3");
+    // 音楽の再生を開始
+    PlayMusicStream(mainBGM);
 
     // プレイヤーの初期設定
     Vector2 playerPosition = { screenWidth / 2.0f - playerTexture.width / 2.0f, screenHeight / 2.0f - playerTexture.height / 2.0f };
@@ -63,6 +69,8 @@ int main(void)
     // メインループ
     while (!WindowShouldClose())
     {
+        // 音楽ストリームを更新
+        UpdateMusicStream(mainBGM);
         if (IsKeyDown(KEY_Y))
         {
             if (playerMP > 50.0)
