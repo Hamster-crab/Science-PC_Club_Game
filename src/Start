@@ -2,7 +2,7 @@ Linux
 {
 -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 
-g++ main.cpp -o main -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
+g++ src/main.cpp -o main -lraylib -lGL -lm -lpthread -ldl -lrt -lX11
 }
 
 Windows
