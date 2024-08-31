@@ -1,0 +1,36 @@
+{
+  "Hayashi_Meat": {
+    "name": "Hayashi_Meat",
+    "recovery": "full",
+    "image": "resources/Physical-strength_recovery_item/Hayashi_Meat.jpg",
+    "howToGet": "treasureChest"
+  },
+  "JPHamburgSteak": {
+    "name": "JPHamburgSteak",
+    "recovery": 10,
+    "image": "resources/Physical-strength_recovery_item/JPHamburgSteak.jpg",
+    "howToGet": "cooking"
+  },
+  "chilledChineseNoodles": {
+    "name": "chilledChineseNoodles",
+    "recovery": 84,
+    "howToGet": "treasureChest"
+  },
+  "Onion": {
+    "name": "Onion",
+    "recovery": 5,
+    "image": "resources/Physical-strength_recovery_item/Onion.jpg",
+    "howToGet": "purchase"
+  },
+  "cucumberAndTomatoWithSesamePaste": {
+    "name": "cucumberAndTomatoWithSesamePaste",
+    "recovery": 6,
+    "image": "resources/Physical-strength_recovery_item/cucumberAndTomatoWithSesamePaste.jpg",
+    "howToGet": "cooking"
+  },
+  "headOfAClub": {
+    "name": "headOfAClub",
+    "recovery": -19,
+    "howToGet": "cheat"
+  }
+}

@@ -5,7 +5,7 @@ JPHamburgSteak.jpg : 10
                    : 調理
 
 chilledChineseNoodles.jpg : 84
-                          : 宝箱の中
+                          : 宝箱
 
 Onion.jpg : 5
           : 西で10BCで購入
