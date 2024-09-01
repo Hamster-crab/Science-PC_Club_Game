@@ -88,7 +88,7 @@ int main()
     UnloadImage(playerTextureTexture);
     UnloadImage(playerTextureGreenTexture);
 
-    Rectangle playerRect = { playerPositionX, playerPositionY, 30, 30 }; // ここのコード修正したら殺す
+    Rectangle playerRect = { playerPositionX, playerPositionY, 30, 30 };
     Rectangle attackRect = { 205, 305, 50, 50 };
 
     Rectangle attackRectTwo = { 400, 500, 50, 50 };
@@ -125,7 +125,12 @@ int main()
 
             // 音楽ストリームを更新
             UpdateMusicStream(sampleBGM);
-
+            
+            if (nextAttack > 0)
+            {
+              outerFrameX == 610;
+              innerFrameX == 600;
+            }
             // プレイヤーの位置を更新
             if (playerPositionY == 40)
             {
