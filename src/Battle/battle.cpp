@@ -59,8 +59,8 @@ int main()
     // 音楽の再生を開始
     PlayMusicStream(sampleBGM);
 
-    Image summonSatoOneTextureTexture = LoadImage("resources/Partner-Sato/GanGimariSato.png");
-    Image summonSatoTwoTextureTexture = LoadImage("resources/Partner-Sato/SatoSeenFromAbove.png");
+    Image summonSatoOneTextureTexture = LoadImage("resources/hamster/dededon.png");
+    Image summonSatoTwoTextureTexture = LoadImage("resources/hamster/waterBug.png");
     Image bossTextureTexture = LoadImage("resources/Bosses/faceOfBroccoli/material/hand.png");
     Image attackTextureTexture = LoadImage("resources/Textures/boiled_egg.png");
     Image playerTextureTexture = LoadImage("resources/Textures/player/playerImage.png");
@@ -88,7 +88,7 @@ int main()
     UnloadImage(playerTextureTexture);
     UnloadImage(playerTextureGreenTexture);
 
-    Rectangle playerRect = { playerPositionX, playerPositionY, 30, 30 };
+    Rectangle playerRect = { static_cast<float>(playerPositionX), static_cast<float>(playerPositionY), 30, 30 };
     Rectangle attackRect = { 205, 305, 50, 50 };
 
     Rectangle attackRectTwo = { 400, 500, 50, 50 };
@@ -343,7 +343,7 @@ int main()
                             if (satoTwoHP < 0) satoTwoHP = 0;
                         }
                     }
-                    if (satoTwoShield)
+                    if (satoTwoShield < 0)
                     {
                         // 当たり判定
                         if (CheckCollisionRecs(playerRect, attackRect))
@@ -485,6 +485,10 @@ int main()
                 DrawText("Shield", 750, 98, 20, BLACK);
             }
             DrawTexture(summonSatoOneTexture, 585, 13, WHITE);
+            if (satoOneHP < 0)
+            {
+                DrawText("Down", 585, 13, 20, BLACK);
+            }
 
             DrawRectangle(690, 150, 200, 110, BLUE);
             DrawRectangle(700, 154, satoTwoHPDefault, 10, RED);
