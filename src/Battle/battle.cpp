@@ -157,38 +157,6 @@ int main()
                 if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
             }
 
-            if (IsKeyDown(KEY_Y))
-            {
-                if (satoOneMP > 100.0)
-                {
-                    if (satoOneHP < satoOneHPDefault)
-                    {
-                        satoOneMP -= 20.0;
-                        if (satoOneHPDefault > 1)
-                        {
-                            satoOneHP += 0.05;
-                        }
-
-                    }
-                }
-            }
-
-            if (IsKeyDown(KEY_U))
-            {
-                if (satoTwoMP > 20.0)
-                {
-                    if (satoTwoHP < satoTwoHPDefault)
-                    {
-                        satoTwoMP -= 20.0;
-                        if (satoTwoHPDefault > 1)
-                        {
-                            satoTwoHP += 1.0;
-                        }
-                    }
-                }
-            }
-
-
             // プレイヤーが枠の外に出ないように制限
             if (nextAttack > 0)
             {
