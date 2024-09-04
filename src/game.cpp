@@ -1,7 +1,6 @@
 #include "raylib.h"
 #include <string>
 #include <sstream>
-#include <iostream>
 
 int main(void)
 {

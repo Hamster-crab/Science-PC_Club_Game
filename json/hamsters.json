@@ -1,0 +1,12 @@
+{
+  "dededon": {
+    "name": "dededon",
+    "hp": 1000,
+    "maxHP": 10000,
+    "upHP": 10,
+    "mp": 100,
+    "maxMP": 300,
+    "upMP": 2,
+    "lv": 1
+  }
+}

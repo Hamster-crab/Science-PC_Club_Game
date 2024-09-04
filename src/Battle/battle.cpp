@@ -1,3 +1,6 @@
+#include <sstream>
+#include <string>
+
 #include "raylib.h"
 
 int main()
@@ -146,8 +149,7 @@ int main()
                 {}
             }
 
-            else
-            {
+            else {
                 if (IsKeyDown(KEY_W)) playerPositionY -= 5;
                 if (IsKeyDown(KEY_A)) playerPositionX -= 5;
                 if (IsKeyDown(KEY_S)) playerPositionY += 5;
@@ -182,8 +184,7 @@ int main()
                         playerPositionY = 96 + 180 - playerRect.height;
                 }
             }
-            else
-            {
+            else {
                 if (playerPositionX < outerFrameX) playerPositionX = outerFrameX;
                 if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidthHeight)
                     playerPositionX = outerFrameX + outerFrameWidthHeight - playerRect.width;
@@ -222,15 +223,34 @@ int main()
             {
                 if (satoOneMP > 0)
                 {
-                    satoOneMP -= 10;
-                }
-                else if (satoOneMP == 0)
-                {
-                    satoTwoMP -= 10;
+                    satoOneMP -= 2;
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRect))
+                    {
+                        satoOneMP -= 8.0;
+                        if (satoOneMP < 0) satoOneMP = 0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRectTwo))
+                    {
+                        satoOneMP -= 8.0;
+                        if (satoOneMP < 0) satoOneMP = 0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRectThree))
+                    {
+                        satoOneMP -= 8.0;
+                        if (satoOneMP < 0) satoOneMP = 0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, attackRectFour))
+                    {
+                        satoOneMP -= 8.0;
+                        if (satoOneMP < 0) satoOneMP = 0;
+                    }
                 }
             }
-            else
-            {
+            else {
                 if (satoOneHP > 0)
                 {
                     if (satoOneShield == 0)
@@ -239,107 +259,24 @@ int main()
                         if (CheckCollisionRecs(playerRect, attackRect))
                         {
                             satoOneHP -= 1.0;
-                            if (satoOneHP < 0) satoOneHP = 0;
                         }
                         // 当たり判定
                         if (CheckCollisionRecs(playerRect, attackRectTwo))
                         {
                             satoOneHP -= 1.0;
-                            if (satoOneHP < 0) satoOneHP = 0;
                         }
                         // 当たり判定
                         if (CheckCollisionRecs(playerRect, attackRectThree))
                         {
                             satoOneHP -= 1.0;
-                            if (satoOneHP < 0) satoOneHP = 0;
                         }
                         // 当たり判定
                         if (CheckCollisionRecs(playerRect, attackRectFour))
                         {
                             satoOneHP -= 1.0;
-                            if (satoOneHP < 0) satoOneHP = 0;
-                        }
-                    }
-                    if (satoOneShield > 0)
-                    {
-                        // 当たり判定
-                        if (CheckCollisionRecs(playerRect, attackRect))
-                        {
-                            satoOneHP -= 0.1;
-                            if (satoOneHP < 0) satoOneHP = 0;
-                        }
-                        // 当たり判定
-                        if (CheckCollisionRecs(playerRect, attackRectTwo))
-                        {
-                            satoOneHP -= 0.1;
-                            if (satoOneHP < 0) satoOneHP = 0;
-                        }
-                        // 当たり判定
-                        if (CheckCollisionRecs(playerRect, attackRectThree))
-                        {
-                            satoOneHP -= 0.1;
-                            if (satoOneHP < 0) satoOneHP = 0;
-                        }
-                        // 当たり判定
-                        if (CheckCollisionRecs(playerRect, attackRectFour))
-                        {
-                            satoOneHP -= 0.1;
-                            if (satoOneHP < 0) satoOneHP = 0;
                         }
                     }
                 }
-                else if (satoOneHP < 0)
-                {
-                    if (satoTwoShield == 0)
-                    {
-                        // 当たり判定
-                        if (CheckCollisionRecs(playerRect, attackRect))
-                        {
-                            satoTwoHP -= 1.0;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                        if (CheckCollisionRecs(playerRect, attackRectTwo))
-                        {
-                            satoTwoHP -= 1.0;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                        if (CheckCollisionRecs(playerRect, attackRectThree))
-                        {
-                            satoTwoHP -= 1.0;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                        if (CheckCollisionRecs(playerRect, attackRectFour))
-                        {
-                            satoTwoHP -= 1.0;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                    }
-                    if (satoTwoShield < 0)
-                    {
-                        // 当たり判定
-                        if (CheckCollisionRecs(playerRect, attackRect))
-                        {
-                            satoTwoHP -= 0.1;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                        if (CheckCollisionRecs(playerRect, attackRectTwo))
-                        {
-                            satoTwoHP -= 0.1;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                        if (CheckCollisionRecs(playerRect, attackRectThree))
-                        {
-                            satoTwoHP -= 0.1;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                        if (CheckCollisionRecs(playerRect, attackRectFour))
-                        {
-                            satoTwoHP -= 0.1;
-                            if (satoTwoHP < 0) satoTwoHP = 0;
-                        }
-                    }
-                }
-
                 if (currentTime - startTime >= 0.0000001)
                 {
                     double currentTime = GetTime(); // 現在の時刻を取得
@@ -348,8 +285,7 @@ int main()
                         if (satoOneMP < satoOneMPDefault)
                         {
                             satoOneMP += 10;
-                        }
-                        else if (satoOneMP == satoOneMPDefault && satoTwoMP == satoTwoMPDefault)
+                        } else if (satoOneMP == satoOneMPDefault && satoTwoMP == satoTwoMPDefault)
                         {}
                         else if (satoTwoMP < satoTwoMPDefault)
                         {
@@ -459,7 +395,12 @@ int main()
             DrawTexture(summonSatoOneTexture, 585, 13, WHITE);
             if (satoOneHP < 0)
             {
-                DrawText("Down", 585, 13, 20, BLACK);
+                std::ostringstream playerDown;
+                playerDown << playerHPDefault - playerHP;
+                std::string playerDownText = playerDown.str();
+
+                // DrawText(playerDownText.c_str(), 585, 13, 20, BLUE);
+                DrawText("Down", 579, 40, 45, PINK);
             }
 
             DrawRectangle(690, 150, 200, 110, BLUE);
