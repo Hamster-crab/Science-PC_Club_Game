@@ -125,7 +125,7 @@ int main()
 
             // 音楽ストリームを更新
             UpdateMusicStream(sampleBGM);
-            
+
             if (nextAttack > 0)
             {
               outerFrameX == 610;
@@ -146,7 +146,8 @@ int main()
                 {}
             }
 
-            else {
+            else
+            {
                 if (IsKeyDown(KEY_W)) playerPositionY -= 5;
                 if (IsKeyDown(KEY_A)) playerPositionX -= 5;
                 if (IsKeyDown(KEY_S)) playerPositionY += 5;
@@ -181,7 +182,8 @@ int main()
                         playerPositionY = 96 + 180 - playerRect.height;
                 }
             }
-            else {
+            else
+            {
                 if (playerPositionX < outerFrameX) playerPositionX = outerFrameX;
                 if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidthHeight)
                     playerPositionX = outerFrameX + outerFrameWidthHeight - playerRect.width;
@@ -227,7 +229,8 @@ int main()
                     satoTwoMP -= 10;
                 }
             }
-            else {
+            else
+            {
                 if (satoOneHP > 0)
                 {
                     if (satoOneShield == 0)
@@ -345,7 +348,8 @@ int main()
                         if (satoOneMP < satoOneMPDefault)
                         {
                             satoOneMP += 10;
-                        } else if (satoOneMP == satoOneMPDefault && satoTwoMP == satoTwoMPDefault)
+                        }
+                        else if (satoOneMP == satoOneMPDefault && satoTwoMP == satoTwoMPDefault)
                         {}
                         else if (satoTwoMP < satoTwoMPDefault)
                         {
