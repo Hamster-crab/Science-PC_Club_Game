@@ -59,8 +59,13 @@ int main()
 // X 405 Y 305
 
     Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
+    Music damageBGM = LoadMusicStream("music/damageBGM.mp3");
+    Music deathBGM = LoadMusicStream("music/deathBGM.mp3");
+
     // 音楽の再生を開始
     PlayMusicStream(sampleBGM);
+    PlayMusicStream(damageBGM);
+    PlayMusicStream(deathBGM);
 
     Image summonSatoOneTextureTexture = LoadImage("resources/hamster/dededon.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/hamster/waterBug.png");
@@ -102,6 +107,10 @@ int main()
 
     while (!WindowShouldClose())
     {
+        // 音楽ストリームを更新
+        UpdateMusicStream(sampleBGM);
+        UpdateMusicStream(deathBGM);
+        UpdateMusicStream(damageBGM);
         if (satoOneHP == 0 && satoTwoHP == 0)
         {
             BeginDrawing();
@@ -125,10 +134,6 @@ int main()
         else
         {
             double currentTime = GetTime(); // 現在の時刻を取得
-
-            // 音楽ストリームを更新
-            UpdateMusicStream(sampleBGM);
-
             if (nextAttack > 0)
             {
               outerFrameX == 610;
