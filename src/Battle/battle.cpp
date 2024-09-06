@@ -107,16 +107,13 @@ int main()
 
     while (!WindowShouldClose())
     {
-        // 音楽ストリームを更新
-        UpdateMusicStream(sampleBGM);
-        UpdateMusicStream(deathBGM);
-        UpdateMusicStream(damageBGM);
         if (satoOneHP == 0 && satoTwoHP == 0)
         {
             BeginDrawing();
 
             ClearBackground(RAYWHITE);
 
+            UpdateMusicStream(deathBGM);
             DrawText("Game Over", 190, 200, 20, BLACK);
 
             EndDrawing();
@@ -133,6 +130,7 @@ int main()
         }
         else
         {
+            UpdateMusicStream(sampleBGM);
             double currentTime = GetTime(); // 現在の時刻を取得
             if (nextAttack > 0)
             {
@@ -198,7 +196,6 @@ int main()
                 if (playerPositionY + playerRect.height > outerFrameY + outerFrameWidthHeight)
                     playerPositionY = outerFrameY + outerFrameWidthHeight - playerRect.height;
             }
-
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
@@ -260,6 +257,7 @@ int main()
                 {
                     if (satoOneShield == 0)
                     {
+                        UpdateMusicStream(damageBGM);
                         // 当たり判定
                         if (CheckCollisionRecs(playerRect, attackRect))
                         {
