@@ -1,0 +1,9 @@
+{
+    "name": "Yajusenpai",
+    "hp": 20,
+    "mp": 100,
+    "hpDefault": 20,
+    "mpDefault": 100,
+    "hpUp": 5,
+    "mpUp": 3
+}
