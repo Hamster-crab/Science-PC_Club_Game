@@ -1,13 +1,12 @@
 #include <sstream>
 #include <string>
-
 #include "raylib.h"
 
 int main()
 {
     const int screenWidth = 900;
     const int screenHeight = 600;
-    InitWindow(screenWidth, screenHeight, "Raylib [Core] Example - Draw Square");
+    InitWindow(screenWidth, screenHeight, "rainbowPuiPui");
     SetTargetFPS(60);
 
     // オーディオデバイスを初期化
