@@ -364,9 +364,9 @@ int main()
                     if (IsKeyDown(KEY_Z))
                     {
                         playerPositionY = 180;
-//                        bossHP -= 40.0;
-//                        bossMP -= 100.0;
-//                        playerPositionY = 180;
+                    //    bossHP -= 40.0;
+                    //    bossMP -= 100.0;
+                    //    playerPositionY = 180;
                         nextnextAttack++;
                     }
                     else
