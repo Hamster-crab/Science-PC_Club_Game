@@ -426,7 +426,7 @@ int main()
                         bossHP -= 50.0;
                         bossMP -= 250.0;
                         satoTwoMP -= 10.0;
-//                        playerPositionY = 300;
+                    //    playerPositionY = 300;
                         nextAttack++;
                     }
                     else
@@ -535,6 +535,11 @@ int main()
                 satoTwoShield = 0;
                 playerPositionX = 713;
                 playerPositionY = 40;
+            }
+            if (nextnextAttack == 2.0)
+            {
+                nextnextAttack = 0.0;
+                nextAttack = 0.0;
             }
             EndDrawing();
         }
