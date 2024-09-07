@@ -42,6 +42,7 @@ int main()
     double satoOneMP = 1000.0;
     double satoOneMPMax = 10000.0;
     int satoOneShield = 0;
+    bool playerOneShield = false;
 
     double satoTwoHP = 50.0;
     double satoTwoHPDefault = 50.0;
@@ -49,6 +50,7 @@ int main()
     double satoTwoMP = 10000.0;
     double satoTwoMPMax = 1000000.0;
     int satoTwoShield = 0;
+    bool playerOneShield = false;
 
     double playerHPMax = 100.0;
     double playerHPDefault = 20.0;
@@ -305,7 +307,14 @@ int main()
             DrawRectangle(690, 7, 200, 110, BLUE);
             DrawRectangle(700, 10, satoOneHPDefault, 10, RED);
             DrawRectangle(700, 10, satoOneHP, 10, YELLOW);
-            DrawRectangle(700, 20, satoOneMP / 10.0, 10, DARKPURPLE);
+            if (playerOneShield)
+            {
+                DrawRectangle(700, 20, satoOneMP / 10.0, 10, DARKPURPLE);
+            }
+            else if (!playerOneShield)
+            {
+                DrawRectangle(700, 20, satoOneMP / 10.0, 10, WHITE);
+            }
             if(nextAttack == 1)
             {
                 if (IsKeyUp(KEY_Z))
