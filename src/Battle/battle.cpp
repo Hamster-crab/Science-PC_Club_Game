@@ -545,9 +545,6 @@ int main()
         }
     }
 
-    // 音楽ストリームをアンロード
-    UnloadMusicStream(sampleBGM);
-
     // オーディオデバイスを閉じる
     CloseAudioDevice();
 
