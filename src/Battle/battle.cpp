@@ -2,6 +2,57 @@
 #include <string>
 #include "raylib.h"
 
+namespace attack
+{
+    Rectangle attackRect = { 205, 305, 50, 50 };
+
+    Rectangle attackRectTwo = { 400, 500, 50, 50 };
+
+    Rectangle attackRectThree = { 605, 300, 50, 50 };
+
+    Rectangle attackRectFour = { 400, 70, 50, 50 };
+
+    void damage(double hpOne, double hpTwo)
+    {
+        UpdateMusicStream(damageBGM);
+        // 当たり判定
+        if (CheckCollisionRecs(playerRect, attackRect))
+        {
+            hpOne -= 1.0;
+        }
+        // 当たり判定
+        if (CheckCollisionRecs(playerRect, attackRectTwo))
+        {
+            hpOne -= 1.0;
+        }
+        // 当たり判定
+        if (CheckCollisionRecs(playerRect, attackRectThree))
+        {
+            hpOne -= 1.0;
+        }
+        // 当たり判定
+        if (CheckCollisionRecs(playerRect, attackRectFour))
+        {
+            hpOne -= 1.0;
+        }
+    }
+    void testAttack(Texture2D texture)
+    {
+        // 2秒経過したかをチェック
+        if (currentTime - startTime >= 0.3)
+        {
+            attackRect.x += 5;
+            attackRectTwo.y -= 5;
+            attackRectThree.x -= 5;
+            attackRectFour.y += 5;
+        }
+        DrawTexture(texture, attackRect.x, attackRect.y, WHITE);
+        DrawTexture(texture, attackRectTwo.x, attackRectTwo.y, WHITE);
+        DrawTexture(texture, attackRectThree.x, attackRectThree.y, WHITE);
+        DrawTexture(texture, attackRectFour.x, attackRectFour.y, WHITE);
+    }
+}
+
 int main()
 {
     const int screenWidth = 900;
@@ -21,8 +72,11 @@ int main()
     int innerFrameX = 305;
     int innerFrameY = 205;
 
-    int outerFrameWidthHeight = 250;
-    int innerFrameWidthHeight = 240;
+    int outerFrameWidth = 250;
+    int outerFrameHeight = 250;
+    
+    int innerFrameWidth = 240;
+    int innerFrameHeight = 240;
 
     double MPDefault = 1000.0;
     double MPDefaultMax = 1145148101919.0;
@@ -102,13 +156,6 @@ int main()
     UnloadImage(playerTextureGreenTexture);
 
     Rectangle playerRect = { static_cast<float>(playerPositionX), static_cast<float>(playerPositionY), 30, 30 };
-    Rectangle attackRect = { 205, 305, 50, 50 };
-
-    Rectangle attackRectTwo = { 400, 500, 50, 50 };
-
-    Rectangle attackRectThree = { 605, 300, 50, 50 };
-
-    Rectangle attackRectFour = { 400, 70, 50, 50 };
 
     while (!WindowShouldClose())
     {
@@ -152,7 +199,8 @@ int main()
                 {}
             }
 
-            else {
+            else
+            {
                 if (IsKeyDown(KEY_W)) playerPositionY -= 5;
                 if (IsKeyDown(KEY_A)) playerPositionX -= 5;
                 if (IsKeyDown(KEY_S)) playerPositionY += 5;
@@ -192,57 +240,21 @@ int main()
                     playerPositionY = outerFrameY + outerFrameWidthHeight - playerRect.height;
             }
 
-            UpdateMusicStream(damageBGM);
-            // 当たり判定
-            if (CheckCollisionRecs(playerRect, attackRect))
-            {
-                satoOneHP -= 1.0;
-            }
-            // 当たり判定
-            if (CheckCollisionRecs(playerRect, attackRectTwo))
-            {
-                satoOneHP -= 1.0;
-            }
-            // 当たり判定
-            if (CheckCollisionRecs(playerRect, attackRectThree))
-            {
-                satoOneHP -= 1.0;
-            }
-            // 当たり判定
-            if (CheckCollisionRecs(playerRect, attackRectFour))
-            {
-                satoOneHP -= 1.0;
-            }
-
+            attack::damage(satoOneHP, satoTwoHP)
             BeginDrawing();
             ClearBackground(RAYWHITE);
             // 外側の矩形 (枠線)
-            DrawRectangle(outerFrameX, outerFrameY, outerFrameWidthHeight, outerFrameWidthHeight, BLACK);
+            DrawRectangle(outerFrameX, outerFrameY, outerFrameWidth, outerFrameHeight, BLACK);
             // 内側の矩形 (背景色)
-            DrawRectangle(innerFrameX, innerFrameY, innerFrameWidthHeight, innerFrameWidthHeight, DARKPURPLE);
+            DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, DARKPURPLE);
 
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
 
-            // egg
+            attack::testAttack(nextAttack);
+
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
-            // 2秒経過したかをチェック
-            if (currentTime - startTime >= 0.3)
-            {
-                attackRect.x += 5;
-                attackRectTwo.y -= 5;
-                attackRectThree.x -= 5;
-                attackRectFour.y += 5;
-            }
-            else if (currentTime -startTime >= 3)
-            {
-
-            }
-            DrawTexture(attackTexture, attackRect.x, attackRect.y, WHITE);
-            DrawTexture(attackTexture, attackRectTwo.x, attackRectTwo.y, WHITE);
-            DrawTexture(attackTexture, attackRectThree.x, attackRectThree.y, WHITE);
-            DrawTexture(attackTexture, attackRectFour.x, attackRectFour.y, WHITE);
             EndDrawing();
         }
     }
