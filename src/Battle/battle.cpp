@@ -12,7 +12,7 @@ namespace attack
 
     Rectangle attackRectFour = { 400, 70, 50, 50 };
 
-    void damage(double hpOne, double hpTwo)
+    void damage(double hpOne, double hpTwo, Rectangle playerRect)
     {
         UpdateMusicStream(damageBGM);
         // 当たり判定
@@ -240,7 +240,7 @@ int main()
                     playerPositionY = outerFrameY + outerFrameWidthHeight - playerRect.height;
             }
 
-            attack::damage(satoOneHP, satoTwoHP)
+            attack::damage(satoOneHP, satoTwoHP, playerRect);
             BeginDrawing();
             ClearBackground(RAYWHITE);
             // 外側の矩形 (枠線)
