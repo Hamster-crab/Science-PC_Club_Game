@@ -12,7 +12,7 @@ namespace attack
 
     Rectangle attackRectFour = { 400, 70, 50, 50 };
 
-    void damage(double hpOne, double hpTwo, Rectangle playerRect)
+    void damage(Music damageBGM, double hpOne, double hpTwo, Rectangle playerRect)
     {
         UpdateMusicStream(damageBGM);
         // 当たり判定
@@ -38,6 +38,8 @@ namespace attack
     }
     void testAttack(Texture2D texture)
     {
+        double currentTime = GetTime(); // 現在の時刻を取得
+            double startTime = GetTime(); // 開始時刻を取得
         // 2秒経過したかをチェック
         if (currentTime - startTime >= 0.3)
         {
@@ -64,6 +66,10 @@ int main()
     InitAudioDevice();
 
     int nextAttack = 0;
+
+    bool shieldOF = true;
+    double shield = 300;
+    double shieldX = 700;
 
     int turn = 1;
 
@@ -210,6 +216,32 @@ int main()
                 if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
                 if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
             }
+
+            if (shieldOF)
+            {
+                if (IsKeyDown(KEY_SPACE))
+                {
+                    if (shield == 0 && shieldX == 0)
+                    {}
+                    else
+                    {
+                        shieldX += 1.7;
+                        shield -= 6;
+                    }
+                }
+            }
+            if (shield == 300 && shieldX == 700)
+            {}
+            else
+            {
+                if (IsKeyUp(KEY_SPACE))
+                {
+                    shieldX -= 1.7;
+                    shield += 6;
+                }
+            }
+                       
+
             if (currentTime - startTime >= 0.0000001)
             {
                 double currentTime = GetTime(); // 現在の時刻を取得
@@ -232,15 +264,15 @@ int main()
             }
             else {
                 if (playerPositionX < outerFrameX) playerPositionX = outerFrameX;
-                if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidthHeight)
-                    playerPositionX = outerFrameX + outerFrameWidthHeight - playerRect.width;
+                if (playerPositionX + playerRect.width > outerFrameX + outerFrameWidth)
+                    playerPositionX = outerFrameX + outerFrameHeight - playerRect.width;
 
                 if (playerPositionY < outerFrameY) playerPositionY = outerFrameY;
-                if (playerPositionY + playerRect.height > outerFrameY + outerFrameWidthHeight)
-                    playerPositionY = outerFrameY + outerFrameWidthHeight - playerRect.height;
+                if (playerPositionY + playerRect.height > outerFrameY + outerFrameWidth)
+                    playerPositionY = outerFrameY + outerFrameHeight - playerRect.height;
             }
 
-            attack::damage(satoOneHP, satoTwoHP, playerRect);
+            attack::damage(damageBGM, satoOneHP, satoTwoHP, playerRect);
             BeginDrawing();
             ClearBackground(RAYWHITE);
             // 外側の矩形 (枠線)
@@ -250,11 +282,17 @@ int main()
 
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
 
-            attack::testAttack(nextAttack);
+            attack::testAttack(attackTexture);
 
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
+
+            if (shieldOF)
+            {
+                DrawRectangle(shieldX, 485, shield / 2, 20, GREEN);
+            }
+
             EndDrawing();
         }
     }
