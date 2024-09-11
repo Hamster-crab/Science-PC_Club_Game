@@ -67,11 +67,16 @@ int main()
 
     int nextAttack = 0;
 
-    bool shieldOF = true;
+    bool shieldOF = false;
     double shield = 300;
     double shieldX = 700;
 
     int turn = 1;
+
+    int flameColor = 1; // 1 = black  2 = purple  3 = red
+    Color Purple = CLITERAL(Color){ 112, 31, 126, 255 };
+    Color Black = CLITERAL(Color){ 0, 0, 0, 255 };
+    Color deathColor = CLITERAL(Color){ 230, 41, 55, 255 };
 
     int outerFrameX = 300;
     int outerFrameY = 200;
@@ -274,11 +279,25 @@ int main()
 
             attack::damage(damageBGM, satoOneHP, satoTwoHP, playerRect);
             BeginDrawing();
-            ClearBackground(RAYWHITE);
+            ClearBackground(BLACK);
             // 外側の矩形 (枠線)
-            DrawRectangle(outerFrameX, outerFrameY, outerFrameWidth, outerFrameHeight, BLACK);
-            // 内側の矩形 (背景色)
-            DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, DARKPURPLE);
+            DrawRectangle(outerFrameX, outerFrameY, outerFrameWidth, outerFrameHeight, WHITE);
+            if (flameColor == 1)
+            {
+                // 内側の矩形 (背景色)
+                DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
+            }
+            else if (flameColor == 2)
+            {
+                // 内側の矩形 (背景色)
+                DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Purple);
+            }
+            else if (flameColor == 3)
+            {
+                // 内側の矩形 (背景色)
+                DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, deathColor);
+            }
+            
 
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
 
