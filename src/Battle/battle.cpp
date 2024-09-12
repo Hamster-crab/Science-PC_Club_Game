@@ -2,59 +2,6 @@
 #include <string>
 #include "raylib.h"
 
-namespace attack
-{
-    Rectangle attackRect = { 205, 305, 50, 50 };
-
-    Rectangle attackRectTwo = { 400, 500, 50, 50 };
-
-    Rectangle attackRectThree = { 605, 300, 50, 50 };
-
-    Rectangle attackRectFour = { 400, 70, 50, 50 };
-
-    void damage(Music damageBGM, double hpOne, double hpTwo, Rectangle playerRect)
-    {
-        UpdateMusicStream(damageBGM);
-        // 当たり判定
-        if (CheckCollisionRecs(playerRect, attackRect))
-        {
-            hpOne -= 1.0;
-        }
-        // 当たり判定
-        if (CheckCollisionRecs(playerRect, attackRectTwo))
-        {
-            hpOne -= 1.0;
-        }
-        // 当たり判定
-        if (CheckCollisionRecs(playerRect, attackRectThree))
-        {
-            hpOne -= 1.0;
-        }
-        // 当たり判定
-        if (CheckCollisionRecs(playerRect, attackRectFour))
-        {
-            hpOne -= 1.0;
-        }
-    }
-    void testAttack(Texture2D texture)
-    {
-        double currentTime = GetTime(); // 現在の時刻を取得
-            double startTime = GetTime(); // 開始時刻を取得
-        // 2秒経過したかをチェック
-        if (currentTime - startTime >= 0.3)
-        {
-            attackRect.x += 5;
-            attackRectTwo.y -= 5;
-            attackRectThree.x -= 5;
-            attackRectFour.y += 5;
-        }
-        DrawTexture(texture, attackRect.x, attackRect.y, WHITE);
-        DrawTexture(texture, attackRectTwo.x, attackRectTwo.y, WHITE);
-        DrawTexture(texture, attackRectThree.x, attackRectThree.y, WHITE);
-        DrawTexture(texture, attackRectFour.x, attackRectFour.y, WHITE);
-    }
-}
-
 int main()
 {
     const int screenWidth = 900;
@@ -69,9 +16,8 @@ int main()
 
     bool shieldOF = false;
     double shield = 300;
-    double shieldX = 700;
 
-    int turn = 1;
+    double turn = 0.5;
 
     int flameColor = 1; // 1 = black  2 = purple  3 = red
     Color Purple = CLITERAL(Color){ 112, 31, 126, 255 };
@@ -96,11 +42,11 @@ int main()
 
     double startTime = GetTime(); // 開始時刻を取得
 
-    double bossHPDefault = 114514.0;
-
-    double bossHP = 114514.0;
-    double bossMPDefault = 114514.0;
+    double bossHP = 1000.0;
+    double bossHPDefault = 1000.0;
+    double bossMPDefault = 1000.0;
     double bossMP = 114514.0;
+    bool bossHPWatch = false;
 
     double satoOneHP = 100.0;
     double satoOneHPDefault = 100.0;
@@ -118,7 +64,7 @@ int main()
 
     double playerHPMax = 100.0;
     double playerHPDefault = 20.0;
-    double playerHP = 20.0;
+    double playerHP = 99.0;
     double playerPositionX = 405.0;
     double playerPositionY = 305.0;
 // X 405 Y 305
@@ -147,7 +93,7 @@ int main()
     ImageResize(&summonSatoOneTextureTexture, 100, 100);
     ImageResize(&summonSatoTwoTextureTexture, 100, 100);
     ImageResize(&bossTextureTexture, 300, 300);
-    ImageResize(&attackTextureTexture, 50, 50);
+    ImageResize(&attackTextureTexture, 20, 20);
     ImageResize(&playerTextureTexture, 18, 18);
     ImageResize(&playerTextureGreenTexture, 18, 18);
 
@@ -168,9 +114,16 @@ int main()
 
     Rectangle playerRect = { static_cast<float>(playerPositionX), static_cast<float>(playerPositionY), 30, 30 };
 
+    Rectangle turnOneAttackRect = { 205, 305, 50, 50 };
+
+    Rectangle turnOneAttackRectTwo = { 400, 500, 50, 50 };
+
+    Rectangle turnOneAttackRectThree = { 605, 300, 50, 50 };
+
+    Rectangle turnOneAttackRectFour = { 400, 70, 50, 50 };
     while (!WindowShouldClose())
     {
-        if (satoOneHP == 0 && satoTwoHP == 0)
+        if (playerHP == 0)
         {
             BeginDrawing();
 
@@ -222,30 +175,101 @@ int main()
                 if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
             }
 
+            // UpdateMusicStream(damageBGM);
+            // 当たり判定
+            if (IsKeyDown(KEY_SPACE))
+            {
+                if (shield > 0)
+                {}
+                if (!shieldOF)
+                {
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                    {
+                        playerHP -= 1.0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
+                    {
+                        playerHP -= 1.0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
+                    {
+                        playerHP -= 1.0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
+                    {
+                        playerHP -= 1.0;
+                    }
+                }
+                else if (shield < 0)
+                {
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                    {
+                        playerHP -= 1.0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
+                    {
+                        playerHP -= 1.0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
+                    {
+                        playerHP -= 1.0;
+                    }
+                    // 当たり判定
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
+                    {
+                        playerHP -= 1.0;
+                    }
+                }
+            }
+            else
+            {
+                if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                {
+                    playerHP -= 1.0;
+                }
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
+                {
+                    playerHP -= 1.0;
+                }
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
+                {
+                    playerHP -= 1.0;
+                }
+                // 当たり判定
+                if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
+                {
+                    playerHP -= 1.0;
+                }
+            }
+
             if (shieldOF)
             {
                 if (IsKeyDown(KEY_SPACE))
                 {
-                    if (shield == 0 && shieldX == 0)
+                    if (shield < 0)
                     {}
                     else
                     {
-                        shieldX += 1.7;
-                        shield -= 6;
+                        shield -= 2.6;
+                    }
+                }
+                if (IsKeyUp(KEY_SPACE))
+                {
+                    if (shield == 300)
+                    {}
+                    else if (shield < 300)
+                    {
+                        shield += 3;
                     }
                 }
             }
-            if (shield == 300 && shieldX == 700)
-            {}
-            else
-            {
-                if (IsKeyUp(KEY_SPACE))
-                {
-                    shieldX -= 1.7;
-                    shield += 6;
-                }
-            }
-                       
 
             if (currentTime - startTime >= 0.0000001)
             {
@@ -277,7 +301,6 @@ int main()
                     playerPositionY = outerFrameY + outerFrameHeight - playerRect.height;
             }
 
-            attack::damage(damageBGM, satoOneHP, satoTwoHP, playerRect);
             BeginDrawing();
             ClearBackground(BLACK);
             // 外側の矩形 (枠線)
@@ -297,20 +320,48 @@ int main()
                 // 内側の矩形 (背景色)
                 DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, deathColor);
             }
+            DrawRectangle(80, 560, 730, 35, WHITE);
+            DrawRectangle(84, 566, 720, 26, BLACK);
+
+            if (bossHPWatch)
+            {
+                DrawRectangle(360, 100, bossHPDefault / 8, 15, GRAY);
+                DrawRectangle(360, 100, bossHP / 8, 15, GREEN);
+            }
+
+            DrawRectangle(280, 485, playerHP * 3, 20, RED);
+            DrawRectangle(280, 485, playerHP * 3, 20, DARKPURPLE);
+
+            if (shieldOF)
+            {
+                DrawRectangle(700, 485, shield / 2, 20, GREEN);
+            }
             
 
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
 
-            attack::testAttack(attackTexture);
+            if (turn == 0.5)
+            {}
+            else if (turn == 1)
+            {
+                // 2秒経過したかをチェック
+                if (currentTime - startTime >= 0.3)
+                {
+                    turnOneAttackRect.x += 5;
+                    turnOneAttackRectTwo.y -= 5;
+                    turnOneAttackRectThree.x -= 5;
+                    turnOneAttackRectFour.y += 5;
+                }
+            }
+            
+            DrawTexture(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y, WHITE);
+            DrawTexture(attackTexture, turnOneAttackRectTwo.x, turnOneAttackRectTwo.y, WHITE);
+            DrawTexture(attackTexture, turnOneAttackRectThree.x, turnOneAttackRectThree.y, WHITE);
+            DrawTexture(attackTexture, turnOneAttackRectFour.x, turnOneAttackRectFour.y, WHITE);
 
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
-
-            if (shieldOF)
-            {
-                DrawRectangle(shieldX, 485, shield / 2, 20, GREEN);
-            }
 
             EndDrawing();
         }
