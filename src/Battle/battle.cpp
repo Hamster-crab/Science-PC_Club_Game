@@ -317,6 +317,25 @@ int main()
 
             BeginDrawing();
             ClearBackground(BLACK);
+
+            if (turn == 0.5)
+            {
+                outerFrameX = 300;
+                outerFrameWidth = 250;
+                outerFrameHeight = 250;
+                innerFrameX = 305;
+                innerFrameWidth = 240;
+                innerFrameHeight = 240;
+            }
+            else if (turn == 1)
+            {
+                outerFrameX = 55;
+                outerFrameWidth = 790;
+                outerFrameHeight = 250;
+                innerFrameX = 60;
+                innerFrameWidth = 780;
+                innerFrameHeight = 240;
+            }
             // 外側の矩形 (枠線)
             DrawRectangle(outerFrameX, outerFrameY, outerFrameWidth, outerFrameHeight, WHITE);
             if (flameColor == 1)
