@@ -370,25 +370,25 @@ int main()
             DrawRectangle(705, 525, 170, 57, BLACK);
             DrawText("RUN", 750, 540, 36, WHITE);
 
-            if (playerPositionX == 50)
+            if (playerPositionX == 50 && playerPositionY == 545)
             {
                 DrawRectangle(30, 520, 180, 65, darkRed);
                 DrawRectangle(35, 525, 170, 57, BLACK);
                 DrawText("Attack", 80, 540, 36, darkRed);
             }
-            else if (playerPositionX == 290)
+            else if (playerPositionX == 290 && playerPositionY == 545)
             {
                 DrawRectangle(270, 520, 180, 65, darkRed);
                 DrawRectangle(275, 525, 170, 57, BLACK);
                 DrawText("MP", 320, 540, 36, darkRed);
             }
-            else if (playerPositionX == 510)
+            else if (playerPositionX == 510 && playerPositionY == 545)
             {
                 DrawRectangle(490, 520, 180, 65, darkRed);
                 DrawRectangle(495, 525, 170, 57, BLACK);
                 DrawText("ITEM", 540, 540, 36, darkRed);
             }
-            else if (playerPositionX == 715)
+            else if (playerPositionX == 715 && playerPositionY == 545)
             {
                 DrawRectangle(700, 520, 180, 65, darkRed);
                 DrawRectangle(705, 525, 170, 57, BLACK);
