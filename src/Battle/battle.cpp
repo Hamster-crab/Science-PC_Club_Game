@@ -14,7 +14,7 @@ int main()
 
     bool debugMode = false;
 
-    bool shieldOF = false;
+    bool shieldOF = true;
     double shield = 300;
 
     double turn = 0.5;
@@ -67,6 +67,7 @@ int main()
     double playerHP = 99.0;
     double playerPositionX = 405.0;
     double playerPositionY = 305.0;
+    double playerLevel = 20;
 // X 405 Y 305
 
     Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
@@ -401,13 +402,21 @@ int main()
                 DrawRectangle(360, 100, bossHP / 8, 15, GREEN);
             }
 
-            DrawRectangle(280, 485, playerHPDefault * 3, 20, darkRed);
-            DrawRectangle(280, 485, playerHP * 3, 20, DARKPURPLE);
+        // 変数を表示するための文字列を生成
+            std::ostringstream playerHPOutput;
+            playerHPOutput << "LV" << playerLevel << "      " << playerHP << " / " << playerHPDefault;
+            std::string playerHPText = playerHPOutput.str();
+
+            DrawText(playerHPText.c_str(), 30, 485, 28, WHITE);  // 変数の内容を表示
+            DrawRectangle(280, 485, playerHPDefault * 3, 28, darkRed);
+            DrawRectangle(280, 485, playerHP * 3, 28, DARKPURPLE);
 
             if (shieldOF)
             {
-                DrawRectangle(700, 485, shield / 2, 20, GREEN);
+                DrawRectangle(700, 485, shield / 2, 28, GREEN);
             }
+
+            DrawTexture(bossTexture, 300, -60, WHITE);
 
             if (turn == 0.5)
             {
