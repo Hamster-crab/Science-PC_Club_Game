@@ -22,7 +22,7 @@ int main()
     int flameColor = 1; // 1 = black  2 = purple  3 = red
     Color Purple = CLITERAL(Color){ 112, 31, 126, 255 };
     Color Black = CLITERAL(Color){ 0, 0, 0, 255 };
-    Color deathColor = CLITERAL(Color){ 230, 41, 55, 255 };
+    Color darkRed = CLITERAL(Color){ 139, 0, 0, 255 };
 
     int outerFrameX = 300;
     int outerFrameY = 200;
@@ -63,7 +63,7 @@ int main()
     int satoTwoShield = 0;
 
     double playerHPMax = 100.0;
-    double playerHPDefault = 20.0;
+    double playerHPDefault = 99.0;
     double playerHP = 99.0;
     double playerPositionX = 405.0;
     double playerPositionY = 305.0;
@@ -332,28 +332,49 @@ int main()
             else if (flameColor == 3)
             {
                 // 内側の矩形 (背景色)
-                DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, deathColor);
+                DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, darkRed);
             }
             
-            // Attack
             DrawRectangle(30, 520, 180, 65, WHITE);
             DrawRectangle(35, 525, 170, 57, BLACK);
             DrawText("Attack", 80, 540, 36, WHITE);
 
-            // MP
             DrawRectangle(270, 520, 180, 65, WHITE);
             DrawRectangle(275, 525, 170, 57, BLACK);
             DrawText("MP", 320, 540, 36, WHITE);
 
-            // ITEM
             DrawRectangle(490, 520, 180, 65, WHITE);
             DrawRectangle(495, 525, 170, 57, BLACK);
             DrawText("ITEM", 540, 540, 36, WHITE);
 
-            // RUN
             DrawRectangle(700, 520, 180, 65, WHITE);
             DrawRectangle(705, 525, 170, 57, BLACK);
             DrawText("RUN", 750, 540, 36, WHITE);
+
+            if (playerPositionX == 50)
+            {
+                DrawRectangle(30, 520, 180, 65, darkRed);
+                DrawRectangle(35, 525, 170, 57, BLACK);
+                DrawText("Attack", 80, 540, 36, darkRed);
+            }
+            else if (playerPositionX == 290)
+            {
+                DrawRectangle(270, 520, 180, 65, darkRed);
+                DrawRectangle(275, 525, 170, 57, BLACK);
+                DrawText("MP", 320, 540, 36, darkRed);
+            }
+            else if (playerPositionX == 510)
+            {
+                DrawRectangle(490, 520, 180, 65, darkRed);
+                DrawRectangle(495, 525, 170, 57, BLACK);
+                DrawText("ITEM", 540, 540, 36, darkRed);
+            }
+            else if (playerPositionX == 715)
+            {
+                DrawRectangle(700, 520, 180, 65, darkRed);
+                DrawRectangle(705, 525, 170, 57, BLACK);
+                DrawText("RUN", 750, 540, 36, darkRed);
+            }
 
             if (bossHPWatch)
             {
@@ -361,7 +382,7 @@ int main()
                 DrawRectangle(360, 100, bossHP / 8, 15, GREEN);
             }
 
-            DrawRectangle(280, 485, playerHP * 3, 20, RED);
+            DrawRectangle(280, 485, playerHPDefault * 3, 20, darkRed);
             DrawRectangle(280, 485, playerHP * 3, 20, DARKPURPLE);
 
             if (shieldOF)
