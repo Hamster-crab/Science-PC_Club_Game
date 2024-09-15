@@ -1,5 +1,6 @@
 #include <sstream>
 #include <string>
+#include <iostream>
 #include "raylib.h"
 
 int main()
@@ -23,6 +24,9 @@ int main()
     Color Purple = CLITERAL(Color){ 112, 31, 126, 255 };
     Color Black = CLITERAL(Color){ 0, 0, 0, 255 };
     Color darkRed = CLITERAL(Color){ 139, 0, 0, 255 };
+
+    bool attack = false;
+    int Onetime = 0;
 
     int outerFrameX = 300;
     int outerFrameY = 200;
@@ -172,11 +176,31 @@ int main()
                 if (playerPositionX == 50)
                 {
                     if (IsKeyPressed(KEY_RIGHT)) playerPositionX = 290;
+                    if (IsKeyDown(KEY_Z))
+                    {
+                        attack = true;
+                    }
                 }
                 else if (playerPositionX == 290)
                 {
                     if (IsKeyPressed(KEY_LEFT)) playerPositionX = 50;
                     if (IsKeyPressed(KEY_RIGHT)) playerPositionX = 510;
+                    if (IsKeyPressed(KEY_Z))
+                    {
+                        if (playerMP > 100)
+                        {
+                            playerMP -= 100;
+                            if (playerHP + 20 > playerHPDefault)
+                            {
+                                playerHP = playerHPDefault;
+                            }
+                            else
+                            {
+                                playerHP += 20;
+                            }
+                        }
+
+                    }
                 }
                 else if (playerPositionX == 510)
                 { 
@@ -187,6 +211,12 @@ int main()
                 {
                     if (IsKeyPressed(KEY_LEFT)) playerPositionX = 510;
                 }
+            }
+
+            if (attack)
+            {
+                playerPositionX = 70;
+                playerPositionY = 240;
             }
 
             // UpdateMusicStream(damageBGM);
@@ -353,6 +383,18 @@ int main()
             {
                 // 内側の矩形 (背景色)
                 DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, darkRed);
+            }
+            if (attack)
+            {
+                DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
+                if (playerPositionX == 70 && playerPositionY == 240)
+                {
+                    DrawText("boss", 100, 230, 38, darkRed);
+                }
+                else
+                {
+                    DrawText("boss", 100, 230, 38, WHITE);
+                }
             }
             
             DrawRectangle(30, 520, 180, 65, WHITE);
