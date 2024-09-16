@@ -13,7 +13,7 @@ int main()
     // オーディオデバイスを初期化
     InitAudioDevice();
 
-    bool debugMode = false;
+    bool debugMode = true;
 
     bool shieldOF = true;
     double shield = 300;
@@ -39,10 +39,8 @@ int main()
     int innerFrameWidth = 240;
     int innerFrameHeight = 240;
 
-    double MPDefault = 1000.0;
-    double MPDefaultMax = 1145148101919.0;
-    double playerMPMax = 1000.0;
-    double playerMP = 1000.0;
+    double playerMPDefault = 800.0;
+    double playerMP = 800.0;
 
     double startTime = GetTime(); // 開始時刻を取得
 
@@ -51,27 +49,14 @@ int main()
     double bossMPDefault = 1000.0;
     double bossMP = 114514.0;
     bool bossHPWatch = false;
-
-    double satoOneHP = 100.0;
-    double satoOneHPDefault = 100.0;
-    double satoOneMPDefault = 1000.0;
-    double satoOneMP = 1000.0;
-    double satoOneMPMax = 10000.0;
-    int satoOneShield = 0;
-
-    double satoTwoHP = 50.0;
-    double satoTwoHPDefault = 50.0;
-    double satoTwoMPDefault = 10000.0;
-    double satoTwoMP = 10000.0;
-    double satoTwoMPMax = 1000000.0;
-    int satoTwoShield = 0;
+    int nomalAttackDamage = 5;
 
     double playerHPMax = 100.0;
-    double playerHPDefault = 99.0;
-    double playerHP = 99.0;
+    double playerHPDefault = 20.0;
+    double playerHP = playerHPDefault;
     double playerPositionX = 405.0;
     double playerPositionY = 305.0;
-    double playerLevel = 20;
+    double playerLevel = 1;
 // X 405 Y 305
 
     Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
@@ -126,20 +111,37 @@ int main()
     Rectangle turnOneAttackRectThree = { 605, 300, 50, 50 };
 
     Rectangle turnOneAttackRectFour = { 400, 70, 50, 50 };
+
+    double damageCooldown = 0;  // プレイヤーのダメージクールダウンタイマー
+    double invincibilityTime = 0.2;  // ダメージを受けた後の無敵時間（1秒）
+
     while (!WindowShouldClose())
     {
-        if (playerHP == 0)
+        double damageTime = GetTime(); // 現在の時刻を取得
+        // クールダウンタイマーを時間経過で減少させる
+        if (damageCooldown > 0)
+        {
+            damageCooldown -= GetFrameTime();  // フレーム時間に応じてクールダウンを減少
+        }
+
+        if (playerHP > playerHPDefault)
+        {
+            playerHP = playerHPDefault;
+        }
+        if (playerHP < 1)
         {
             if (debugMode)
-            {}
+            {
+                playerHP = playerHPDefault;
+            }
             else if (!debugMode)
             {
                 BeginDrawing();
 
-                ClearBackground(RAYWHITE);
+                ClearBackground(BLACK);
 
                 UpdateMusicStream(deathBGM);
-                DrawText("Game Over", 190, 200, 20, BLACK);
+                DrawText("Game Over", 180, 80, 100, WHITE);
 
                 EndDrawing();
             }
@@ -227,69 +229,81 @@ int main()
                 {}
                 if (!shieldOF)
                 {
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                    if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
                     {
-                        playerHP -= 1.0;
-                    }
-                    // 当たり判定
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
-                    {
-                        playerHP -= 1.0;
-                    }
-                    // 当たり判定
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
-                    {
-                        playerHP -= 1.0;
-                    }
-                    // 当たり判定
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
-                    {
-                        playerHP -= 1.0;
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
                     }
                 }
                 else if (shield < 0)
                 {
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                    if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
                     {
-                        playerHP -= 1.0;
-                    }
-                    // 当たり判定
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
-                    {
-                        playerHP -= 1.0;
-                    }
-                    // 当たり判定
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
-                    {
-                        playerHP -= 1.0;
-                    }
-                    // 当たり判定
-                    if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
-                    {
-                        playerHP -= 1.0;
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
                     }
                 }
             }
             else
             {
-                if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
                 {
-                    playerHP -= 1.0;
-                }
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
-                {
-                    playerHP -= 1.0;
-                }
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
-                {
-                    playerHP -= 1.0;
-                }
-                // 当たり判定
-                if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
-                {
-                    playerHP -= 1.0;
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                    {
+                        playerHP -= nomalAttackDamage;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
+                    {
+                        playerHP -= nomalAttackDamage;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
+                    {
+                        playerHP -= nomalAttackDamage;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
+                    {
+                        playerHP -= nomalAttackDamage;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
                 }
             }
 
@@ -315,23 +329,6 @@ int main()
                 }
             }
 
-            if (currentTime - startTime >= 0.0000001)
-            {
-                double currentTime = GetTime(); // 現在の時刻を取得
-                if (currentTime - startTime >= 2.0)
-                {
-                    if (satoOneMP < satoOneMPDefault)
-                    {
-                        satoOneMP += 10;
-                    } else if (satoOneMP == satoOneMPDefault && satoTwoMP == satoTwoMPDefault)
-                    {}
-                    else if (satoTwoMP < satoTwoMPDefault)
-                    {
-                        satoTwoMP += 10;
-                    }
-                }
-            }
-
             if (turn == 0.5)
             {
                 // プレイヤーが枠の外に出ないように制限
@@ -343,7 +340,7 @@ int main()
                 if (playerPositionY + playerRect.height > outerFrameY + outerFrameWidth)
                     playerPositionY = outerFrameY + outerFrameHeight - playerRect.height;
             }
-            else if (turn == 1)
+            else
             {}
 
             BeginDrawing();
@@ -444,18 +441,20 @@ int main()
                 DrawRectangle(360, 100, bossHP / 8, 15, GREEN);
             }
 
-        // 変数を表示するための文字列を生成
+            // 変数を表示するための文字列を生成
             std::ostringstream playerHPOutput;
             playerHPOutput << "LV" << playerLevel << "      " << playerHP << " / " << playerHPDefault;
             std::string playerHPText = playerHPOutput.str();
 
-            DrawText(playerHPText.c_str(), 30, 485, 28, WHITE);  // 変数の内容を表示
-            DrawRectangle(280, 485, playerHPDefault * 3, 28, darkRed);
-            DrawRectangle(280, 485, playerHP * 3, 28, DARKPURPLE);
+            DrawText(playerHPText.c_str(), 30, 475, 23, WHITE);  // 変数の内容を表示
+            DrawRectangle(280, 475, playerHPDefault * 3, 23, darkRed);
+            DrawRectangle(280, 475, playerHP * 3, 23, DARKPURPLE);
+            DrawRectangle(280, 498, playerMPDefault / 5, 10, darkRed);
+            DrawRectangle(280, 498, playerMP / 5, 10, YELLOW);
 
             if (shieldOF)
             {
-                DrawRectangle(700, 485, shield / 2, 28, GREEN);
+                DrawRectangle(700, 475, shield / 2, 28, GREEN);
             }
 
             DrawTexture(bossTexture, 300, -60, WHITE);
@@ -466,10 +465,10 @@ int main()
                 // 2秒経過したかをチェック
                 if (currentTime - startTime >= 0.3)
                 {
-                    turnOneAttackRect.x += 5;
+                    turnOneAttackRect.x += 3;
                     turnOneAttackRectTwo.y -= 5;
-                    turnOneAttackRectThree.x -= 5;
-                    turnOneAttackRectFour.y += 5;
+                    turnOneAttackRectThree.x -= 7;
+                    turnOneAttackRectFour.y += 8;
                 }
                 if (fuckTime == 3) 
                 {
@@ -478,9 +477,11 @@ int main()
                 }
             }
             else if (turn == 1)
-            {}
-            
-            
+            {
+                // if (turnOneAttackRectFour.y < 1000) turnOneAttackRectFour.y += 8;
+                turnOneAttackRect.x += 8;
+            }
+
             DrawTexture(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y, WHITE);
             DrawTexture(attackTexture, turnOneAttackRectTwo.x, turnOneAttackRectTwo.y, WHITE);
             DrawTexture(attackTexture, turnOneAttackRectThree.x, turnOneAttackRectThree.y, WHITE);
