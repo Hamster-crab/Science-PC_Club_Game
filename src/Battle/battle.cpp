@@ -15,7 +15,7 @@ int main()
 
     bool debugMode = true;
 
-    bool shieldOF = false;
+    bool shieldOF = true;
     double shieldDefault = 300;
     double shield = shieldDefault;
 
@@ -106,16 +106,19 @@ int main()
 
     Rectangle playerRect = { static_cast<float>(playerPositionX), static_cast<float>(playerPositionY), 30, 30 };
 
-    Rectangle turnOneAttackRect = { 205, 305, 50, 50 };
+    Rectangle turnOneAttackRect = { 205, 305, 20, 20 };
 
-    Rectangle turnOneAttackRectTwo = { 400, 500, 50, 50 };
+    Rectangle turnOneAttackRectTwo = { 400, 500, 20, 20 };
 
-    Rectangle turnOneAttackRectThree = { 605, 300, 50, 50 };
+    Rectangle turnOneAttackRectThree = { 605, 300, 20, 20 };
 
-    Rectangle turnOneAttackRectFour = { 400, 70, 50, 50 };
+    Rectangle turnOneAttackRectFour = { 400, 70, 20, 20 };
 
     double damageCooldown = 0;  // プレイヤーのダメージクールダウンタイマー
     double invincibilityTime = 0.4;  // ダメージを受けた後の無敵時間（0.4秒）
+
+    double shieldCooldown = 0;  // プレイヤーshieldのダメージクールダウンタイマー
+    double shieldInvincibilityTime = 0.4;  // shield後の無敵時間（0.4秒）
 
     while (!WindowShouldClose())
     {
@@ -230,22 +233,22 @@ int main()
                         if (CheckCollisionRecs(playerRect, turnOneAttackRect))
                         {
                             shield -= nomalAttackShield;
-                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                            shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
                         {
                             shield -= nomalAttackShield;
-                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                            shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
                         {
                             shield -= nomalAttackShield;
-                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                            shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
                         {
                             shield -= nomalAttackShield;
-                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                            shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                     }
                     if (!shieldOF)
