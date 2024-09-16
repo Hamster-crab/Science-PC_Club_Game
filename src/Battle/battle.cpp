@@ -446,9 +446,14 @@ int main()
             playerHPOutput << "LV" << playerLevel << "      " << playerHP << " / " << playerHPDefault;
             std::string playerHPText = playerHPOutput.str();
 
+            std::ostringstream playerMPOutput;
+            playerMPOutput << playerMP << " / " << playerMPDefault;
+            std::string playerMPText = playerMPOutput.str();
+
             DrawText(playerHPText.c_str(), 30, 475, 23, WHITE);  // 変数の内容を表示
             DrawRectangle(280, 475, playerHPDefault * 3, 23, darkRed);
             DrawRectangle(280, 475, playerHP * 3, 23, DARKPURPLE);
+            DrawText(playerMPText.c_str(), 140, 500, 14, WHITE);
             DrawRectangle(280, 498, playerMPDefault / 5, 10, darkRed);
             DrawRectangle(280, 498, playerMP / 5, 10, YELLOW);
 
