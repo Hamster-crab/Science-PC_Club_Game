@@ -50,6 +50,7 @@ int main()
     double bossMP = 114514.0;
     bool bossHPWatch = false;
     int nomalAttackDamage = 5;
+    int nomalAttackShield = 3;
 
     double playerHPMax = 100.0;
     double playerHPDefault = 20.0;
@@ -113,7 +114,7 @@ int main()
     Rectangle turnOneAttackRectFour = { 400, 70, 50, 50 };
 
     double damageCooldown = 0;  // プレイヤーのダメージクールダウンタイマー
-    double invincibilityTime = 0.2;  // ダメージを受けた後の無敵時間（1秒）
+    double invincibilityTime = 0.4;  // ダメージを受けた後の無敵時間（0.4秒）
 
     while (!WindowShouldClose())
     {
@@ -226,7 +227,28 @@ int main()
             if (IsKeyDown(KEY_SPACE))
             {
                 if (shield > 0)
-                {}
+                {
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                    {
+                        shield -= nomalAttackShield;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
+                    {
+                        shield -= nomalAttackShield;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
+                    {
+                        shield -= nomalAttackShield;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
+                    {
+                        shield -= nomalAttackShield;
+                        damageCooldown = invincibilityTime;  // クールダウンをリセット
+                    }
+                }
                 if (!shieldOF)
                 {
                     if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
