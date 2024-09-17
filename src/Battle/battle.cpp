@@ -15,6 +15,8 @@ int main()
 
     bool debugMode = true;
 
+    bool turnOneAttack = true;
+
     bool shieldOF = true;
     double shieldDefault = 300;
     double shield = shieldDefault;
@@ -115,7 +117,7 @@ int main()
     Rectangle turnOneAttackRectFour = { 400, 70, 20, 20 };
 
     double damageCooldown = 0;  // プレイヤーのダメージクールダウンタイマー
-    double invincibilityTime = 0.4;  // ダメージを受けた後の無敵時間（0.4秒）
+    double invincibilityTime = 0.5;  // ダメージを受けた後の無敵時間（0.4秒）
 
     double shieldCooldown = 0;  // プレイヤーshieldのダメージクールダウンタイマー
     double shieldInvincibilityTime = 0.4;  // shield後の無敵時間（0.4秒）
@@ -556,10 +558,13 @@ int main()
                 turnOneAttackRect.x += 8;
             }
 
-            DrawTexture(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y, WHITE);
-            DrawTexture(attackTexture, turnOneAttackRectTwo.x, turnOneAttackRectTwo.y, WHITE);
-            DrawTexture(attackTexture, turnOneAttackRectThree.x, turnOneAttackRectThree.y, WHITE);
-            DrawTexture(attackTexture, turnOneAttackRectFour.x, turnOneAttackRectFour.y, WHITE);
+            if (turn == 0.5)
+            {
+                DrawTexture(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y, WHITE);
+                DrawTexture(attackTexture, turnOneAttackRectTwo.x, turnOneAttackRectTwo.y, WHITE);
+                DrawTexture(attackTexture, turnOneAttackRectThree.x, turnOneAttackRectThree.y, WHITE);
+                DrawTexture(attackTexture, turnOneAttackRectFour.x, turnOneAttackRectFour.y, WHITE);
+            }
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
             else if (!attack) DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
