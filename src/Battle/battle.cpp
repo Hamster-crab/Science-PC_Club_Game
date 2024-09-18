@@ -3,6 +3,11 @@
 #include <iostream>
 #include "raylib.h"
 
+void reset(Rectangle a, Rectangle b)
+{
+    a = b;
+}
+
 int main()
 {
     const int screenWidth = 900;
@@ -560,6 +565,7 @@ int main()
 
             if (turn == 0.5)
             {
+                reset(turnOneAttack,);
                 DrawTexture(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y, WHITE);
                 DrawTexture(attackTexture, turnOneAttackRectTwo.x, turnOneAttackRectTwo.y, WHITE);
                 DrawTexture(attackTexture, turnOneAttackRectThree.x, turnOneAttackRectThree.y, WHITE);
