@@ -13,7 +13,7 @@ int main()
     // オーディオデバイスを初期化
     InitAudioDevice();
 
-    bool debugMode = true;
+    bool debugMode = false;
 
     bool turnOneAttack = true;
 
@@ -568,11 +568,18 @@ int main()
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
             else if (!attack) DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
-            std::cout << attack << "    " << turn << std::endl;
+            // std::cout << attack << "    " << turn << std::endl;
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
 
+            if (IsKeyPressed(KEY_D))
+            {
+                if (debugMode == true) debugMode = false;
+                else if (debugMode == false) debugMode = true;
+            }
+            if (debugMode == true) DrawText("DEBUG", 10, 10, 40, WHITE);
+            else if (debugMode == false) DrawText("", 10, 10, 40, WHITE);
             EndDrawing();
         }
     }
