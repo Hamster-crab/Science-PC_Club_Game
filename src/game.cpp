@@ -17,8 +17,7 @@ int main(void)
     double playerMPDefault = 200.0;
     double playerMPMax = 1000.0;
 
-    bool +
-    env = true;
+    bool env = true;
 
     // ウィンドウの初期化
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
@@ -203,9 +202,16 @@ int main(void)
             DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerWaterFullPositionY, WHITE);
         }
 
+        if (IsKeyPressed(KEY_E))
+        {
+            if (env) env = false;
+            else if (!env) env = true;
+        }
+
         if (env)
         {
-            DrawRectangle(playerPosition.x / 1000, playerPosition.y / 750, 750, 400, GRAY);
+            DrawRectangle(playerPosition.x - 380, playerPosition.y - 200, 750, 400, GRAY);
+            DrawRectangle(playerPosition.x - 350, playerPosition.y - 150, 750, 400, WHITE);
         }
         else if (!env)
         {}
