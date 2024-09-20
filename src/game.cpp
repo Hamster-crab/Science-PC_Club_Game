@@ -40,7 +40,7 @@ int main(void)
     ImageResize(&playerWaterFullImageImage, 30, 30);
     ImageResize(&playerWaterHalfImageImage, 30, 30);
     ImageResize(&playerWaterEmptyImageImage, 30, 30);
-    ImageResize(&backgroundImage, 16050, 16050);
+    ImageResize(&backgroundImage, 9000, 9000);
 
     // テクスチャに変換
     Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
@@ -198,6 +198,11 @@ int main(void)
             DrawTexture(playerWaterFullImage, playerFullStomachPositionXEight, playerWaterFullPositionY, WHITE);
             DrawTexture(playerWaterFullImage, playerFullStomachPositionXNine, playerWaterFullPositionY, WHITE);
             DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerWaterFullPositionY, WHITE);
+        }
+
+        if (IsKeyPressed(KEY_E))
+        {
+            DrawRectangle(playerPosition.x, playerPosition.y, 500, 300, GRAY);
         }
 
         // カメラの描画終了
