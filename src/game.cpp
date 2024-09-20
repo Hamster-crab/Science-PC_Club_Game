@@ -17,6 +17,9 @@ int main(void)
     double playerMPDefault = 200.0;
     double playerMPMax = 1000.0;
 
+    bool +
+    env = true;
+
     // ウィンドウの初期化
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
     SetTargetFPS(60);
@@ -200,10 +203,12 @@ int main(void)
             DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerWaterFullPositionY, WHITE);
         }
 
-        if (IsKeyPressed(KEY_E))
+        if (env)
         {
-            DrawRectangle(playerPosition.x, playerPosition.y, 500, 300, GRAY);
+            DrawRectangle(playerPosition.x / 1000, playerPosition.y / 750, 750, 400, GRAY);
         }
+        else if (!env)
+        {}
 
         // カメラの描画終了
         EndMode2D();
