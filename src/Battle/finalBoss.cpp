@@ -3,16 +3,16 @@
 #include <iostream>
 #include "raylib.h"
 
-void reset(Rectangle a, Rectangle b)
+void turnOne(Texture2D texture, double x, double y)
 {
-    a = b;
+    DrawTexture(texture, x, y, WHITE);
 }
 
 int main()
 {
     const int screenWidth = 900;
     const int screenHeight = 600;
-    InitWindow(screenWidth, screenHeight, "林 凌久");
+    InitWindow(screenWidth, screenHeight, "");
     SetTargetFPS(60);
 
     // オーディオデバイスを初期化
@@ -23,7 +23,7 @@ int main()
     bool turnOneAttack = true;
 
     bool shieldOF = true;
-    double shieldDefault = 300;
+    double shieldDefault = 180;
     double shield = shieldDefault;
 
     double turn = 0.5;
@@ -63,36 +63,38 @@ int main()
     double playerHPMax = 100.0;
     double playerHPDefault = 20.0;
     double playerHP = playerHPDefault;
-    double playerPositionX = 405.0;
-    double playerPositionY = 305.0;
+    double playerPositionX = 410.0;
+    double playerPositionY = 480.0;
     double playerLevel = 1;
 // X 405 Y 305
 
     Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
-    Music damageBGM = LoadMusicStream("music/damageBGM.mp3");
-    Music deathBGM = LoadMusicStream("music/deathBGM.mp3");
-    float mainVolume = 0.2f;
-    float damageVolume = 10.0f;
+    Music damage = LoadMusicStream("music/damage.mp3");
+    Music deathBGM = LoadMusicStream("music/death.mp3");
+    Music mainBGM = LoadMusicStream("music/final.mp3");
+    float mainVolume = 20.0f;
+    float damageVolume = 8.0f;
 
-    SetMusicVolume(sampleBGM, mainVolume);
-    SetMusicVolume(damageBGM, damageVolume);
+    SetMusicVolume(mainBGM, mainVolume);
+    SetMusicVolume(damage, damageVolume);
 
     // 音楽の再生を開始
     PlayMusicStream(sampleBGM);
-    PlayMusicStream(damageBGM);
+    PlayMusicStream(damage);
     PlayMusicStream(deathBGM);
+    PlayMusicStream(mainBGM);
 
     Image summonSatoOneTextureTexture = LoadImage("resources/hamster/dededon.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/hamster/waterBug.png");
     Image bossTextureTexture = LoadImage("resources/finalBossTexture/nomal.png");
-    Image attackTextureTexture = LoadImage("resources/Textures/boiled_egg.png");
+    Image attackTextureTexture = LoadImage("resources/finalBossTexture/playerArmDot.png");
     Image playerTextureTexture = LoadImage("resources/Textures/player/playerImage.png");
     Image playerTextureGreenTexture = LoadImage("resources/Textures/Beef.png");
 
     ImageResize(&summonSatoOneTextureTexture, 100, 100);
     ImageResize(&summonSatoTwoTextureTexture, 100, 100);
     ImageResize(&bossTextureTexture, 900, 600);
-    ImageResize(&attackTextureTexture, 20, 20);
+    ImageResize(&attackTextureTexture, 50, 50);
     ImageResize(&playerTextureTexture, 18, 18);
     ImageResize(&playerTextureGreenTexture, 18, 18);
 
@@ -102,6 +104,19 @@ int main()
     Texture2D attackTexture = LoadTextureFromImage(attackTextureTexture);
     Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
     Texture2D playerTextureGreen = LoadTextureFromImage(playerTextureGreenTexture);
+
+    Image bossSumonOneTextureTexture = LoadImage("resources/finalBossTexture/One.png");
+    Image bossSumonTwoTextureTexture = LoadImage("resources/finalBossTexture/Two.png");
+    Image bossSumonThreeTextureTexture = LoadImage("resources/finalBossTexture/Three.png");
+    ImageResize(&bossSumonOneTextureTexture, 900, 600);
+    ImageResize(&bossSumonTwoTextureTexture, 900, 600);
+    ImageResize(&bossSumonThreeTextureTexture, 900, 600);
+    Texture2D bossSumonOneTexture = LoadTextureFromImage(bossSumonOneTextureTexture);
+    Texture2D bossSumonTwoTexture = LoadTextureFromImage(bossSumonTwoTextureTexture);
+    Texture2D bossSumonThreeTexture = LoadTextureFromImage(bossSumonThreeTextureTexture);
+    UnloadImage(bossSumonOneTextureTexture);
+    UnloadImage(bossSumonTwoTextureTexture);
+    UnloadImage(bossSumonThreeTextureTexture);
 
     // 不要なイメージデータを解放
     UnloadImage(summonSatoOneTextureTexture);
@@ -113,13 +128,14 @@ int main()
 
     Rectangle playerRect = { static_cast<float>(playerPositionX), static_cast<float>(playerPositionY), 30, 30 };
 
-    Rectangle turnOneAttackRect = { 205, 305, 20, 20 };
+    Rectangle turnOneAttackRect = { 410, 305, 50, 30 };
+    Rectangle turnOneAttackRectReset = { 410, 305, 50, 30 };
 
     double damageCooldown = 0;  // プレイヤーのダメージクールダウンタイマー
     double invincibilityTime = 0.5;  // ダメージを受けた後の無敵時間（0.4秒）
 
     double shieldCooldown = 0;  // プレイヤーshieldのダメージクールダウンタイマー
-    double shieldInvincibilityTime = 0.4;  // shield後の無敵時間（0.4秒）
+    double shieldInvincibilityTime = 0.0;  // shield後の無敵時間（0.4秒）
 
     while (!WindowShouldClose())
     {
@@ -168,7 +184,7 @@ int main()
         }
         else
         {
-            UpdateMusicStream(sampleBGM);
+            UpdateMusicStream(mainBGM);
             double currentTime = GetTime(); // 現在の時刻を取得
             // プレイヤーの位置を更新
             if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
@@ -184,32 +200,39 @@ int main()
                 {
                     if (shield > 0)
                     {
-                        // if (CheckCollisionRecs(playerRect, turnOneAttackRect))
-                        // {
-                        //     shield -= nomalAttackShield;
-                        //     shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
-                        // }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                        {
+                            if (currentTime > 7)
+                            {
+                                shield -= nomalAttackShield;
+                                shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
+                            }
+                        }
                     }
                     if (!shieldOF)
                     {
                         if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
                         {
-                            // if (CheckCollisionRecs(playerRect, turnOneAttackRect))
-                            // {
-                            //     playerHP -= nomalAttackDamage;
-                            //     damageCooldown = invincibilityTime;  // クールダウンをリセット
-                            // }
+                            if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                            {
+                                if (currentTime > 7 && currentTime < 10)
+                                playerHP -= nomalAttackDamage;
+                                damageCooldown = invincibilityTime;  // クールダウンをリセット
+                            }
                         }
                     }
                     else if (shield < 0)
                     {
                         if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
                         {
-                            // if (CheckCollisionRecs(playerRect, turnOneAttackRect))
-                            // {
-                            //     playerHP -= nomalAttackDamage;
-                            //     damageCooldown = invincibilityTime;  // クールダウンをリセット
-                            // }
+                            if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                            {
+                                if (currentTime > 7 && currentTime < 10)
+                                {
+                                    playerHP -= nomalAttackDamage;
+                                    damageCooldown = invincibilityTime;  // クールダウンをリセット
+                                }
+                            }
                         }
                     }
                 }
@@ -217,11 +240,14 @@ int main()
                 {
                     if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
                     {
-                        // if (CheckCollisionRecs(playerRect, turnOneAttackRect))
-                        // {
-                        //     playerHP -= nomalAttackDamage;
-                        //     damageCooldown = invincibilityTime;  // クールダウンをリセット
-                        // }
+                        if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                        {
+                            if (currentTime > 7 && currentTime < 10)
+                            {
+                                playerHP -= nomalAttackDamage;
+                                damageCooldown = invincibilityTime;  // クールダウンをリセット
+                            }
+                        }
                     }
                 }
             }
@@ -229,11 +255,14 @@ int main()
             {
                 if (damageCooldown <= 0)  // クールダウンが0以下の場合のみダメージを適用
                 {
-                    // if (CheckCollisionRecs(playerRect, turnOneAttackRect))
-                    // {
-                    //     playerHP -= nomalAttackDamage;
-                    //     damageCooldown = invincibilityTime;  // クールダウンをリセット
-                    // }
+                    if (CheckCollisionRecs(playerRect, turnOneAttackRect))
+                    {
+                        if (currentTime > 7 && currentTime < 10)
+                        {
+                            playerHP -= nomalAttackDamage;
+                            damageCooldown = invincibilityTime;  // クールダウンをリセット
+                        }
+                    }
                 }
             }
 
@@ -251,31 +280,43 @@ int main()
             }
             if (IsKeyUp(KEY_SPACE))
             {
-                if (shield == 300)
+                if (shield == shieldDefault)
                 {}
-                else if (shield < 300)
+                else if (shield < shieldDefault)
                 {
-                    shield += 2.5;
+                    shield += 1.8;
                 }
             }
             
             BeginDrawing();
             ClearBackground(BLACK);
 
-            DrawTexture(bossTexture, 0, 0, WHITE);
+            if (currentTime > 2) DrawTexture(bossSumonOneTexture, 0, 0, WHITE);
+            if (currentTime > 4) DrawTexture(bossSumonTwoTexture, 0, 0, WHITE);
+            if (currentTime > 5) DrawTexture(bossSumonThreeTexture, 0, 0, WHITE);
+            if (currentTime > 6) DrawTexture(bossTexture, 0, 0, WHITE);
+            std::cout << currentTime << "\n";
 
             DrawRectangle(playerPositionX, playerPositionY, 18, 18, RED);
+
+            if (currentTime > 7 && currentTime < 10)
+            {
+                turnOne(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y);
+                turnOneAttackRect.y += 5;
+            }
+            else turnOneAttackRect = turnOneAttackRectReset;
+
             DrawRectangle(screenWidth - 875, screenHeight - 60, playerHPDefault * 5, 28, darkRed);
             DrawRectangle(screenWidth - 875, screenHeight - 60, playerHP * 5, 28, DARKPURPLE);
 
-            DrawRectangle(screenWidth - 200, screenHeight - 60, shieldDefault / 2, 28, darkRed);
+            DrawRectangle(screenWidth - 200, screenHeight - 60, shieldDefault, 28, darkRed);
             if (shieldOF)
             {
-                DrawRectangle(screenWidth - 200, screenHeight - 60, shield / 2, 28, GREEN);
+                DrawRectangle(screenWidth - 200, screenHeight - 60, shield, 28, GREEN);
             }
             else if (!shieldOF)
             {
-                DrawRectangle(screenWidth - 200, screenHeight - 60, shield / 2, 28, WHITE);
+                DrawRectangle(screenWidth - 200, screenHeight - 60, shield, 28, WHITE);
             }
 
             // プレイヤーと攻撃の矩形を更新
