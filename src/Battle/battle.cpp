@@ -568,16 +568,13 @@ int main()
             }
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
-            else if (!attack)
-            {
-                if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
-                else if (!shieldOF)
-                {}
-                DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
-                if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
-                else if (!shieldOF)
-                {}
-            }
+            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
+            else if (!shieldOF)
+            {}
+            DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
+            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+            else if (!shieldOF)
+            {}
             // std::cout << attack << "    " << turn << std::endl;
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
