@@ -443,8 +443,8 @@ int main()
             {
                 playerPositionX = 70;
                 playerPositionY = 240;
-                // if (playerPositionX == 70, playerPositionY == 240)
-                // {
+                if (playerPositionX == 70, playerPositionY == 240)
+                {
                     if (IsKeyPressed(KEY_Z))
                     {
                         bossHPWatch = true;
@@ -462,7 +462,7 @@ int main()
                 // else
                 // {
                 //     DrawText("boss", 100, 230, 38, WHITE);
-                // }
+                }
             }
             
             DrawRectangle(30, 520, 180, 65, WHITE);
@@ -565,7 +565,6 @@ int main()
 
             if (turn == 0.5)
             {
-                reset(turnOneAttack,);
                 DrawTexture(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y, WHITE);
                 DrawTexture(attackTexture, turnOneAttackRectTwo.x, turnOneAttackRectTwo.y, WHITE);
                 DrawTexture(attackTexture, turnOneAttackRectThree.x, turnOneAttackRectThree.y, WHITE);
@@ -573,7 +572,12 @@ int main()
             }
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
-            else if (!attack) DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
+            else if (!attack)
+            {
+                if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
+                DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
+                if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+            }
             // std::cout << attack << "    " << turn << std::endl;
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
