@@ -68,19 +68,21 @@ int main()
     double playerLevel = 1;
 // X 405 Y 305
 
-    Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
-    Music damageBGM = LoadMusicStream("music/damageBGM.mp3");
-    Music deathBGM = LoadMusicStream("music/deathBGM.mp3");
-    float mainVolume = 0.2f;
-    float damageVolume = 10.0f;
+    Music mainBGM = LoadMusicStream("music/sampleBGM.mp3");
+    Music damage = LoadMusicStream("music/damage.mp3");
+    Music deathBGM = LoadMusicStream("music/death.mp3");
+    float mainVolume = 10.0f;
+    float damageVolume = 8.0f;
 
-    SetMusicVolume(sampleBGM, mainVolume);
-    SetMusicVolume(damageBGM, damageVolume);
+    SetMusicVolume(mainBGM, mainVolume);
+    SetMusicVolume(damage, damageVolume);
+    SetMusicVolume(deathBGM, mainVolume);
 
     // 音楽の再生を開始
-    PlayMusicStream(sampleBGM);
-    PlayMusicStream(damageBGM);
+    PlayMusicStream(mainBGM);
+    PlayMusicStream(damage);
     PlayMusicStream(deathBGM);
+    PlayMusicStream(mainBGM);
 
     Image summonSatoOneTextureTexture = LoadImage("resources/hamster/dededon.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/hamster/waterBug.png");
@@ -152,6 +154,7 @@ int main()
 
                 ClearBackground(BLACK);
 
+                StopMusicStream(mainBGM);
                 UpdateMusicStream(deathBGM);
                 DrawText("Game Over", 180, 80, 100, WHITE);
 
@@ -172,7 +175,7 @@ int main()
         }
         else
         {
-            UpdateMusicStream(sampleBGM);
+            UpdateMusicStream(mainBGM);
             double currentTime = GetTime(); // 現在の時刻を取得
             // プレイヤーの位置を更新
             if (turn == 0.5)

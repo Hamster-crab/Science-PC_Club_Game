@@ -77,6 +77,7 @@ int main()
 
     SetMusicVolume(mainBGM, mainVolume);
     SetMusicVolume(damage, damageVolume);
+    SetMusicVolume(deathBGM, mainVolume);
 
     // 音楽の再生を開始
     PlayMusicStream(sampleBGM);
@@ -164,6 +165,7 @@ int main()
 
                 ClearBackground(BLACK);
 
+                StopMusicStream(mainBGM);
                 UpdateMusicStream(deathBGM);
                 DrawText("Game Over", 180, 80, 100, WHITE);
 
