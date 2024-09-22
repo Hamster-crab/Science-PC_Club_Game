@@ -22,7 +22,7 @@ int main()
 
     bool turnOneAttack = true;
 
-    bool shieldOF = true;
+    bool shieldOF = false;
     double shieldDefault = 300;
     double shield = shieldDefault;
 
@@ -529,14 +529,10 @@ int main()
             DrawRectangle(280, 498, playerMPDefault / 5, 10, darkRed);
             DrawRectangle(280, 498, playerMP / 5, 10, YELLOW);
 
-            DrawRectangle(700, 475, shieldDefault / 2, 28, darkRed);
             if (shieldOF)
             {
+                DrawRectangle(700, 475, shieldDefault / 2, 28, darkRed);
                 DrawRectangle(700, 475, shield / 2, 28, GREEN);
-            }
-            else if (!shieldOF)
-            {
-                DrawRectangle(700, 475, shield / 2, 28, WHITE);
             }
 
             DrawTexture(bossTexture, 300, -60, WHITE);
@@ -575,8 +571,12 @@ int main()
             else if (!attack)
             {
                 if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
+                else if (!shieldOF)
+                {}
                 DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
                 if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+                else if (!shieldOF)
+                {}
             }
             // std::cout << attack << "    " << turn << std::endl;
             // プレイヤーと攻撃の矩形を更新
