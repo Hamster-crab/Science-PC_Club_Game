@@ -130,6 +130,7 @@ int main()
 
     while (!WindowShouldClose())
     {
+        if (debugMode) playerHP = playerHPDefault;
         double damageTime = GetTime(); // 現在の時刻を取得
         // クールダウンタイマーを時間経過で減少させる
         if (damageCooldown > 0)

@@ -141,6 +141,7 @@ int main()
 
     while (!WindowShouldClose())
     {
+        if (debugMode) playerHP = playerHPDefault;
         playerRect.x = playerPositionX;
         playerRect.y = playerPositionY;
         double damageTime = GetTime(); // 現在の時刻を取得
