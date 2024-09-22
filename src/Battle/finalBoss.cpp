@@ -19,6 +19,9 @@ int main()
     InitAudioDevice();
 
     bool debugMode = false;
+    bool OneHP = false;
+
+    double playerMoveSpeed = 5.0;
 
     bool turnOneAttack = true;
 
@@ -187,10 +190,12 @@ int main()
             UpdateMusicStream(mainBGM);
             double currentTime = GetTime(); // 現在の時刻を取得
             // プレイヤーの位置を更新
-            if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
-            if (IsKeyDown(KEY_DOWN)) playerPositionY += 5;
-            if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
-            if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
+            if (IsKeyDown(KEY_UP)) playerPositionY -= playerMoveSpeed;
+            if (IsKeyDown(KEY_DOWN)) playerPositionY += playerMoveSpeed;
+            if (IsKeyDown(KEY_RIGHT)) playerPositionX += playerMoveSpeed;
+            if (IsKeyDown(KEY_LEFT)) playerPositionX -= playerMoveSpeed;
+            if (IsKeyDown(KEY_X)) playerMoveSpeed = 1;
+            else if (IsKeyUp(KEY_X)) playerMoveSpeed = 5;
 
             // UpdateMusicStream(damageBGM);
             // 当たり判定
@@ -313,11 +318,11 @@ int main()
                 DrawRectangle(screenWidth - 200, screenHeight - 60, shield, 28, GREEN);
             }
 
-            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
+            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
             else if (!shieldOF)
             {}
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
-            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
             else if (!shieldOF)
             {}
 
@@ -332,6 +337,13 @@ int main()
             }
             if (debugMode == true) DrawText("DEBUG", 10, 10, 40, WHITE);
             else if (debugMode == false) DrawText("", 10, 10, 40, WHITE);
+
+            if (IsKeyPressed(KEY_O)) if (!OneHP) OneHP = true;
+            if (OneHP)
+            {
+                playerHPDefault = 1;
+                shieldOF = false;
+            }
             EndDrawing();
         }
     }

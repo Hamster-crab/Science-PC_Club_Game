@@ -19,6 +19,7 @@ int main()
     InitAudioDevice();
 
     bool debugMode = false;
+    double playerMoveSpeed = 5.0;
 
     bool turnOneAttack = true;
 
@@ -71,7 +72,7 @@ int main()
     Music mainBGM = LoadMusicStream("music/sampleBGM.mp3");
     Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
-    float mainVolume = 10.0f;
+    float mainVolume = 1.0f;
     float damageVolume = 8.0f;
 
     SetMusicVolume(mainBGM, mainVolume);
@@ -178,10 +179,12 @@ int main()
             // プレイヤーの位置を更新
             if (turn == 0.5)
             {
-                if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
-                if (IsKeyDown(KEY_DOWN)) playerPositionY += 5;
-                if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
-                if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
+                if (IsKeyDown(KEY_UP)) playerPositionY -= playerMoveSpeed;
+                if (IsKeyDown(KEY_DOWN)) playerPositionY += playerMoveSpeed;
+                if (IsKeyDown(KEY_RIGHT)) playerPositionX += playerMoveSpeed;
+                if (IsKeyDown(KEY_LEFT)) playerPositionX -= playerMoveSpeed;
+                if (IsKeyDown(KEY_X)) playerMoveSpeed = 1;
+                else if (IsKeyUp(KEY_X)) playerMoveSpeed = 5;
             }
             else if (turn == 1)
             {
@@ -569,11 +572,11 @@ int main()
             }
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
-            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
+            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
             else if (!shieldOF)
             {}
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
-            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
             else if (!shieldOF)
             {}
             // std::cout << attack << "    " << turn << std::endl;
