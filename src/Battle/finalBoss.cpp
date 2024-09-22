@@ -297,8 +297,6 @@ int main()
             if (currentTime > 6) DrawTexture(bossTexture, 0, 0, WHITE);
             std::cout << currentTime << "\n";
 
-            DrawRectangle(playerPositionX, playerPositionY, 18, 18, RED);
-
             if (currentTime > 7 && currentTime < 10)
             {
                 turnOne(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y);
@@ -309,15 +307,19 @@ int main()
             DrawRectangle(screenWidth - 875, screenHeight - 60, playerHPDefault * 5, 28, darkRed);
             DrawRectangle(screenWidth - 875, screenHeight - 60, playerHP * 5, 28, DARKPURPLE);
 
-            DrawRectangle(screenWidth - 200, screenHeight - 60, shieldDefault, 28, darkRed);
             if (shieldOF)
             {
+                DrawRectangle(screenWidth - 200, screenHeight - 60, shieldDefault, 28, darkRed);
                 DrawRectangle(screenWidth - 200, screenHeight - 60, shield, 28, GREEN);
             }
+
+            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
             else if (!shieldOF)
-            {
-                DrawRectangle(screenWidth - 200, screenHeight - 60, shield, 28, WHITE);
-            }
+            {}
+            DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
+            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+            else if (!shieldOF)
+            {}
 
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
@@ -341,3 +343,4 @@ int main()
 
     return 0;
 }
+// 43
