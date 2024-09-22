@@ -69,19 +69,17 @@ int main()
 // X 405 Y 305
 
     Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
-    Music damage = LoadMusicStream("music/damage.mp3");
+    Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
     Music mainBGM = LoadMusicStream("music/final.mp3");
     float mainVolume = 20.0f;
     float damageVolume = 8.0f;
 
     SetMusicVolume(mainBGM, mainVolume);
-    SetMusicVolume(damage, damageVolume);
     SetMusicVolume(deathBGM, mainVolume);
 
     // 音楽の再生を開始
     PlayMusicStream(sampleBGM);
-    PlayMusicStream(damage);
     PlayMusicStream(deathBGM);
     PlayMusicStream(mainBGM);
 
