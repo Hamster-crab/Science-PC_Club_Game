@@ -19,10 +19,11 @@ int main()
     InitAudioDevice();
 
     bool debugMode = false;
+    double playerMoveSpeed = 5.0;
 
     bool turnOneAttack = true;
 
-    bool shieldOF = true;
+    bool shieldOF = false;
     double shieldDefault = 300;
     double shield = shieldDefault;
 
@@ -68,19 +69,19 @@ int main()
     double playerLevel = 1;
 // X 405 Y 305
 
-    Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
-    Music damageBGM = LoadMusicStream("music/damageBGM.mp3");
-    Music deathBGM = LoadMusicStream("music/deathBGM.mp3");
-    float mainVolume = 0.2f;
-    float damageVolume = 10.0f;
+    Music mainBGM = LoadMusicStream("music/sampleBGM.mp3");
+    Sound damage = LoadSound("music/damage.mp3");
+    Music deathBGM = LoadMusicStream("music/death.mp3");
+    float mainVolume = 1.0f;
+    float damageVolume = 8.0f;
 
-    SetMusicVolume(sampleBGM, mainVolume);
-    SetMusicVolume(damageBGM, damageVolume);
+    SetMusicVolume(mainBGM, mainVolume);
+    SetMusicVolume(deathBGM, mainVolume);
 
     // 音楽の再生を開始
-    PlayMusicStream(sampleBGM);
-    PlayMusicStream(damageBGM);
+    PlayMusicStream(mainBGM);
     PlayMusicStream(deathBGM);
+    PlayMusicStream(mainBGM);
 
     Image summonSatoOneTextureTexture = LoadImage("resources/hamster/dededon.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/hamster/waterBug.png");
@@ -129,6 +130,7 @@ int main()
 
     while (!WindowShouldClose())
     {
+        if (debugMode) playerHP = playerHPDefault;
         double damageTime = GetTime(); // 現在の時刻を取得
         // クールダウンタイマーを時間経過で減少させる
         if (damageCooldown > 0)
@@ -152,6 +154,7 @@ int main()
 
                 ClearBackground(BLACK);
 
+                StopMusicStream(mainBGM);
                 UpdateMusicStream(deathBGM);
                 DrawText("Game Over", 180, 80, 100, WHITE);
 
@@ -172,15 +175,17 @@ int main()
         }
         else
         {
-            UpdateMusicStream(sampleBGM);
+            UpdateMusicStream(mainBGM);
             double currentTime = GetTime(); // 現在の時刻を取得
             // プレイヤーの位置を更新
             if (turn == 0.5)
             {
-                if (IsKeyDown(KEY_UP)) playerPositionY -= 5;
-                if (IsKeyDown(KEY_DOWN)) playerPositionY += 5;
-                if (IsKeyDown(KEY_RIGHT)) playerPositionX += 5;
-                if (IsKeyDown(KEY_LEFT)) playerPositionX -= 5;
+                if (IsKeyDown(KEY_UP)) playerPositionY -= playerMoveSpeed;
+                if (IsKeyDown(KEY_DOWN)) playerPositionY += playerMoveSpeed;
+                if (IsKeyDown(KEY_RIGHT)) playerPositionX += playerMoveSpeed;
+                if (IsKeyDown(KEY_LEFT)) playerPositionX -= playerMoveSpeed;
+                if (IsKeyDown(KEY_X)) playerMoveSpeed = 1;
+                else if (IsKeyUp(KEY_X)) playerMoveSpeed = 5;
             }
             else if (turn == 1)
             {
@@ -443,8 +448,8 @@ int main()
             {
                 playerPositionX = 70;
                 playerPositionY = 240;
-                // if (playerPositionX == 70, playerPositionY == 240)
-                // {
+                if (playerPositionX == 70, playerPositionY == 240)
+                {
                     if (IsKeyPressed(KEY_Z))
                     {
                         bossHPWatch = true;
@@ -462,7 +467,7 @@ int main()
                 // else
                 // {
                 //     DrawText("boss", 100, 230, 38, WHITE);
-                // }
+                }
             }
             
             DrawRectangle(30, 520, 180, 65, WHITE);
@@ -529,14 +534,10 @@ int main()
             DrawRectangle(280, 498, playerMPDefault / 5, 10, darkRed);
             DrawRectangle(280, 498, playerMP / 5, 10, YELLOW);
 
-            DrawRectangle(700, 475, shieldDefault / 2, 28, darkRed);
             if (shieldOF)
             {
+                DrawRectangle(700, 475, shieldDefault / 2, 28, darkRed);
                 DrawRectangle(700, 475, shield / 2, 28, GREEN);
-            }
-            else if (!shieldOF)
-            {
-                DrawRectangle(700, 475, shield / 2, 28, WHITE);
             }
 
             DrawTexture(bossTexture, 300, -60, WHITE);
@@ -565,7 +566,6 @@ int main()
 
             if (turn == 0.5)
             {
-                reset(turnOneAttack,);
                 DrawTexture(attackTexture, turnOneAttackRect.x, turnOneAttackRect.y, WHITE);
                 DrawTexture(attackTexture, turnOneAttackRectTwo.x, turnOneAttackRectTwo.y, WHITE);
                 DrawTexture(attackTexture, turnOneAttackRectThree.x, turnOneAttackRectThree.y, WHITE);
@@ -573,7 +573,13 @@ int main()
             }
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
-            else if (!attack) DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
+            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
+            else if (!shieldOF)
+            {}
+            DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
+            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+            else if (!shieldOF)
+            {}
             // std::cout << attack << "    " << turn << std::endl;
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;

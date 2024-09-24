@@ -17,6 +17,8 @@ int main(void)
     double playerMPDefault = 200.0;
     double playerMPMax = 1000.0;
 
+    bool env = true;
+
     // ウィンドウの初期化
     InitWindow(screenWidth, screenHeight, "raylib - Background Image Example");
     SetTargetFPS(60);
@@ -40,7 +42,7 @@ int main(void)
     ImageResize(&playerWaterFullImageImage, 30, 30);
     ImageResize(&playerWaterHalfImageImage, 30, 30);
     ImageResize(&playerWaterEmptyImageImage, 30, 30);
-    ImageResize(&backgroundImage, 16050, 16050);
+    ImageResize(&backgroundImage, 9000, 9000);
 
     // テクスチャに変換
     Texture2D playerTexture = LoadTextureFromImage(playerTextureTexture);
@@ -199,6 +201,20 @@ int main(void)
             DrawTexture(playerWaterFullImage, playerFullStomachPositionXNine, playerWaterFullPositionY, WHITE);
             DrawTexture(playerWaterFullImage, playerFullStomachPositionXTen, playerWaterFullPositionY, WHITE);
         }
+
+        if (IsKeyPressed(KEY_E))
+        {
+            if (env) env = false;
+            else if (!env) env = true;
+        }
+
+        if (env)
+        {
+            DrawRectangle(playerPosition.x - 380, playerPosition.y - 200, 750, 400, GRAY);
+            DrawRectangle(playerPosition.x - 350, playerPosition.y - 150, 750, 400, WHITE);
+        }
+        else if (!env)
+        {}
 
         // カメラの描画終了
         EndMode2D();
