@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include <cstdlib>
 
 int main()
 {
@@ -123,21 +124,11 @@ int main()
         // ゲームウィンドウ
         if (startButtonPressed)
         {
-            UnloadTexture(background);
-
-            // Create a new window
-            InitWindow(screenWidth, screenHeight, "");
-
-            // Draw something in the new window
-            while (!WindowShouldClose())
-            {
-                BeginDrawing();
-                ClearBackground(LIGHTGRAY);
-                EndDrawing();
-            }
-
-            // Close the new window
-            CloseWindow();
+            #ifdef _WIN32
+                system("inm.exe"); // Windows の場合
+            #else
+                system("./battle"); // Linux または macOS の場合
+            #endif
         }
 
         // settingsButtonDraw
