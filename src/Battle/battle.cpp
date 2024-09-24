@@ -587,11 +587,12 @@ int main()
 
             if (IsKeyPressed(KEY_D))
             {
-                if (debugMode == true) debugMode = false;
-                else if (debugMode == false) debugMode = true;
+                if (debugMode) debugMode = false;
+                else if (!debugMode) debugMode = true;
             }
-            if (debugMode == true) DrawText("DEBUG", 10, 10, 40, WHITE);
-            else if (debugMode == false) DrawText("", 10, 10, 40, WHITE);
+            if (debugMode) DrawText("DEBUG", 10, 10, 40, WHITE);
+            else if (!debugMode) DrawText("", 10, 10, 40, WHITE);
+            if (debugMode) DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
             EndDrawing();
         }
     }
