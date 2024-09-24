@@ -338,6 +338,7 @@ int main()
             }
             if (debugMode == true) DrawText("DEBUG", 10, 10, 40, WHITE);
             else if (debugMode == false) DrawText("", 10, 10, 40, WHITE);
+            if (debugMode) DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
 
             if (IsKeyPressed(KEY_O)) if (!OneHP) OneHP = true;
             if (OneHP)
