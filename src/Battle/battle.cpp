@@ -169,7 +169,7 @@ int main()
 
             UpdateMusicStream(deathBGM);
             DrawText("You win!", 180, 80, 100, WHITE);
-            DrawText("Fuck you!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", 180, 200, 30, WHITE);
+            DrawText("You lose", 180, 200, 30, WHITE);
 
             EndDrawing();
         }
