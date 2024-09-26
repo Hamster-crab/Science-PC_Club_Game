@@ -23,7 +23,7 @@ int main()
 
     bool turnOneAttack = true;
 
-    bool shieldOF = false;
+    bool shieldOF = true;
     double shieldDefault = 300;
     double shield = shieldDefault;
 
@@ -573,21 +573,20 @@ int main()
             }
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
-            if (shieldOF) if (IsKeyDown(KEY_SPACE))
-            {
-                if (shield == 0)
-                {
-                    DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
-                }
-                else
-                {
-                    DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
-                }
-            }
+            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
+            else if (shield < 0)
+            {}
             else if (!shieldOF)
             {}
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
             if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+            if (shieldOF) if (IsKeyDown(KEY_SPACE))
+            {
+                if (shield < 0)
+                {
+                    DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
+                }
+            }
             else if (!shieldOF)
             {}
             
