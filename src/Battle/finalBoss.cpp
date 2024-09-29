@@ -202,7 +202,7 @@ int main()
             // 当たり判定
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield > 0)
                     {
@@ -274,7 +274,7 @@ int main()
 
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield < 0)
                     {}
@@ -284,7 +284,7 @@ int main()
                     }
                 }
             }
-            if (IsKeyUp(KEY_SPACE))
+            if (IsKeyUp(KEY_C))
             {
                 if (shield == shieldDefault)
                 {}
@@ -330,9 +330,17 @@ int main()
                 if (debugMode == true) debugMode = false;
                 else if (debugMode == false) debugMode = true;
             }
-            if (debugMode == true) DrawText("DEBUG", 10, 10, 40, WHITE);
+            if (debugMode)
+            {
+                DrawText("DEBUG", 10, 10, 40, WHITE);
+                DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
+                if (IsKeyPressed(KEY_S))
+                {
+                    if (shieldOF) shieldOF = false;
+                    else if (!shieldOF) shieldOF = true;
+                }
+            }
             else if (debugMode == false) DrawText("", 10, 10, 40, WHITE);
-            if (debugMode) DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
 
             if (IsKeyPressed(KEY_O)) if (!OneHP) OneHP = true;
             if (OneHP)

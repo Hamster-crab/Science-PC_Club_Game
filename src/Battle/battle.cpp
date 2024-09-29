@@ -1,7 +1,9 @@
 #include <sstream>
 #include <string>
+#include <fstream>
 #include <iostream>
 #include "raylib.h"
+#include "../../include/nlohmann/json.hpp"
 
 void reset(Rectangle a, Rectangle b)
 {
@@ -17,6 +19,25 @@ int main()
 
     // オーディオデバイスを初期化
     InitAudioDevice();
+
+    // JSONファイルを開く
+    std::ifstream file("../../json/player.json");
+    if (!file.is_open()) std::cerr << "ファイルが開けませんでした。" << std::endl;
+
+    // // JSONファイルをパースする
+    // nlohmann::json jsonData;
+    // file >> jsonData;
+
+    // // 値を取得して表示
+    // try
+    // {
+    //     std::string name = jsonData.at("player/name").get<std::string>();
+    //     int age = jsonData.at("age").get<int>();
+
+    //     std::cout << "名前: " << name << std::endl;
+    // }
+    // catch (nlohmann::json::exception& e)
+    // {}
 
     bool debugMode = false;
     double playerMoveSpeed = 5.0;
@@ -238,7 +259,7 @@ int main()
             // 当たり判定
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield > 0)
                     {
@@ -372,7 +393,7 @@ int main()
 
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield < 0)
                     {}
@@ -382,7 +403,7 @@ int main()
                     }
                 }
             }
-            if (IsKeyUp(KEY_SPACE))
+            if (IsKeyUp(KEY_C))
             {
                 if (shield == 300)
                 {}
@@ -585,9 +606,18 @@ int main()
                 if (debugMode) debugMode = false;
                 else if (!debugMode) debugMode = true;
             }
-            if (debugMode) DrawText("DEBUG", 10, 10, 40, WHITE);
+            if (debugMode)
+            {
+                DrawText("DEBUG", 10, 10, 40, WHITE);
+                DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
+                if (IsKeyPressed(KEY_S))
+                {
+                    if (shieldOF) shieldOF = false;
+                    else if (!shieldOF) shieldOF = true;
+                }
+            }
             else if (!debugMode) DrawText("", 10, 10, 40, WHITE);
-            if (debugMode) DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
+
             EndDrawing();
         }
     }
