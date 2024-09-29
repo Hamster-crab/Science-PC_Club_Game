@@ -93,11 +93,13 @@ int main()
     Music mainBGM = LoadMusicStream("music/sampleBGM.mp3");
     Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
+    Sound shieldBGM = LoadSound("music/shield.wav");
     float mainVolume = 1.0f;
     float damageVolume = 8.0f;
 
     SetMusicVolume(mainBGM, mainVolume);
     SetMusicVolume(deathBGM, mainVolume);
+    SetSoundVolume(shieldBGM, damageVolume);
 
     // 音楽の再生を開始
     PlayMusicStream(mainBGM);
@@ -263,6 +265,7 @@ int main()
                 {
                     if (shield > 0)
                     {
+                        PlaySound(shieldBGM);
                         if (CheckCollisionRecs(playerRect, turnOneAttackRect))
                         {
                             shield -= nomalAttackShield;
