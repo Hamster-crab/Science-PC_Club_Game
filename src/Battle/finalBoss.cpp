@@ -319,13 +319,7 @@ int main()
                 DrawRectangle(screenWidth - 200, screenHeight - 60, shield, 28, GREEN);
             }
 
-            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
-            else if (!shieldOF)
-            {}
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
-            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
-            else if (!shieldOF)
-            {}
 
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
