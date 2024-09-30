@@ -10,6 +10,16 @@ void reset(Rectangle a, Rectangle b)
     a = b;
 }
 
+void DrawTextInt(const char *text, int drawInt, int posX, int posY, int fontSize, Color color) {
+    // textとdrawIntを1つの文字列に結合
+    char buffer[256]; // 必要に応じてサイズを調整
+    snprintf(buffer, sizeof(buffer), "%s%d", text, drawInt);
+    
+    // raylibのDrawText関数を使って結合した文字列を描画
+    DrawText(buffer, posX, posY, fontSize, color);
+}
+
+
 int main()
 {
     const int screenWidth = 900;
@@ -38,6 +48,9 @@ int main()
     // }
     // catch (nlohmann::json::exception& e)
     // {}
+
+    bool healthOF = true;
+    int health = 5;
 
     bool debugMode = false;
     double playerMoveSpeed = 5.0;
@@ -153,7 +166,6 @@ int main()
 
     while (!WindowShouldClose())
     {
-        if (debugMode) playerHP = playerHPDefault;
         double damageTime = GetTime(); // 現在の時刻を取得
         // クールダウンタイマーを時間経過で減少させる
         if (damageCooldown > 0)
@@ -607,6 +619,21 @@ int main()
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
 
+            if (healthOF)
+            {
+                DrawTextInt("Health : ", health, 680, 20, 40, WHITE);
+                if (health == 0)
+                {}
+                else
+                {
+                    if(IsKeyPressed(KEY_SPACE))
+                    {
+                        health -= 1;
+                        playerHP += 50;
+                    }
+                }
+            }
+
             if (IsKeyPressed(KEY_D))
             {
                 if (debugMode) debugMode = false;
@@ -621,6 +648,13 @@ int main()
                     if (shieldOF) shieldOF = false;
                     else if (!shieldOF) shieldOF = true;
                 }
+                if (IsKeyPressed(KEY_H))
+                {
+                    if (healthOF) healthOF = false;
+                    else if (!healthOF) healthOF = true;
+                }
+                if (IsKeyPressed(KEY_J)) playerHP -= 1;
+                if (IsKeyPressed(KEY_L)) playerHP += 1;
             }
             else if (!debugMode) DrawText("", 10, 10, 40, WHITE);
 
