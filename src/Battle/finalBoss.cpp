@@ -71,20 +71,22 @@ int main()
     double playerLevel = 1;
 // X 405 Y 305
 
-    Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
     Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
     Music mainBGM = LoadMusicStream("music/final.mp3");
+    // Sound damage = LoadSound("music/damage.mp3");
+    Sound shieldBGM = LoadSound("music/shield.wav");
     float mainVolume = 20.0f;
     float damageVolume = 8.0f;
 
     SetMusicVolume(mainBGM, mainVolume);
     SetMusicVolume(deathBGM, mainVolume);
+    SetSoundVolume(shieldBGM, damageVolume);
 
     // 音楽の再生を開始
-    PlayMusicStream(sampleBGM);
-    PlayMusicStream(deathBGM);
     PlayMusicStream(mainBGM);
+    PlayMusicStream(deathBGM);
+    // Play
 
     Image summonSatoOneTextureTexture = LoadImage("resources/hamster/dededon.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/hamster/waterBug.png");
@@ -210,6 +212,7 @@ int main()
                         {
                             if (currentTime > 7)
                             {
+                                PlaySound(shieldBGM);
                                 shield -= nomalAttackShield;
                                 shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                             }

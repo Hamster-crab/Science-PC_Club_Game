@@ -91,7 +91,7 @@ int main()
 // X 405 Y 305
 
     Music mainBGM = LoadMusicStream("music/sampleBGM.mp3");
-    Sound damage = LoadSound("music/damage.mp3");
+    // Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
     Sound shieldBGM = LoadSound("music/shield.wav");
     float mainVolume = 1.0f;
@@ -149,7 +149,7 @@ int main()
     double invincibilityTime = 0.5;  // ダメージを受けた後の無敵時間（0.4秒）
 
     double shieldCooldown = 0;  // プレイヤーshieldのダメージクールダウンタイマー
-    double shieldInvincibilityTime = 0.4;  // shield後の無敵時間（0.4秒）
+    double shieldInvincibilityTime = 0.5;  // shield後の無敵時間（0.4秒）
 
     while (!WindowShouldClose())
     {
@@ -265,24 +265,27 @@ int main()
                 {
                     if (shield > 0)
                     {
-                        PlaySound(shieldBGM);
                         if (CheckCollisionRecs(playerRect, turnOneAttackRect))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
