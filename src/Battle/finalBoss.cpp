@@ -8,6 +8,16 @@ void turnOne(Texture2D texture, double x, double y)
     DrawTexture(texture, x, y, WHITE);
 }
 
+void DrawTextInt(const char *text, int drawInt, int posX, int posY, int fontSize, Color color)
+{
+    // textとdrawIntを1つの文字列に結合
+    char buffer[256]; // 必要に応じてサイズを調整
+    snprintf(buffer, sizeof(buffer), "%s%d", text, drawInt);
+    
+    // raylibのDrawText関数を使って結合した文字列を描画
+    DrawText(buffer, posX, posY, fontSize, color);
+}
+
 int main()
 {
     const int screenWidth = 900;
@@ -17,6 +27,9 @@ int main()
 
     // オーディオデバイスを初期化
     InitAudioDevice();
+
+    bool healthOF = true;
+    int health = 5;
 
     bool debugMode = false;
     bool OneHP = false;
@@ -71,20 +84,22 @@ int main()
     double playerLevel = 1;
 // X 405 Y 305
 
-    Music sampleBGM = LoadMusicStream("music/sampleBGM.mp3");
     Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
     Music mainBGM = LoadMusicStream("music/final.mp3");
+    // Sound damage = LoadSound("music/damage.mp3");
+    Sound shieldBGM = LoadSound("music/shield.wav");
     float mainVolume = 20.0f;
     float damageVolume = 8.0f;
 
     SetMusicVolume(mainBGM, mainVolume);
     SetMusicVolume(deathBGM, mainVolume);
+    SetSoundVolume(shieldBGM, damageVolume);
 
     // 音楽の再生を開始
-    PlayMusicStream(sampleBGM);
-    PlayMusicStream(deathBGM);
     PlayMusicStream(mainBGM);
+    PlayMusicStream(deathBGM);
+    // Play
 
     Image summonSatoOneTextureTexture = LoadImage("resources/hamster/dededon.png");
     Image summonSatoTwoTextureTexture = LoadImage("resources/hamster/waterBug.png");
@@ -141,7 +156,6 @@ int main()
 
     while (!WindowShouldClose())
     {
-        if (debugMode) playerHP = playerHPDefault;
         playerRect.x = playerPositionX;
         playerRect.y = playerPositionY;
         double damageTime = GetTime(); // 現在の時刻を取得
@@ -202,7 +216,7 @@ int main()
             // 当たり判定
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield > 0)
                     {
@@ -210,6 +224,7 @@ int main()
                         {
                             if (currentTime > 7)
                             {
+                                PlaySound(shieldBGM);
                                 shield -= nomalAttackShield;
                                 shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                             }
@@ -274,7 +289,7 @@ int main()
 
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield < 0)
                     {}
@@ -284,7 +299,7 @@ int main()
                     }
                 }
             }
-            if (IsKeyUp(KEY_SPACE))
+            if (IsKeyUp(KEY_C))
             {
                 if (shield == shieldDefault)
                 {}
@@ -319,26 +334,50 @@ int main()
                 DrawRectangle(screenWidth - 200, screenHeight - 60, shield, 28, GREEN);
             }
 
-            if (shieldOF) if (IsKeyDown(KEY_SPACE)) DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
-            else if (!shieldOF)
-            {}
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
-            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
-            else if (!shieldOF)
-            {}
 
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
+
+            if (healthOF)
+            {
+                DrawTextInt("Health : ", health, 680, 20, 40, WHITE);
+                if (health == 0)
+                {}
+                else
+                {
+                    if(IsKeyPressed(KEY_SPACE))
+                    {
+                        health -= 1;
+                        playerHP += 50;
+                    }
+                }
+            }
 
             if (IsKeyPressed(KEY_D))
             {
                 if (debugMode == true) debugMode = false;
                 else if (debugMode == false) debugMode = true;
             }
-            if (debugMode == true) DrawText("DEBUG", 10, 10, 40, WHITE);
+            if (debugMode)
+            {
+                DrawText("DEBUG", 10, 10, 40, WHITE);
+                DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
+                if (IsKeyPressed(KEY_S))
+                {
+                    if (shieldOF) shieldOF = false;
+                    else if (!shieldOF) shieldOF = true;
+                }
+                if (IsKeyPressed(KEY_H))
+                {
+                    if (healthOF) healthOF = false;
+                    else if (!healthOF) healthOF = true;
+                }
+                if (IsKeyPressed(KEY_J)) playerHP -= 1;
+                if (IsKeyPressed(KEY_L)) playerHP += 1;
+            }
             else if (debugMode == false) DrawText("", 10, 10, 40, WHITE);
-            if (debugMode) DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
 
             if (IsKeyPressed(KEY_O)) if (!OneHP) OneHP = true;
             if (OneHP)

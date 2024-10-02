@@ -1,12 +1,24 @@
 #include <sstream>
 #include <string>
+#include <fstream>
 #include <iostream>
 #include "raylib.h"
+#include "../../include/nlohmann/json.hpp"
 
 void reset(Rectangle a, Rectangle b)
 {
     a = b;
 }
+
+void DrawTextInt(const char *text, int drawInt, int posX, int posY, int fontSize, Color color) {
+    // textとdrawIntを1つの文字列に結合
+    char buffer[256]; // 必要に応じてサイズを調整
+    snprintf(buffer, sizeof(buffer), "%s%d", text, drawInt);
+    
+    // raylibのDrawText関数を使って結合した文字列を描画
+    DrawText(buffer, posX, posY, fontSize, color);
+}
+
 
 int main()
 {
@@ -18,12 +30,34 @@ int main()
     // オーディオデバイスを初期化
     InitAudioDevice();
 
+    // JSONファイルを開く
+    std::ifstream file("../../json/player.json");
+    if (!file.is_open()) std::cerr << "ファイルが開けませんでした。" << std::endl;
+
+    // // JSONファイルをパースする
+    // nlohmann::json jsonData;
+    // file >> jsonData;
+
+    // // 値を取得して表示
+    // try
+    // {
+    //     std::string name = jsonData.at("player/name").get<std::string>();
+    //     int age = jsonData.at("age").get<int>();
+
+    //     std::cout << "名前: " << name << std::endl;
+    // }
+    // catch (nlohmann::json::exception& e)
+    // {}
+
+    bool healthOF = true;
+    int health = 5;
+
     bool debugMode = false;
     double playerMoveSpeed = 5.0;
 
     bool turnOneAttack = true;
 
-    bool shieldOF = false;
+    bool shieldOF = true;
     double shieldDefault = 300;
     double shield = shieldDefault;
 
@@ -70,13 +104,15 @@ int main()
 // X 405 Y 305
 
     Music mainBGM = LoadMusicStream("music/sampleBGM.mp3");
-    Sound damage = LoadSound("music/damage.mp3");
+    // Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
+    Sound shieldBGM = LoadSound("music/shield.wav");
     float mainVolume = 1.0f;
     float damageVolume = 8.0f;
 
     SetMusicVolume(mainBGM, mainVolume);
     SetMusicVolume(deathBGM, mainVolume);
+    SetSoundVolume(shieldBGM, damageVolume);
 
     // 音楽の再生を開始
     PlayMusicStream(mainBGM);
@@ -126,11 +162,10 @@ int main()
     double invincibilityTime = 0.5;  // ダメージを受けた後の無敵時間（0.4秒）
 
     double shieldCooldown = 0;  // プレイヤーshieldのダメージクールダウンタイマー
-    double shieldInvincibilityTime = 0.4;  // shield後の無敵時間（0.4秒）
+    double shieldInvincibilityTime = 0.5;  // shield後の無敵時間（0.4秒）
 
     while (!WindowShouldClose())
     {
-        if (debugMode) playerHP = playerHPDefault;
         double damageTime = GetTime(); // 現在の時刻を取得
         // クールダウンタイマーを時間経過で減少させる
         if (damageCooldown > 0)
@@ -238,27 +273,31 @@ int main()
             // 当たり判定
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield > 0)
                     {
                         if (CheckCollisionRecs(playerRect, turnOneAttackRect))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectTwo))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectThree))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
                         if (CheckCollisionRecs(playerRect, turnOneAttackRectFour))
                         {
+                            PlaySound(shieldBGM);
                             shield -= nomalAttackShield;
                             shieldCooldown = shieldInvincibilityTime;  // クールダウンをリセット
                         }
@@ -372,7 +411,7 @@ int main()
 
             if (shieldOF)
             {
-                if (IsKeyDown(KEY_SPACE))
+                if (IsKeyDown(KEY_C))
                 {
                     if (shield < 0)
                     {}
@@ -382,7 +421,7 @@ int main()
                     }
                 }
             }
-            if (IsKeyUp(KEY_SPACE))
+            if (IsKeyUp(KEY_C))
             {
                 if (shield == 300)
                 {}
@@ -573,37 +612,52 @@ int main()
             }
 
             if (attack) DrawRectangle(innerFrameX, innerFrameY, innerFrameWidth, innerFrameHeight, Black);
-            if (shieldOF) if (IsKeyDown(KEY_SPACE))
-            {
-                if (shield == 0)
-                {
-                    DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
-                }
-                else
-                {
-                    DrawRectangle(playerPositionX - 3, playerPositionY - 3, 25, 25, GREEN);
-                }
-            }
-            else if (!shieldOF)
-            {}
             DrawTexture(playerTexture, playerPositionX, playerPositionY, WHITE);
-            if (shieldOF) if (IsKeyUp(KEY_SPACE)) DrawRectangle(playerPositionX + 5, playerPositionY + 5, 8, 8, GREEN);
-            else if (!shieldOF)
-            {}
             
             // std::cout << attack << "    " << turn << std::endl;
             // プレイヤーと攻撃の矩形を更新
             playerRect.x = playerPositionX;
             playerRect.y = playerPositionY;
 
+            if (healthOF)
+            {
+                DrawTextInt("Health : ", health, 680, 20, 40, WHITE);
+                if (health == 0)
+                {}
+                else
+                {
+                    if(IsKeyPressed(KEY_SPACE))
+                    {
+                        health -= 1;
+                        playerHP += 50;
+                    }
+                }
+            }
+
             if (IsKeyPressed(KEY_D))
             {
                 if (debugMode) debugMode = false;
                 else if (!debugMode) debugMode = true;
             }
-            if (debugMode) DrawText("DEBUG", 10, 10, 40, WHITE);
+            if (debugMode)
+            {
+                DrawText("DEBUG", 10, 10, 40, WHITE);
+                DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
+                if (IsKeyPressed(KEY_S))
+                {
+                    if (shieldOF) shieldOF = false;
+                    else if (!shieldOF) shieldOF = true;
+                }
+                if (IsKeyPressed(KEY_H))
+                {
+                    if (healthOF) healthOF = false;
+                    else if (!healthOF) healthOF = true;
+                }
+                if (IsKeyPressed(KEY_J)) playerHP -= 1;
+                if (IsKeyPressed(KEY_L)) playerHP += 1;
+            }
             else if (!debugMode) DrawText("", 10, 10, 40, WHITE);
-            if (debugMode) DrawText(TextFormat("FPS: %i", GetFPS()), 10, 100, 50, RED);
+
             EndDrawing();
         }
     }
