@@ -86,14 +86,14 @@ int main()
     Sound damage = LoadSound("music/damage.mp3");
     Music deathBGM = LoadMusicStream("music/death.mp3");
     Music mainBGM = LoadMusicStream("music/final.mp3");
-    // Sound damage = LoadSound("music/damage.mp3");
     Sound shieldBGM = LoadSound("music/shield.wav");
     float mainVolume = 20.0f;
     float damageVolume = 8.0f;
 
     SetMusicVolume(mainBGM, mainVolume);
     SetMusicVolume(deathBGM, mainVolume);
-    SetSoundVolume(shieldBGM, damageVolume);
+    SetSoundVolume(shieldBGM, damageVolume + 10);
+    SetSoundVolume(damage, damageVolume);
 
     // 音楽の再生を開始
     PlayMusicStream(mainBGM);
@@ -236,6 +236,7 @@ int main()
                             if (CheckCollisionRecs(playerRect, turnOneAttackRect))
                             {
                                 if (currentTime > 7 && currentTime < 10)
+                                PlaySound(damage);
                                 playerHP -= nomalAttackDamage;
                                 damageCooldown = invincibilityTime;  // クールダウンをリセット
                             }
@@ -249,6 +250,7 @@ int main()
                             {
                                 if (currentTime > 7 && currentTime < 10)
                                 {
+                                    PlaySound(damage);
                                     playerHP -= nomalAttackDamage;
                                     damageCooldown = invincibilityTime;  // クールダウンをリセット
                                 }
@@ -264,6 +266,7 @@ int main()
                         {
                             if (currentTime > 7 && currentTime < 10)
                             {
+                                PlaySound(damage);
                                 playerHP -= nomalAttackDamage;
                                 damageCooldown = invincibilityTime;  // クールダウンをリセット
                             }
@@ -279,6 +282,7 @@ int main()
                     {
                         if (currentTime > 7 && currentTime < 10)
                         {
+                            PlaySound(damage);
                             playerHP -= nomalAttackDamage;
                             damageCooldown = invincibilityTime;  // クールダウンをリセット
                         }
