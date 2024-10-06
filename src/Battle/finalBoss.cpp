@@ -8,7 +8,8 @@ void turnOne(Texture2D texture, double x, double y)
     DrawTexture(texture, x, y, WHITE);
 }
 
-void DrawTextInt(const char *text, int drawInt, int posX, int posY, int fontSize, Color color) {
+void DrawTextInt(const char *text, int drawInt, int posX, int posY, int fontSize, Color color)
+{
     // textとdrawIntを1つの文字列に結合
     char buffer[256]; // 必要に応じてサイズを調整
     snprintf(buffer, sizeof(buffer), "%s%d", text, drawInt);
